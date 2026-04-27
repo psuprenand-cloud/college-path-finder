@@ -1,2 +1,1968 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>College Path Finder - Saint Stephen's Episcopal School</title> <style> * { margin: 0; padding: 0; box-sizing: border-box; } body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; } .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden; } .header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 40px; text-align: center; } .header h1 { font-size: 2.5em; margin-bottom: 10px; } .header p { font-size: 1.2em; opacity: 0.9; } .content { padding: 40px; } .screen { display: none; } .screen.active { display: block; animation: fadeIn 0.5s ease-in; } @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } } .welcome-screen { text-align: center; } .welcome-screen h2 { color: #1e3c72; font-size: 2em; margin-bottom: 20px; } .welcome-screen p { font-size: 1.1em; color: #555; margin-bottom: 30px; line-height: 1.6; } .btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 15px 40px; font-size: 1.1em; border-radius: 50px; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; margin: 10px; } .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4); } .btn-secondary { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); } .btn-success { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); } .question-container { margin-bottom: 30px; } .question-container h3 { color: #1e3c72; font-size: 1.5em; margin-bottom: 20px; } .question-number { color: #764ba2; font-size: 0.9em; margin-bottom: 10px; } .options { display: grid; gap: 15px; } .option { background: #f8f9fa; border: 2px solid #e0e0e0; padding: 15px 20px; border-radius: 10px; cursor: pointer; transition: all 0.3s; font-size: 1em; } .option:hover { background: #e8e9ff; border-color: #667eea; transform: translateX(5px); } .option.selected { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-color: #667eea; } .progress-bar { width: 100%; height: 8px; background: #e0e0e0; border-radius: 10px; margin-bottom: 30px; overflow: hidden; } .progress-fill { height: 100%; background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); transition: width 0.3s ease; } .college-card { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 15px; padding: 25px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); } .college-card h3 { color: #1e3c72; font-size: 1.8em; margin-bottom: 10px; } .college-rank { display: inline-block; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9em; margin-bottom: 15px; } .college-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 15px 0; } .info-item { background: white; padding: 10px; border-radius: 8px; } .info-label { font-weight: bold; color: #764ba2; font-size: 0.9em; } .info-value { color: #333; margin-top: 5px; } .majors-list { display: flex; flex-wrap: wrap; gap: 10px; margin: 15px 0; } .major-tag { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9em; } .college-link { display: inline-block; margin-top: 15px; color: #667eea; text-decoration: none; font-weight: bold; } .college-link:hover { text-decoration: underline; } .schedule-container { margin-top: 30px; } .grade-section { background: #f8f9fa; border-radius: 10px; padding: 20px; margin-bottom: 20px; } .grade-section h4 { color: #1e3c72; margin-bottom: 15px; font-size: 1.3em; } .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; } .course { background: white; padding: 10px; border-radius: 8px; border-left: 4px solid #667eea; } .loading { text-align: center; padding: 40px; } .loading-spinner { border: 4px solid #f3f3f3; border-top: 4px solid #667eea; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 20px; } @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } } .error-message { background: #fee; border: 2px solid #fcc; color: #c33; padding: 20px; border-radius: 10px; margin: 20px 0; } .match-score { display: inline-block; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 8px 20px; border-radius: 25px; font-weight: bold; margin-bottom: 15px; } .button-group { display: flex; gap: 15px; justify-content: center; margin-top: 30px; flex-wrap: wrap; } @media (max-width: 768px) { .header h1 { font-size: 1.8em; } .content { padding: 20px; } .college-info { grid-template-columns: 1fr; } } </style> </head> <body> <div class="container"> <div class="header"> <h1>🎓 College Path Finder</h1> <p>Saint Stephen's Episcopal School</p> </div> <div class="content"> <!-- Loading Screen --> <div id="loadingScreen" class="screen active"> <div class="loading"> <div class="loading-spinner"></div> <h2>Loading College Database...</h2> <p>Please wait while we load information about 100 top colleges.</p> </div> </div> <!-- Welcome Screen --> <div id="welcomeScreen" class="screen"> <div class="welcome-screen"> <h2>Welcome to Your College Journey! 🚀</h2> <p>This interactive tool will help you discover the best colleges that match your interests, academic goals, and location preferences.</p> <p><strong>What you'll get:</strong></p> <ul style="text-align: left; max-width: 600px; margin: 20px auto; line-height: 2;"> <li>✅ Personalized college recommendations from top 100 U.S. universities</li> <li>✅ Major matching based on your interests and strengths</li> <li>✅ Location filtering (Florida, Southeast, West Coast, or Nationwide)</li> <li>✅ Detailed admission requirements and costs</li> <li>✅ Customized 4-year Saint Stephen's course planner</li> </ul> <button class="btn" onclick="startQuiz()">Start Your Journey</button> </div> </div> <!-- Quiz Screen --> <div id="quizScreen" class="screen"> <div class="progress-bar"> <div class="progress-fill" id="progressBar"></div> </div> <div id="questionContainer"></div> <div class="button-group"> <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()" style="display:none;">← Previous</button> <button class="btn" id="nextBtn" onclick="nextQuestion()">Next →</button> </div> </div> <!-- Results Screen --> <div id="resultsScreen" class="screen"> <h2 style="color: #1e3c72; text-align: center; margin-bottom: 30px;">Your Top College Matches 🎯</h2> <div id="resultsContainer"></div> <div class="button-group"> <button class="btn btn-secondary" onclick="restartQuiz()">Start Over</button> <button class="btn btn-success" onclick="showSchedule()">View 4-Year Plan</button> </div> </div> <!-- Schedule Screen --> <div id="scheduleScreen" class="screen"> <h2 style="color: #1e3c72; text-align: center; margin-bottom: 30px;">Your Saint Stephen's 4-Year Plan 📚</h2> <div id="scheduleContainer"></div> <div class="button-group"> <button class="btn btn-secondary" onclick="backToResults()">← Back to Results</button> <button class="btn" onclick="restartQuiz()">Start New Search</button> </div> </div> </div> </div> <script> // ======================================== // GLOBAL VARIABLES // ======================================== let COLLEGES = []; let currentQuestion = 0; let answers = []; let topColleges = []; // ======================================== // QUIZ QUESTIONS // ======================================== const QUESTIONS = [ { q: "What subjects excite you the most?", opts: [ "Math & Science", "Technology & Computers", "Arts & Humanities", "Business & Economics", "Health & Medicine", "Social Sciences & Psychology" ] }, { q: "What type of activities do you enjoy?", opts: [ "Building & creating things", "Solving complex problems", "Helping & caring for others", "Leading & organizing teams", "Researching & analyzing data", "Expressing creativity & ideas" ] }, { q: "What's your ideal career path?", opts: [ "Engineer or Architect", "Doctor or Healthcare Professional", "Software Developer or Data Scientist", "Business Executive or Entrepreneur", "Teacher or Counselor", "Artist, Writer, or Designer", "Lawyer or Policy Maker", "Scientist or Researcher" ] }, { q: "Which skills are your strongest?", opts: [ "Analytical thinking & logic", "Creativity & innovation", "Communication & writing", "Leadership & teamwork", "Technical & hands-on skills", "Empathy & interpersonal skills" ] }, { q: "What type of learning environment do you prefer?", opts: [ "Hands-on labs & experiments", "Group discussions & collaboration", "Independent research & study", "Real-world projects & internships", "Creative studios & workshops", "Lectures & structured learning" ] }, { q: "What impact do you want to make?", opts: [ "Advance technology & innovation", "Improve health & save lives", "Create art & inspire others", "Build businesses & create jobs", "Protect the environment", "Promote justice & equality", "Educate & mentor others", "Discover new scientific knowledge" ] }, { q: "What's your preferred campus size?", opts: [ "Small (under 5,000 students)", "Medium (5,000-15,000 students)", "Large (over 15,000 students)", "No preference" ] }, { q: "What campus setting appeals to you?", opts: [ "Urban (big city)", "Suburban (near a city)", "Rural (countryside)", "No preference" ] }, { q: "What's your current GPA range?", opts: [ "3.8-4.0+ (weighted)", "3.5-3.7 (weighted)", "3.0-3.4 (weighted)", "Below 3.0 (weighted)" ] }, { q: "What's your SAT/ACT score range? (or expected)", opts: [ "SAT 1400+ / ACT 32+", "SAT 1200-1390 / ACT 26-31", "SAT 1000-1190 / ACT 21-25", "Below SAT 1000 / ACT 21", "Haven't taken yet" ] }, { q: "Where would you like to attend college?", opts: [ "Stay in Florida", "Southeast Region (FL, GA, SC, NC, TN, AL, VA)", "Northeast (MA, NY, PA, NJ, CT, etc.)", "West Coast (CA, OR, WA)", "Midwest (IL, MI, OH, WI, etc.)", "Southwest (TX, AZ, CO, etc.)", "Anywhere in the U.S." ] } ]; // ======================================== // REGION DEFINITIONS // ======================================== const REGIONS = { "Florida": ["FL"], "Southeast": ["FL", "GA", "SC", "NC", "TN", "AL", "VA", "KY", "WV", "MS", "LA", "AR"], "Northeast": ["MA", "NY", "PA", "NJ", "CT", "RI", "NH", "VT", "ME", "MD", "DE"], "West Coast": ["CA", "OR", "WA"], "Midwest": ["IL", "MI", "OH", "IN", "WI", "MN", "IA", "MO", "KS", "NE", "SD", "ND"], "Southwest": ["TX", "AZ", "NM", "NV", "CO", "UT", "OK"] }; // ======================================== // MAJOR MAPPING // ======================================== const MAJOR_KEYWORDS = { "Computer Science": ["technology", "computers", "software", "data scientist", "technical", "innovation"], "Engineering": ["math", "science", "building", "creating", "engineer", "architect", "hands-on", "technical"], "Medicine": ["health", "medicine", "doctor", "healthcare", "save lives", "caring"], "Business": ["business", "economics", "entrepreneur", "executive", "leadership", "create jobs"], "Biology": ["science", "health", "environment", "researcher", "labs"], "Psychology": ["social sciences", "psychology", "helping", "empathy", "interpersonal", "counselor"], "Education": ["teacher", "educate", "mentor"], "Arts": ["arts", "humanities", "creativity", "artist", "writer", "designer", "creative", "inspire"], "Law": ["lawyer", "policy", "justice", "equality"], "Environmental Science": ["environment", "protect"], "Mathematics": ["math", "analytical", "logic"], "Physics": ["science", "math", "researcher"], "Economics": ["business", "economics", "analytical"], "Political Science": ["policy", "justice", "social sciences"] }; // ======================================== // LOAD COLLEGE DATA // ======================================== async function loadCollegeData() { try { const response = await fetch('colleges-data.json'); if (!response.ok) { throw new Error('Failed to load college data'); } const data = await response.json(); COLLEGES = data.colleges; // Hide loading, show welcome document.getElementById('loadingScreen').classList.remove('active'); document.getElementById('welcomeScreen').classList.add('active'); } catch (error) { console.error('Error loading colleges:', error); document.getElementById('loadingScreen').innerHTML = ` <div class="error-message"> <h2>⚠️ Unable to Load College Database</h2> <p>There was an error loading the college data. Please make sure the <strong>colleges-data.json</strong> file is in the same folder as this HTML file.</p> <p><strong>Error:</strong> ${error.message}</p> <button class="btn" onclick="location.reload()">Retry</button> </div> `; } } // ======================================== // START QUIZ // ======================================== function startQuiz() { currentQuestion = 0; answers = []; document.getElementById('welcomeScreen').classList.remove('active'); document.getElementById('quizScreen').classList.add('active'); showQuestion(); } // ======================================== // SHOW QUESTION // ======================================== function showQuestion() { const question = QUESTIONS[currentQuestion]; const container = document.getElementById('questionContainer'); let html = ` <div class="question-container"> <div class="question-number">Question ${currentQuestion + 1} of ${QUESTIONS.length}</div> <h3>${question.q}</h3> <div class="options"> `; question.opts.forEach((opt, index) => { const isSelected = answers[currentQuestion] === opt; html += ` <div class="option ${isSelected ? 'selected' : ''}" onclick="selectOption('${opt.replace(/'/g, "\\'")}')"> ${opt} </div> `; }); html += ` </div> </div> `; container.innerHTML = html; // Update progress bar const progress = ((currentQuestion + 1) / QUESTIONS.length) * 100; document.getElementById('progressBar').style.width = progress + '%'; // Update buttons document.getElementById('prevBtn').style.display = currentQuestion > 0 ? 'inline-block' : 'none'; document.getElementById('nextBtn').textContent = currentQuestion === QUESTIONS.length - 1 ? 'See Results 🎯' : 'Next →'; } // ======================================== // SELECT OPTION // ======================================== function selectOption(option) { answers[currentQuestion] = option; showQuestion(); // Refresh to show selection } // ======================================== // NEXT QUESTION // ======================================== function nextQuestion() { if (!answers[currentQuestion]) { alert('Please select an option before continuing.'); return; } if (currentQuestion < QUESTIONS.length - 1) { currentQuestion++; showQuestion(); } else { calculateResults(); } } // ======================================== // PREVIOUS QUESTION // ======================================== function previousQuestion() { if (currentQuestion > 0) { currentQuestion--; showQuestion(); } } // ======================================== // CALCULATE RESULTS // ======================================== function calculateResults() { // Step 1: Determine top majors based on answers const majorScores = {}; // Initialize all majors with 0 score Object.keys(MAJOR_KEYWORDS).forEach(major => { majorScores[major] = 0; }); // Score majors based on answer keywords answers.forEach(answer => { const lowerAnswer = answer.toLowerCase(); Object.keys(MAJOR_KEYWORDS).forEach(major => { MAJOR_KEYWORDS[major].forEach(keyword => { if (lowerAnswer.includes(keyword)) { majorScores[major] += 10; } }); }); }); // Get top 3 majors const sortedMajors = Object.entries(majorScores) .sort((a, b) => b[1] - a[1]) .slice(0, 3) .map(entry => entry[0]); // Step 2: Filter colleges by location preference const locationAnswer = answers[10]; // Last question let filteredColleges = filterByLocation(locationAnswer); // Step 3: Filter by academic fit const gpaAnswer = answers[8]; const testScoreAnswer = answers[9]; filteredColleges = filterByAcademics(filteredColleges, gpaAnswer, testScoreAnswer); // Step 4: Rank colleges by major match const rankedColleges = rankByMajor(filteredColleges, sortedMajors); // Step 5: Get top 5 topColleges = rankedColleges.slice(0, 5); // Display results displayResults(topColleges, sortedMajors); } // ======================================== // FILTER BY LOCATION // ======================================== function filterByLocation(locationAnswer) { if (locationAnswer.includes("Stay in Florida")) { return COLLEGES.filter(c => c.state === "FL"); } else if (locationAnswer.includes("Southeast")) { return COLLEGES.filter(c => REGIONS.Southeast.includes(c.state)); } else if (locationAnswer.includes("Northeast")) { return COLLEGES.filter(c => REGIONS.Northeast.includes(c.state)); } else if (locationAnswer.includes("West Coast")) { return COLLEGES.filter(c => REGIONS["West Coast"].includes(c.state)); } else if (locationAnswer.includes("Midwest")) { return COLLEGES.filter(c => REGIONS.Midwest.includes(c.state)); } else if (locationAnswer.includes("Southwest")) { return COLLEGES.filter(c => REGIONS.Southwest.includes(c.state)); } else { return COLLEGES; // Anywhere in U.S. } } // ======================================== // FILTER BY ACADEMICS // ======================================== function filterByAcademics(colleges, gpaAnswer, testScoreAnswer) { // For now, return all colleges // You can add more sophisticated filtering based on GPA/test scores // This would require parsing the college's admission requirements return colleges; } // ======================================== // RANK BY MAJOR // ======================================== function rankByMajor(colleges, topMajors) { return colleges.map(college => { let score = 0; // Check if college offers top majors if (college.strongMajors.includes(topMajors[0])) score += 50; if (college.strongMajors.includes(topMajors[1])) score += 30; if (college.strongMajors.includes(topMajors[2])) score += 20; // Bonus for highly ranked colleges if (college.ranking <= 10) score += 30; else if (college.ranking <= 25) score += 20; else if (college.ranking <= 50) score += 10; // Bonus for campus preferences const sizeAnswer = answers[6]; const settingAnswer = answers[7]; if (sizeAnswer.includes(college.campusSize)) score += 10; if (settingAnswer.includes(college.setting)) score += 10; return { ...college, matchScore: score }; }) .sort((a, b) => b.matchScore - a.matchScore); }
-// ======================================== // DISPLAY RESULTS // ======================================== function displayResults(topColleges, studentProfile) { resultsDiv.innerHTML = ''; if (topColleges.length === 0) { resultsDiv.innerHTML = ` <div style="text-align:center; padding:40px;"> <h2 style="color:#d32f2f;">No Matches Found</h2> <p>We couldn't find colleges matching your criteria in the selected region.</p> <p>Try selecting "Anywhere in the U.S." for more options.</p> <button onclick="location.reload()" style="margin-top:20px; padding:12px 24px; background:#1976d2; color:white; border:none; border-radius:8px; cursor:pointer; font-size:16px;">Start Over</button> </div> `; return; } // Results Header const header = document.createElement('div'); header.style.cssText = 'text-align:center; margin-bottom:30px;'; header.innerHTML = ` <h2 style="color:#1976d2; margin-bottom:10px;">Your Top ${topColleges.length} College Matches</h2> <p style="color:#666; font-size:16px;">Based on your interests in: <strong>${studentProfile.topMajor1}</strong>, <strong>${studentProfile.topMajor2}</strong>, <strong>${studentProfile.topMajor3}</strong></p> <p style="color:#666; font-size:14px;">Location Preference: <strong>${studentProfile.locationPreference}</strong></p> `; resultsDiv.appendChild(header); // Display each college topColleges.forEach((college, index) => { const card = document.createElement('div'); card.style.cssText = 'background:white; border-radius:12px; padding:24px; margin-bottom:20px; box-shadow:0 2px 8px rgba(0,0,0,0.1); border-left:5px solid #1976d2;'; const matchPercentage = Math.round((college.matchScore / 145) * 100); // Max score is ~145 card.innerHTML = ` <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:15px;"> <div> <h3 style="color:#1976d2; margin:0 0 5px 0; font-size:22px;">#${index + 1} ${college.name}</h3> <p style="color:#666; margin:0; font-size:14px;">${college.location} | ${college.type} | Ranking: #${college.ranking}</p> </div> <div style="text-align:right;"> <div style="background:#4caf50; color:white; padding:8px 16px; border-radius:20px; font-weight:bold; font-size:16px;"> ${matchPercentage}% Match </div> </div> </div> <div style="margin:15px 0;"> <strong style="color:#333;">Strong Programs:</strong> <div style="margin-top:8px;"> ${college.strongMajors.slice(0, 5).map(major => `<span style="display:inline-block; background:#e3f2fd; color:#1976d2; padding:4px 12px; border-radius:12px; margin:4px 4px 4px 0; font-size:13px;">${major}</span>` ).join('')} </div> </div> <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:15px; margin:15px 0; padding:15px; background:#f5f5f5; border-radius:8px;"> <div> <strong style="color:#555; font-size:13px;">Acceptance Rate:</strong> <p style="margin:5px 0 0 0; color:#333; font-size:15px;">${college.acceptance}</p> </div> <div> <strong style="color:#555; font-size:13px;">SAT Range:</strong> <p style="margin:5px 0 0 0; color:#333; font-size:15px;">${college.sat}</p> </div> <div> <strong style="color:#555; font-size:13px;">ACT Range:</strong> <p style="margin:5px 0 0 0; color:#333; font-size:15px;">${college.act}</p> </div> <div> <strong style="color:#555; font-size:13px;">Annual Cost:</strong> <p style="margin:5px 0 0 0; color:#333; font-size:15px;">${college.tuition}</p> </div> </div> <div style="margin:15px 0;"> <strong style="color:#333;">Campus:</strong> ${college.campusSize} | ${college.setting} </div> ${college.notablePrograms && college.notablePrograms.length > 0 ? ` <div style="margin:15px 0;"> <strong style="color:#333;">Notable Programs:</strong> ${college.notablePrograms.join(', ')} </div> ` : ''} <div style="margin-top:15px;"> <a href="${college.website}" target="_blank" style="display:inline-block; background:#1976d2; color:white; padding:10px 20px; border-radius:6px; text-decoration:none; font-weight:500;">Visit Website</a> </div> `; resultsDiv.appendChild(card); }); // Action Buttons const actions = document.createElement('div'); actions.style.cssText = 'text-align:center; margin-top:30px; padding:20px;'; actions.innerHTML = ` <button onclick="window.print()" style="margin:10px; padding:12px 24px; background:#4caf50; color:white; border:none; border-radius:8px; cursor:pointer; font-size:16px; font-weight:500;">Save Results (Print/PDF)</button> <button onclick="location.reload()" style="margin:10px; padding:12px 24px; background:#ff9800; color:white; border:none; border-radius:8px; cursor:pointer; font-size:16px; font-weight:500;">Start Over</button> `; resultsDiv.appendChild(actions); // Scroll to results resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' }); } // ======================================== // SAINT STEPHEN'S SCHEDULE PLANNER // ======================================== function showSchedulePlanner(studentProfile) { resultsDiv.innerHTML = ''; const planner = document.createElement('div'); planner.style.cssText = 'background:white; border-radius:12px; padding:30px; box-shadow:0 2px 8px rgba(0,0,0,0.1);'; planner.innerHTML = ` <h2 style="color:#1976d2; text-align:center; margin-bottom:20px;">Saint Stephen's Episcopal School<br>4-Year College Prep Plan</h2> <p style="text-align:center; color:#666; margin-bottom:30px;">Recommended courses based on your interest in <strong>${studentProfile.topMajor1}</strong></p> ${generateYearPlan('9th Grade (Freshman)', getCoursesForMajor(studentProfile.topMajor1, 9))} ${generateYearPlan('10th Grade (Sophomore)', getCoursesForMajor(studentProfile.topMajor1, 10))} ${generateYearPlan('11th Grade (Junior)', getCoursesForMajor(studentProfile.topMajor1, 11))} ${generateYearPlan('12th Grade (Senior)', getCoursesForMajor(studentProfile.topMajor1, 12))} <div style="margin-top:30px; padding:20px; background:#e3f2fd; border-radius:8px;"> <h3 style="color:#1976d2; margin-top:0;">Additional Recommendations:</h3> <ul style="color:#333; line-height:1.8;"> <li>Maintain a GPA of 3.5+ for competitive colleges</li> <li>Take SAT/ACT prep courses in 11th grade</li> <li>Join clubs related to ${studentProfile.topMajor1}</li> <li>Seek leadership positions in extracurriculars</li> <li>Complete volunteer hours (100+ recommended)</li> <li>Meet with college counselor regularly starting 10th grade</li> </ul> </div> <div style="text-align:center; margin-top:30px;"> <button onclick="window.print()" style="margin:10px; padding:12px 24px; background:#4caf50; color:white; border:none; border-radius:8px; cursor:pointer; font-size:16px;">Save Plan (Print/PDF)</button> <button onclick="location.reload()" style="margin:10px; padding:12px 24px; background:#1976d2; color:white; border:none; border-radius:8px; cursor:pointer; font-size:16px;">Start Over</button> </div> `; resultsDiv.appendChild(planner); resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' }); } function generateYearPlan(year, courses) { return ` <div style="margin-bottom:25px; padding:20px; background:#f9f9f9; border-radius:8px; border-left:4px solid #1976d2;"> <h3 style="color:#1976d2; margin-top:0;">${year}</h3> <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:10px;"> ${courses.map(course => ` <div style="padding:10px; background:white; border-radius:6px; border:1px solid #e0e0e0;"> <strong style="color:#333;">${course.subject}:</strong> ${course.course} </div> `).join('')} </div> </div> `; } function getCoursesForMajor(major, grade) { const baseCourses = { 9: [ { subject: 'English', course: 'English I' }, { subject: 'Math', course: 'Algebra I or Geometry' }, { subject: 'Science', course: 'Biology' }, { subject: 'Social Studies', course: 'World History' }, { subject: 'Foreign Language', course: 'Spanish/French I' }, { subject: 'Elective', course: 'Arts or Technology' } ], 10: [ { subject: 'English', course: 'English II' }, { subject: 'Math', course: 'Geometry or Algebra II' }, { subject: 'Science', course: 'Chemistry' }, { subject: 'Social Studies', course: 'U.S. History' }, { subject: 'Foreign Language', course: 'Spanish/French II' }, { subject: 'Elective', course: 'Career-focused elective' } ], 11: [ { subject: 'English', course: 'English III or AP Language' }, { subject: 'Math', course: 'Algebra II or Pre-Calculus' }, { subject: 'Science', course: 'Physics or AP Science' }, { subject: 'Social Studies', course: 'U.S. Government' }, { subject: 'Foreign Language', course: 'Spanish/French III' }, { subject: 'Elective', course: 'AP or Honors elective' } ], 12: [ { subject: 'English', course: 'English IV or AP Literature' }, { subject: 'Math', course: 'Pre-Calculus or AP Calculus' }, { subject: 'Science', course: 'AP Science or Elective' }, { subject: 'Social Studies', course: 'Economics or AP History' }, { subject: 'Foreign Language', course: 'Spanish/French IV or AP' }, { subject: 'Elective', course: 'College prep or internship' } ] }; let courses = [...baseCourses[grade]]; // Customize based on major if (major === 'Computer Science' || major === 'Engineering') { if (grade >= 10) courses[1].course += ' (Honors recommended)'; if (grade >= 11) courses[2].course = 'Physics or AP Physics'; if (grade === 12) courses[1].course = 'AP Calculus AB/BC'; } else if (major === 'Marine Biology' || major === 'Environmental Science') { if (grade >= 10) courses[2].course += ' (Lab focus)'; if (grade === 11) courses[2].course = 'AP Biology or Marine Science'; if (grade === 12) courses[2].course = 'AP Environmental Science'; } else if (major === 'Business' || major === 'Economics') { if (grade >= 11) courses[5].course = 'Business or Economics elective'; if (grade === 12) courses[3].course = 'AP Economics'; } else if (major === 'Healthcare/Medicine') { if (grade >= 10) courses[2].course += ' (Honors)'; if (grade === 11) courses[2].course = 'AP Biology or AP Chemistry'; if (grade === 12) courses[2].course = 'AP Biology and AP Chemistry'; } return courses; } // ======================================== // INITIALIZE APP // ======================================== function initializeApp() { if (COLLEGES.length === 0) { alert('College database is loading. Please wait...'); return; } console.log(`Loaded ${COLLEGES.length} colleges`); showQuestion(0); } // Start the app when colleges are loaded initializeApp(); </script> </body> </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Path Finder - Saint Stephen's Episcopal School</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .welcome-screen {
+            text-align: center;
+        }
+
+        .welcome-screen h2 {
+            color: #1e3c72;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .welcome-screen p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+        }
+
+        .question-container h3 {
+            color: #1e3c72;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .question-number {
+            color: #764ba2;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            padding: 15px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1em;
+        }
+
+        .option:hover {
+            background: #e8e9ff;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+
+        .college-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .college-card h3 {
+            color: #1e3c72;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .college-rank {
+            display: inline-block;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .college-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .info-item {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #764ba2;
+            font-size: 0.9em;
+        }
+
+        .info-value {
+            color: #333;
+            margin-top: 5px;
+        }
+
+        .majors-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .major-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .college-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .college-link:hover {
+            text-decoration: underline;
+        }
+
+        .schedule-container {
+            margin-top: 30px;
+        }
+
+        .grade-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .grade-section h4 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .course {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: #fee;
+            border: 2px solid #fcc;
+            color: #c33;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .match-score {
+            display: inline-block;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .content {
+                padding: 20px;
+            }
+            .college-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 College Path Finder</h1>
+            <p>Saint Stephen's Episcopal School</p>
+        </div>
+
+        <div class="content">
+            <!-- Loading Screen -->
+            <div id="loadingScreen" class="screen active">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <h2>Loading College Database...</h2>
+                    <p>Please wait while we load information about 50 top colleges.</p>
+                </div>
+            </div>
+
+            <!-- Welcome Screen -->
+            <div id="welcomeScreen" class="screen">
+                <div class="welcome-screen">
+                    <h2>Welcome to Your College Journey! 🚀</h2>
+                    <p>This interactive tool will help you discover the best colleges that match your interests, academic goals, and location preferences.</p>
+                    <p><strong>What you'll get:</strong></p>
+                    <ul style="text-align: left; max-width: 600px; margin: 20px auto; line-height: 2;">
+                        <li>✅ Personalized college recommendations from top 50 U.S. universities</li>
+                        <li>✅ Major matching based on your interests and strengths</li>
+                        <li>✅ Location filtering (Florida, Southeast, West Coast, or Nationwide)</li>
+                        <li>✅ Detailed admission requirements and costs</li>
+                        <li>✅ Customized 4-year Saint Stephen's course planner</li>
+                    </ul>
+                    <button class="btn" onclick="startQuiz()">Start Your Journey</button>
+                </div>
+            </div>
+
+            <!-- Quiz Screen -->
+            <div id="quizScreen" class="screen">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+                <div id="questionContainer"></div>
+                <div class="button-group">
+                    <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()" style="display:none;">← Previous</button>
+                    <button class="btn" id="nextBtn" onclick="nextQuestion()">Next →</button>
+                </div>
+            </div>
+
+            <!-- Results Screen -->
+            <div id="resultsScreen" class="screen">
+                <h2 style="color: #1e3c72; text-align: center; margin-bottom: 30px;">Your Top College Matches 🎯</h2>
+                <div id="resultsContainer"></div>
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="restartQuiz()">Start Over</button>
+                    <button class="btn btn-success" onclick="showSchedule()">View 4-Year Plan</button>
+                </div>
+            </div>
+
+            <!-- Schedule Screen -->
+            <div id="scheduleScreen" class="screen">
+                <h2 style="color: #1e3c72; text-align: center; margin-bottom: 30px;">Your Saint Stephen's 4-Year Plan 📚</h2>
+                <div id="scheduleContainer"></div>
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="backToResults()">← Back to Results</button>
+                    <button class="btn" onclick="restartQuiz()">Start New Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // GLOBAL VARIABLES
+        // ========================================
+        let COLLEGES = [];
+        let currentQuestion = 0;
+        let answers = [];
+        let topColleges = [];
+
+        // ========================================
+        // QUIZ QUESTIONS
+        // ========================================
+        const QUESTIONS = [
+            {
+                q: "What subjects excite you the most?",
+                opts: [
+                    "Math & Science",
+                    "Technology & Computers",
+                    "Arts & Humanities",
+                    "Business & Economics",
+                    "Health & Medicine",
+                    "Social Sciences & Psychology"
+                ]
+            },
+            {
+                q: "What type of activities do you enjoy?",
+                opts: [
+                    "Building & creating things",
+                    "Solving complex problems",
+                    "Helping & caring for others",
+                    "Leading & organizing teams",
+                    "Researching & analyzing data",
+                    "Expressing creativity & ideas"
+                ]
+            },
+            {
+                q: "What's your ideal career path?",
+                opts: [
+                    "Engineer or Architect",
+                    "Doctor or Healthcare Professional",
+                    "Software Developer or Data Scientist",
+                    "Business Executive or Entrepreneur",
+                    "Teacher or Counselor",
+                    "Artist, Writer, or Designer",
+                    "Lawyer or Policy Maker",
+                    "Scientist or Researcher"
+                ]
+            },
+            {
+                q: "Which skills are your strongest?",
+                opts: [
+                    "Analytical thinking & logic",
+                    "Creativity & innovation",
+                    "Communication & writing",
+                    "Leadership & teamwork",
+                    "Technical & hands-on skills",
+                    "Empathy & interpersonal skills"
+                ]
+            },
+            {
+                q: "What type of learning environment do you prefer?",
+                opts: [
+                    "Hands-on labs & experiments",
+                    "Group discussions & collaboration",
+                    "Independent research & study",
+                    "Real-world projects & internships",
+                    "Creative studios & workshops",
+                    "Lectures & structured learning"
+                ]
+            },
+            {
+                q: "What impact do you want to make?",
+                opts: [
+                    "Advance technology & innovation",
+                    "Improve health & save lives",
+                    "Create art & inspire others",
+                    "Build businesses & create jobs",
+                    "Protect the environment",
+                    "Promote justice & equality",
+                    "Educate & mentor others",
+                    "Discover new scientific knowledge"
+                ]
+            },
+            {
+                q: "What's your preferred campus size?",
+                opts: [
+                    "Small (under 5,000 students)",
+                    "Medium (5,000-15,000 students)",
+                    "Large (over 15,000 students)",
+                    "No preference"
+                ]
+            },
+            {
+                q: "What campus setting appeals to you?",
+                opts: [
+                    "Urban (big city)",
+                    "Suburban (near a city)",
+                    "Rural (countryside)",
+                    "No preference"
+                ]
+            },
+            {
+                q: "What's your current GPA range?",
+                opts: [
+                    "3.8-4.0+ (weighted)",
+                    "3.5-3.7 (weighted)",
+                    "3.0-3.4 (weighted)",
+                    "Below 3.0 (weighted)"
+                ]
+            },
+            {
+                q: "What's your SAT/ACT score range? (or expected)",
+                opts: [
+                    "SAT 1400+ / ACT 32+",
+                    "SAT 1200-1390 / ACT 26-31",
+                    "SAT 1000-1190 / ACT 21-25",
+                    "Below SAT 1000 / ACT 21",
+                    "Haven't taken yet"
+                ]
+            },
+            {
+                q: "Where would you like to attend college?",
+                opts: [
+                    "Stay in Florida",
+                    "Southeast Region (FL, GA, SC, NC, TN, AL, VA)",
+                    "Northeast (MA, NY, PA, NJ, CT, etc.)",
+                    "West Coast (CA, OR, WA)",
+                    "Midwest (IL, MI, OH, WI, etc.)",
+                    "Southwest (TX, AZ, CO, etc.)",
+                    "Anywhere in the U.S."
+                ]
+            }
+        ];
+
+        // ========================================
+        // REGION DEFINITIONS
+        // ========================================
+        const REGIONS = {
+            "Florida": ["FL"],
+            "Southeast": ["FL", "GA", "SC", "NC", "TN", "AL", "VA", "KY", "WV", "MS", "LA", "AR"],
+            "Northeast": ["MA", "NY", "PA", "NJ", "CT", "RI", "NH", "VT", "ME", "MD", "DE"],
+            "West Coast": ["CA", "OR", "WA"],
+            "Midwest": ["IL", "MI", "OH", "IN", "WI", "MN", "IA", "MO", "KS", "NE", "SD", "ND"],
+            "Southwest": ["TX", "AZ", "NM", "NV", "CO", "UT", "OK"]
+        };
+
+        // ========================================
+        // MAJOR MAPPING
+        // ========================================
+        const MAJOR_KEYWORDS = {
+            "Computer Science": ["technology", "computers", "software", "data scientist", "technical", "innovation"],
+            "Engineering": ["math", "science", "building", "creating", "engineer", "architect", "hands-on", "technical"],
+            "Medicine": ["health", "medicine", "doctor", "healthcare", "save lives", "caring"],
+            "Business": ["business", "economics", "entrepreneur", "executive", "leadership", "create jobs"],
+            "Biology": ["science", "health", "environment", "researcher", "labs"],
+            "Psychology": ["social sciences", "psychology", "helping", "empathy", "interpersonal", "counselor"],
+            "Education": ["teacher", "educate", "mentor"],
+            "Arts": ["arts", "humanities", "creativity", "artist", "writer", "designer", "creative", "inspire"],
+            "Law": ["lawyer", "policy", "justice", "equality"],
+            "Environmental Science": ["environment", "protect"],
+            "Mathematics": ["math", "analytical", "logic"],
+            "Physics": ["science", "math", "researcher"],
+            "Economics": ["business", "economics", "analytical"],
+            "Political Science": ["policy", "justice", "social sciences"]
+        };
+// ========================================
+// COLLEGE DATABASE - TOP 50 SCHOOLS
+// ========================================
+
+COLLEGES = [
+    {
+        name: "Princeton University",
+        city: "Princeton",
+        state: "NJ",
+        type: "Private",
+        ranking: 1,
+        acceptance: "6%",
+        sat: "1450-1570",
+        act: "33-35",
+        tuition: "$57,410",
+        campusSize: "Medium",
+        setting: "Suburban",
+        strongMajors: ["Engineering", "Computer Science", "Economics", "Mathematics", "Physics", "Political Science"],
+        notablePrograms: ["Undergraduate Research", "Certificate Programs"],
+        website: "https://www.princeton.edu"
+    },
+    {
+        name: "Massachusetts Institute of Technology",
+        city: "Cambridge",
+        state: "MA",
+        type: "Private",
+        ranking: 2,
+        acceptance: "7%",
+        sat: "1510-1570",
+        act: "34-36",
+        tuition: "$57,986",
+        campusSize: "Medium",
+        setting: "Urban",
+        strongMajors: ["Engineering", "Computer Science", "Mathematics", "Physics", "Biology", "Economics"],
+        notablePrograms: ["UROP Research", "Entrepreneurship"],
+        website: "https://www.mit.edu"
+    },
+    {
+        name: "Harvard University",
+        city: "Cambridge",
+        state: "MA",
+        type: "Private",
+        ranking: 3,
+        acceptance: "5%",
+        sat: "1460-1580",
+        act: "33-35",
+        tuition: "$54,269",
+        campusSize: "Medium",
+        setting: "Urban",
+        strongMajors: ["Economics", "Political Science", "Computer Science", "Biology", "Psychology", "History"],
+        notablePrograms: ["Harvard College Research Program", "Study Abroad"],
+        website: "https://www.harvard.edu"
+    },
+    {
+        name: "Stanford University",
+        city: "Stanford",
+        state: "CA",
+        type: "Private",
+        ranking: 3,
+        acceptance: "5%",
+        sat: "1470-1570",
+        act: "33-35",
+        tuition: "$56,169",
+        campusSize: "Large",
+        setting: "Suburban",
+        strongMajors: ["Computer Science", "Engineering", "Biology", "Economics", "Psychology", "Political Science"],
+        notablePrograms: ["Silicon Valley Connections", "Entrepreneurship"],
+        website: "https://www.stanford.edu"
+    },
+    {
+        name: "Yale University",
+        city: "New Haven",
+        state: "CT",
+        type: "Private",
+        ranking: 5,
+        acceptance: "7%",
+        sat: "1460-1570",
+        act: "33-35",
+        tuition: "$59,950",
+        campusSize: "Medium",
+        setting: "Urban",
+        strongMajors: ["Political Science", "Economics", "History", "Biology", "Psychology", "English"],
+        notablePrograms: ["Residential College System", "Yale Law School Pipeline"],
+        website: "https://www.yale.edu"
+    },
+    {
+        name: "University of Pennsylvania",
+        city: "Philadelphia",
+        state: "PA",
+        type: "Private",
+        ranking: 6,
+        acceptance: "9%",
+        sat: "1450-1560",
+        act: "33-35",
+        tuition: "$60,042",
+        campusSize: "Large",
+        setting: "Urban",
+        strongMajors: ["Business", "Economics", "Engineering", "Biology", "Computer Science", "Psychology"],
+        notablePrograms: ["Wharton School of Business", "Dual Degree Programs"],
+        website: "https://www.upenn.edu"
+    },
+    {
+        name: "Duke University",
+        city: "Durham",
+        state: "NC",
+        type: "Private",
+        ranking: 7,
+        acceptance: "8%",
+        sat: "1450-1560",
+        act: "33-35",
+        tuition: "$60,488",
+        campusSize: "Medium",
+        setting: "Suburban",
+        strongMajors: ["Engineering", "Biology", "Economics", "Computer Science", "Psychology", "Political Science"],
+        notablePrograms: ["Research Triangle", "Duke Engage"],
+        website: "https://www.duke.edu"
+    },
+    {
+        name: "California Institute of Technology",
+        city: "Pasadena",
+        state: "CA",
+        type: "Private",
+        ranking: 8,
+        acceptance: "7%",
+        sat: "1530-1580",
+        act: "35-36",
+        tuition: "$56,364",
+        campusSize: "Small",
+        setting: "Suburban",
+        strongMajors: ["Engineering", "Physics", "Computer Science", "Mathematics", "Chemistry", "Biology"],
+        notablePrograms: ["JPL Partnership", "Undergraduate Research"],
+        website: "https://www.caltech.edu"
+    },
+    {
+        name: "Northwestern University",
+        city: "Evanston",
+        state: "IL",
+        type: "Private",
+        ranking: 9,
+        acceptance: "9%",
+        sat: "1440-1550",
+        act: "33-35",
+        tuition: "$60,768",
+        campusSize: "Medium",
+        setting: "Suburban",
+        strongMajors: ["Engineering", "Economics", "Journalism", "Psychology", "Biology", "Theater"],
+        notablePrograms: ["Co-op Programs", "Medill School of Journalism"],
+        website: "https://www.northwestern.edu"
+    },
+    {
+        name: "Johns Hopkins University",
+        city: "Baltimore",
+        state: "MD",
+        type: "Private",
+        ranking: 10,
+        acceptance: "11%",
+        sat: "1470-1560",
+        act: "34-35",
+        tuition: "$58,720",
+        campusSize: "Medium",
+        setting: "Urban",
+        strongMajors: ["Biology", "Engineering", "Medicine", "Public Health", "International Studies", "Neuroscience"],
+        notablePrograms: ["Pre-Med Excellence", "Research Opportunities"],
+        website: "https://www.jhu.edu"
+    },
+    {
+        name: "Dartmouth College",
+        city: "Hanover",
+        state: "NH",
+        type: "Private",
+        ranking: 11,
+        acceptance: "9%",
+        sat: "1440-1560",
+        act: "32-35",
+        tuition: "$59,458",
+        campusSize: "Medium",
+        setting: "Rural",
+        strongMajors: ["Economics", "Government", "Engineering", "Computer Science", "Biology", "Psychology"],
+        notablePrograms: ["D-Plan Quarter System", "Outdoor Programs"],
+        website: "https://www.dartmouth.edu"
+    },
+    {
+        name: "Brown University",
+        city: "Providence",
+        state: "RI",
+        type: "Private",
+        ranking: 12,
+        acceptance: "8%",
+        sat: "1440-1560",
+        act: "33-35",
+        tuition: "$62,304",
+        campusSize: "Medium",
+        setting: "Urban",
+        strongMajors: ["Computer Science", "Economics", "Biology", "Engineering", "International Relations", "English"],
+        notablePrograms: ["Open Curriculum", "PLME Medical Program"],
+        website: "https://www.brown.edu"
+    },
+    {
+        name: "Vanderbilt University",
+        city: "Nashville",
+        state: "TN",
+        type: "Private",
+        ranking: 13,
+        acceptance: "10%",
+        sat: "1450-1560",
+        act: "33-35",
+        tuition: "$56,946",
+        campusSize: "Medium",
+        setting: "Urban",
+        strongMajors: ["Engineering", "Economics", "Education", "Medicine", "Music", "Psychology"],
+        notablePrograms: ["Peabody College of Education", "Blair School of Music"],
+        website: "https://www.vanderbilt.edu"
+    },
+    {
+        name: "Rice University",
+        city: "Houston",
+        state: "TX",
+        type: "Private",
+        ranking: 14,
+        acceptance: "11%",
+        sat: "1470-1570",
+        act: "34-35",
+        tuition: "$52,070",
+        campusSize: "Medium",
+        setting: "Urban",
+        strongMajors: ["Engineering", "Computer Science", "Biology", "Economics", "Architecture", "Music"],
+        notablePrograms: ["Residential College System", "Texas Medical Center Access"],
+        website: "https://www.rice.edu"
+    },
+    {
+        name: "Washington University in St. Louis",
+        city: "St. Louis",
+        state: "MO",
+        type: "Private",
+        ranking: 15,
+        acceptance: "16%",
+        sat: "1450-1560",
+        act: "33-35",
+        tuition: "$58,866",
+        campusSize: "Medium",
+        setting: "Suburban",
+        strongMajors: ["Business", "Engineering", "Biology", "Psychology", "Architecture", "Medicine"],
+        notablePrograms: ["Olin Business School", "Pre-Med Programs"],
+        website: "https://www.wustl.edu"
+    },
+    {
+        name: "Cornell University",
+        city: "Ithaca",
+        state: "NY",
+        type: "Private",
+        ranking: 16,
+        acceptance: "11%",
+        sat: "1400-1540",
+        act: "32-35",
+        tuition: "$59,316",
+        campusSize: "Large",
+        setting: "Rural",
+        strongMajors: ["Engineering", "Business", "Agriculture", "Hotel Management", "Biology", "Computer Science"],
+        notablePrograms: ["Ivy League Land Grant", "Hotel School"],
+        website: "https://www.cornell.edu"
+    },
+    {
+        name: "Columbia University",
+        city: "New York",
+        state: "NY",
+        type: "Private",
+        ranking: 17,
+        acceptance: "6%",
+        sat: "1450-1560",
+        act: "33-35",
+        tuition: "$63,530",
+        campusSize: "Medium",
+        setting: "Urban",
+        strongMajors: ["Economics", "Political Science", "Engineering", "Computer Science", "English", "History"],
+        notablePrograms: ["Core Curriculum", "NYC Location"],
+        website: "https://www.columbia.edu"
+    },
+    {
+        name: "University of Notre Dame",
+        city: "Notre Dame",
+        state: "IN",
+        type: "Private",
+        ranking: 18,
+        acceptance: "19%",
+        sat: "1400-1540",
+        act: "32-35",
+        tuition: "$57,699",
+        campusSize: "Medium",
+        setting: "Suburban",
+        strongMajors: ["Business", "Engineering", "Architecture", "Political Science", "Biology", "Psychology"],
+        notablePrograms: ["Mendoza College of Business", "Study Abroad"],
+        website: "https://www.nd.edu"
+    },
+    {
+        name: "University of California, Los Angeles",
+        city: "Los Angeles",
+        state: "CA",
+        type: "Public",
+        ranking: 19,
+        acceptance: "14%",
+        sat: "1300-1530",
+        act: "29-34",
+        tuition: "$13,401 (in-state), $43,003 (out-of-state)",
+        campusSize: "Large",
+        setting: "Urban",
+        strongMajors: ["Engineering", "Film", "Psychology", "Biology", "Business Economics", "Political Science"],
+        notablePrograms: ["Film School", "Medical Center"],
+        website: "https://www.ucla.edu"
+    },
+    {
+        name: "University of California, Berkeley",
+        city: "Berkeley",
+        state: "CA",
+        type: "Public",
+        ranking: 20,
+        acceptance: "17%",
+        sat: "1330-1530",
+        act: "30-34",
+        tuition: "$14,312 (in-state), $44,007 (out-of-state)",
+        campusSize: "Large",
+        setting: "Urban",
+        strongMajors: ["Engineering", "Computer Science", "Economics", "Biology", "Political Science", "Environmental Science"],
+        notablePrograms: ["Silicon Valley Access", "Research Excellence"],
+        website: "https://www.berkeley.edu"
+    },
+    {
+        name: "Georgetown University",
+        city: "Washington",
+        state: "DC",
+        type: "Private",
+        ranking: 21,
+        acceptance: "15%",
+        sat: "1380-1530",
+        act: "31-34",
+        tuition: "$59,957",
+        campusSize: "Medium",
+        setting: "Urban",
+        strongMajors: ["International Relations", "Political Science", "Business", "Economics", "Government", "History"],
+        notablePrograms: ["Walsh School of Foreign Service", "DC Location"],
+        website: "https://www.georgetown.edu"
+    },
+    {
+        name: "University of Michigan",
+        city: "Ann Arbor",
+        state: "MI",
+        type: "Public",
+        ranking: 22,
+        acceptance: "26%",
+        sat: "1340-1530",
+        act: "31-34",
+        tuition: "$15,948 (in-state), $52,266 (out-of-state)",
+        campusSize: "Large",
+        setting: "Suburban",
+        strongMajors: ["Engineering", "Business", "Computer Science", "Psychology", "Economics", "Political Science"],
+        notablePrograms: ["Ross School of Business", "Engineering Excellence"],
+        website: "https://www.umich.edu"
+    },
+    {
+        name: "Carnegie Mellon University",
+        city: "Pittsburgh",
+        state: "PA",
+        type: "Private",
+        ranking: 23,
+        acceptance: "17%",
+        sat: "1460-1560",
+        act: "33-35",
+        tuition: "$58,924",
+        campusSize: "Medium",
+        setting: "Urban",
+        strongMajors: ["Computer Science", "Engineering", "Business", "Drama", "Design", "Robotics"],
+        notablePrograms: ["School of Computer Science", "Robotics Institute"],
+        website: "https://www.cmu.edu"
+    },
+    {
+        name: "University of Virginia",
+        city: "Charlottesville",
+        state: "VA",
+        type: "Public",
+        ranking: 24,
+        acceptance: "24%",
+        sat: "1340-1510",
+        act: "31-34",
+        tuition: "$17,653 (in-state), $51,940 (out-of-state)",
+        campusSize: "Large",
+        setting: "Suburban",
+        strongMajors: ["Business", "Economics", "Engineering", "Political Science", "Psychology", "Biology"],
+        notablePrograms: ["McIntire School of Commerce", "Honor System"],
+        website: "https://www.virginia.edu"
+    },
+    {
+        name: "University of Southern California",
+        city: "Los Angeles",
+        state: "CA",
+        type: "Private",
+        ranking: 25,
+        acceptance: "16%",
+        sat: "1360-1530",
+        act: "30-34",
+        tuition: "$60,446",
+        campusSize: "Large",
+        setting: "Urban",
+        strongMajors: ["Film", "Business", "Engineering", "Communications", "Computer Science", "Architecture"],
+        notablePrograms: ["Film School", "Marshall School of Business"],
+        website: "https://www.usc.edu"
+    },
+    {
+        name: "University of North Carolina at Chapel Hill",
+        city: "Chapel Hill",
+        state: "NC",
+        type: "Public",
+        ranking: 26,
+        acceptance: "23%",
+        sat: "1300-1490",
+        act: "29-33",
+        tuition: "$8,987 (in-state), $36,776 (out-of-state)",
+        campusSize: "Large",
+        setting: "Suburban",
+        strongMajors: ["Business", "Biology", "Psychology", "Journalism", "Public Health", "Political Science"],
+        notablePrograms: ["Kenan-Flagler Business School", "Public Ivy"],
+        website: "https://www.unc.edu"
+    },
+    {
+        name: "Wake Forest University",
+        city: "Winston-Salem",
+        state: "NC",
+        type: "Private",
+        ranking: 27,
+        acceptance: "30%",
+        sat: "1300-1460",
+        act: "29-33",
+        tuition: "$58,608",
+        campusSize: "Medium",
+        setting: "Suburban",
+        strongMajors: ["Business", "Biology", "Psychology", "Political Science", "Economics", "Communication"],
+        notablePrograms: ["Small Class Sizes", "Business School"],
+        website: "https://www.wfu.edu"
+    },
+    {
+        name: "University of Florida",
+        city: "Gainesville",
+        state: "FL",
+        type: "Public",
+        ranking: 28,
+        acceptance: "23%",
+        sat: "1350-1490",
+        act: "30-34",
+        tuition: "$6,380 (in-state), $28,658 (out-of-state)",
+        campusSize: "Large",
+        setting: "Suburban",
+        strongMajors: ["Engineering", "Business", "Biology", "Psychology", "Computer Science", "Agriculture"],
+        notablePrograms: ["Honors Program", "Research Opportunities"],
+        website: "https://www.ufl.edu"
+    },
+    {
+        name: "Emory University",
+        city: "Atlanta",
+        state: "GA",
+        type: "Private",
+        ranking: 29,
+        acceptance: "13%",
+        sat: "1400-1540",
+        act: "31-34",
+        tuition: "$54,660",
+        campusSize: "Medium",
+        setting: "Suburban",
+        strongMajors: ["Business", "Biology", "Nursing", "Psychology", "Economics", "Political Science"],
+        notablePrograms: ["Goizueta Business School", "CDC Partnership"],
+        website: "https://www.emory.edu"
+    },
+    {
+        name: "University of Texas at Austin",
+        city: "Austin",
+        state: "TX",
+        type: "Public",
+        ranking: 30,
+        acceptance: "32%",
+        sat: "1240-1470",
+        act: "27-33",
+        tuition: "$11,448 (in-state), $40,032 (out-of-state)",
+        campusSize: "Large",
+        setting: "Urban",
+        strongMajors: ["Engineering", "Business", "Computer Science", "Communications", "Biology", "Psychology"],
+        notablePrograms: ["McCombs School of Business", "Tech Hub Access"],
+        website: "https://www.utexas.edu"
+    },
+    {
+        name: "Tufts University",
+        city: "Medford",
+        state: "MA",
+        type: "Private",
+        ranking: 31,
+        acceptance: "16%",
+        sat: "1420-1540",
+        act: "32-34",
+        tuition: "$61,646",
+        campusSize: "Medium",
+        setting: "Suburban",
+        strongMajors: ["International Relations", "Engineering", "Biology", "Economics", "Psychology", "Computer Science"],
+        notablePrograms: ["Fletcher School", "Study Abroad"],
+        website: "https://www.tufts.edu"
+    },
+    {
+        name: "University of California, Santa Barbara",
+        city: "Santa Barbara",
+        state: "CA",
+        type: "Public",
+        ranking: 32,
+        acceptance: "37%",
+        sat: "1230-1480",
+        act: "27-33",
+        tuition: "$14,391 (in-state), $44,204 (out-of-state)",
+        campusSize: "Large",
+        setting: "Suburban",
+        strongMajors: ["Engineering", "Biology", "Economics", "Environmental Science", "Psychology", "Physics"],
+        notablePrograms: ["Beach Campus", "Research Excellence"],
+        website: "https://www.ucsb.edu"
+    },
+    {
+        name: "University of California, San Diego",
+        city: "San Diego",
+        state: "CA",
+        type: "Public",
+        ranking: 33,
+        acceptance: "38%",
+        sat: "1250-1490",
+        act: "28-34",
+        tuition: "$14,415 (in-state), $44,487 (out-of-state)",
+        campusSize: "Large",
+        setting: "Suburban",
+        strongMajors: ["Engineering", "Biology", "Computer Science", "Economics", "Psychology", "Marine Biology"],
+        notablePrograms: ["Scripps Institution of Oceanography", "Biotech Access"],
+        website: "https://www.ucsd.edu"
+    },
+    {
+        name: "University of California, Irvine",
+        city: "Irvine",
+        state: "CA",
+        type: "Public",
+        ranking: 34,
+        acceptance: "29%",
+        sat: "1230-1470",
+        act: "26-33",
+        tuition: "$13,727 (in-state), $43,481 (out-of-state)",
+        campusSize: "Large",
+        setting: "Suburban",
+        strongMajors: ["Engineering", "Biology", "Computer Science", "Business Economics", "Psychology", "Nursing"],
+        notablePrograms: ["Medical School", "Research Opportunities"],
+        website: "https://www.uci.edu"
+    },
+    {
+        name: "University of California, Davis",
+        city: "Davis",
+        state: "CA",
+        type: "Public",
+        ranking: 35,
+        acceptance: "49%",
+        sat: "1160-1430",
+        act: "25-32",
+        tuition: "$14,597 (in-state), $44,351 (out-of-state)",
+        campusSize: "Large",
+        setting: "Suburban",
+        strongMajors: ["Agriculture", "Biology", "Engineering", "Environmental Science", "Veterinary Medicine", "Psychology"],
+        notablePrograms: ["Veterinary School", "Agricultural Excellence"],
+        website: "https://www.ucdavis.edu"
+    },
+    {
+        name: "Boston College",
+        city: "Chestnut Hill",
+        state: "MA",
+        type: "Private",
+        ranking: 36,
+        acceptance: "27%",
+        sat: "1330-1500",
+        act: "31-34",
+        tuition: "$59,050",
+        campusSize: "Medium",
+        setting: "Suburban",
+        strongMajors: ["Business", "Economics", "Biology", "Psychology", "Political Science", "Nursing"],
+        notablePrograms: ["Carroll School of Management", "Jesuit Education"],
+        website: "https://www.bc.edu"
+    },
+    {
+        name: "Boston University",
+        city: "Boston",
+        state: "MA",
+        type: "Private",
+        ranking: 37,
+        acceptance: "22%",
+        sat: "1330-1500",
+        act: "30-34",
+        tuition: "$58,560",
+        campusSize: "Large",
+        setting: "Urban",
+        strongMajors: ["Business", "Engineering", "Communications", "Biology", "Psychology", "Film"],
+        notablePrograms: ["Questrom School of Business", "Study Abroad"],
+        website: "https://www.bu.edu"
+    },
+    {
+        name: "University of Wisconsin-Madison",
+        city: "Madison",
+        state: "WI",
+        type: "Public",
+        ranking: 38,
+        acceptance: "60%",
+        sat: "1300-1480",
+        act: "28-32",
+        tuition: "$10,555 (in-state), $37,785 (out-of-state)",
+        campusSize: "Large",
+        setting: "Urban",
+        strongMajors: ["Engineering", "Business", "Biology", "Psychology", "Computer Science", "Agriculture"],
+        notablePrograms: ["Research Excellence", "Big Ten"],
+        website: "https://www.wisc.edu"
+    },
+    {
+        name: "University of Illinois at Urbana-Champaign",
+        city: "Champaign",
+        state: "IL",
+        type: "Public",
+        ranking: 39,
+        acceptance: "63%",
+        sat: "1340-1510",
+        act: "29-33",
+        tuition: "$16,866 (in-state), $34,316 (out-of-state)",
+        campusSize: "Large",
+        setting: "Urban",
+        strongMajors: ["Engineering", "Computer Science", "Business", "Agriculture", "Psychology", "Biology"],
+        notablePrograms: ["Engineering Excellence", "Research Opportunities"],
+        website: "https://www.illinois.edu"
+    },
+    {
+        name: "University of Washington",
+        city: "Seattle",
+        state: "WA",
+        type: "Public",
+        ranking: 40,
+        acceptance: "56%",
+        sat: "1220-1470",
+        act: "27-33",
+        tuition: "$11,745 (in-state), $39,906 (out-of-state)",
+        campusSize: "Large",
+        setting: "Urban",
+        strongMajors: ["Computer Science", "Engineering", "Business", "Biology", "Psychology", "Nursing"],
+        notablePrograms: ["Tech Industry Access", "Medical School"],
+        website: "https://www.washington.edu"
+    },
+    {
+        name: "Georgia Institute of Technology",
+        city: "Atlanta",
+        state: "GA",
+        type: "Public",
+        ranking: 41,
+        acceptance: "23%",
+        sat: "1370-1530",
+        act: "31-34",
+        tuition: "$12,682 (in-state), $33,794 (out-of-state)",
+        campusSize: "Large",
+        setting: "Urban",
+        strongMajors: ["Engineering", "Computer Science", "Business", "Architecture", "Industrial Design", "Mathematics"],
+        notablePrograms: ["Top Engineering School", "Co-op Programs"],
+        website: "https://www.gatech.edu"
+    },
+    {
+        name: "University of Miami",
+        city: "Coral Gables",
+        state: "FL",
+        type: "Private",
+        ranking: 42,
+        acceptance: "33%",
+        sat: "1280-1450",
+        act: "29-33",
+        tuition: "$54,760",
+        campusSize: "Medium",
+        setting: "Suburban",
+        strongMajors: ["Business", "Marine Biology", "Biology", "Psychology", "Engineering", "Music"],
+        notablePrograms: ["Rosenstiel School of Marine Science", "Medical School"],
+        website: "https://www.miami.edu"
+    },
+    {
+        name: "Florida State University",
+        city: "Tallahassee",
+        state: "FL",
+        type: "Public",
+        ranking: 43,
+        acceptance: "37%",
+        sat: "1210-1360",
+        act: "27-31",
+        tuition: "$5,656 (in-state), $18,786 (out-of-state)",
+        campusSize: "Large",
+        setting: "Urban",
+        strongMajors: ["Business", "Psychology", "Biology", "Film", "Criminology", "Political Science"],
+        notablePrograms: ["Film School", "Research Opportunities"],
+        website: "https://www.fsu.edu"
+    },
+    {
+        name: "University of Georgia",
+        city: "Athens",
+        state: "GA",
+        type: "Public",
+        ranking: 44,
+        acceptance: "49%",
+        sat: "1220-1410",
+        act: "27-32",
+        tuition: "$11,830 (in-state), $30,404 (out-of-state)",
+        campusSize: "Large",
+        setting: "Suburban",
+        strongMajors: ["Business", "Biology", "Psychology", "Journalism", "Agriculture", "Political Science"],
+        notablePrograms: ["Terry College of Business", "Public Ivy"],
+        website: "https://www.uga.edu"
+    },
+    {
+        name: "Tulane University",
+        city: "New Orleans",
+        state: "LA",
+        type: "Private",
+        ranking: 45,
+        acceptance: "17%",
+        sat: "1340-1490",
+        act: "30-33",
+        tuition: "$60,814",
+        campusSize: "Medium",
+        setting: "Urban",
+        strongMajors: ["Business", "Architecture", "Public Health", "Biology", "Psychology", "Political Science"],
+        notablePrograms: ["Service Learning", "Freeman School of Business"],
+        website: "https://www.tulane.edu"
+    },
+    {
+        name: "Northeastern University",
+        city: "Boston",
+        state: "MA",
+        type: "Private",
+        ranking: 46,
+        acceptance: "20%",
+        sat: "1390-1540",
+        act: "32-35",
+        tuition: "$56,500",
+        campusSize: "Large",
+        setting: "Urban",
+        strongMajors: ["Engineering", "Business", "Computer Science", "Health Sciences", "Communications", "Psychology"],
+        notablePrograms: ["Co-op Program", "Global Campuses"],
+        website: "https://www.northeastern.edu"
+    },
+    {
+        name: "University of Pittsburgh",
+        city: "Pittsburgh",
+        state: "PA",
+        type: "Public",
+        ranking: 47,
+        acceptance: "67%",
+        sat: "1250-1450",
+        act: "28-33",
+        tuition: "$19,718 (in-state), $33,746 (out-of-state)",
+        campusSize: "Large",
+        setting: "Urban",
+        strongMajors: ["Engineering", "Business", "Nursing", "Biology", "Psychology", "Medicine"],
+        notablePrograms: ["Medical Center", "Research Excellence"],
+        website: "https://www.pitt.edu"
+    },
+    {
+name: "Ohio State University",
+                city: "Columbus",
+                state: "OH",
+                type: "Public",
+                ranking: 49,
+                acceptance: "57%",
+                sat: "1240-1450",
+                act: "27-32",
+                tuition: "$11,936 (in-state), $36,722 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Engineering", "Business", "Psychology", "Biology", "Computer Science"],
+                notablePrograms: ["Honors Program", "Research University"],
+                website: "https://www.osu.edu"
+            },
+            {
+                name: "Pepperdine University",
+                city: "Malibu",
+                state: "CA",
+                type: "Private",
+                ranking: 50,
+                acceptance: "49%",
+                sat: "1210-1420",
+                act: "27-32",
+                tuition: "$62,390",
+                campusSize: "Medium",
+                setting: "Suburban",
+                strongMajors: ["Business", "Communications", "Psychology", "Political Science", "Biology"],
+                notablePrograms: ["Study Abroad", "Beach Campus"],
+                website: "https://www.pepperdine.edu"
+            }
+        ];
+
+        // ========================================
+        // QUIZ QUESTIONS
+        // ========================================
+        const QUESTIONS = [
+            {
+                q: "What subjects excite you the most?",
+                opts: [
+                    "Math & Science",
+                    "Technology & Computers",
+                    "Arts & Humanities",
+                    "Business & Economics",
+                    "Health & Medicine",
+                    "Social Sciences & Psychology"
+                ]
+            },
+            {
+                q: "What type of activities do you enjoy?",
+                opts: [
+                    "Building & creating things",
+                    "Solving complex problems",
+                    "Helping & caring for others",
+                    "Leading & organizing teams",
+                    "Researching & analyzing data",
+                    "Expressing creativity & ideas"
+                ]
+            },
+            {
+                q: "What's your ideal career path?",
+                opts: [
+                    "Engineer or Architect",
+                    "Doctor or Healthcare Professional",
+                    "Software Developer or Data Scientist",
+                    "Business Executive or Entrepreneur",
+                    "Teacher or Counselor",
+                    "Artist, Writer, or Designer",
+                    "Lawyer or Policy Maker",
+                    "Scientist or Researcher"
+                ]
+            },
+            {
+                q: "Which skills are your strongest?",
+                opts: [
+                    "Analytical thinking & logic",
+                    "Creativity & innovation",
+                    "Communication & writing",
+                    "Leadership & teamwork",
+                    "Technical & hands-on skills",
+                    "Empathy & interpersonal skills"
+                ]
+            },
+            {
+                q: "What type of learning environment do you prefer?",
+                opts: [
+                    "Hands-on labs & experiments",
+                    "Group discussions & collaboration",
+                    "Independent research & study",
+                    "Real-world projects & internships",
+                    "Creative studios & workshops",
+                    "Lectures & structured learning"
+                ]
+            },
+            {
+                q: "What impact do you want to make?",
+                opts: [
+                    "Advance technology & innovation",
+                    "Improve health & save lives",
+                    "Create art & inspire others",
+                    "Build businesses & create jobs",
+                    "Protect the environment",
+                    "Promote justice & equality",
+                    "Educate & mentor others",
+                    "Discover new scientific knowledge"
+                ]
+            },
+            {
+                q: "What's your preferred campus size?",
+                opts: [
+                    "Small (under 5,000 students)",
+                    "Medium (5,000-15,000 students)",
+                    "Large (over 15,000 students)",
+                    "No preference"
+                ]
+            },
+            {
+                q: "What campus setting appeals to you?",
+                opts: [
+                    "Urban (big city)",
+                    "Suburban (near a city)",
+                    "Rural (countryside)",
+                    "No preference"
+                ]
+            },
+            {
+                q: "What's your current GPA range?",
+                opts: [
+                    "3.8-4.0+ (weighted)",
+                    "3.5-3.7 (weighted)",
+                    "3.0-3.4 (weighted)",
+                    "Below 3.0 (weighted)"
+                ]
+            },
+            {
+                q: "What's your SAT/ACT score range? (or expected)",
+                opts: [
+                    "SAT 1400+ / ACT 32+",
+                    "SAT 1200-1390 / ACT 26-31",
+                    "SAT 1000-1190 / ACT 21-25",
+                    "Below SAT 1000 / ACT 21",
+                    "Haven't taken yet"
+                ]
+            },
+            {
+                q: "Where would you like to attend college?",
+                opts: [
+                    "Stay in Florida",
+                    "Southeast Region (FL, GA, SC, NC, TN, AL, VA)",
+                    "Northeast (MA, NY, PA, NJ, CT, etc.)",
+                    "West Coast (CA, OR, WA)",
+                    "Midwest (IL, MI, OH, WI, etc.)",
+                    "Southwest (TX, AZ, CO, etc.)",
+                    "Anywhere in the U.S."
+                ]
+            }
+        ];
+
+        // ========================================
+        // REGION DEFINITIONS
+        // ========================================
+        const REGIONS = {
+            "Florida": ["FL"],
+            "Southeast": ["FL", "GA", "SC", "NC", "TN", "AL", "VA", "KY", "WV", "MS", "LA", "AR"],
+            "Northeast": ["MA", "NY", "PA", "NJ", "CT", "RI", "NH", "VT", "ME", "MD", "DE"],
+            "West Coast": ["CA", "OR", "WA"],
+            "Midwest": ["IL", "MI", "OH", "IN", "WI", "MN", "IA", "MO", "KS", "NE", "SD", "ND"],
+            "Southwest": ["TX", "AZ", "NM", "NV", "CO", "UT", "OK"]
+        };
+
+        // ========================================
+        // MAJOR MAPPING
+        // ========================================
+        const MAJOR_KEYWORDS = {
+            "Computer Science": ["technology", "computers", "software", "data scientist", "technical", "innovation"],
+            "Engineering": ["math", "science", "building", "creating", "engineer", "architect", "hands-on", "technical"],
+            "Medicine": ["health", "medicine", "doctor", "healthcare", "save lives", "caring"],
+            "Business": ["business", "economics", "entrepreneur", "executive", "leadership", "create jobs"],
+            "Biology": ["science", "health", "environment", "researcher", "labs"],
+            "Psychology": ["social sciences", "psychology", "helping", "empathy", "interpersonal", "counselor"],
+            "Education": ["teacher", "educate", "mentor"],
+            "Arts": ["arts", "humanities", "creativity", "artist", "writer", "designer", "creative", "inspire"],
+            "Law": ["lawyer", "policy", "justice", "equality"],
+            "Environmental Science": ["environment", "protect"],
+            "Mathematics": ["math", "analytical", "logic"],
+            "Physics": ["science", "math", "researcher"],
+            "Economics": ["business", "economics", "analytical"],
+            "Political Science": ["policy", "justice", "social sciences"]
+        };
+
+        // ========================================
+        // START QUIZ
+        // ========================================
+        function startQuiz() {
+            currentQuestion = 0;
+            answers = [];
+            document.getElementById('welcomeScreen').classList.remove('active');
+            document.getElementById('quizScreen').classList.add('active');
+            showQuestion();
+        }
+
+        // ========================================
+        // SHOW QUESTION
+        // ========================================
+        function showQuestion() {
+            const question = QUESTIONS[currentQuestion];
+            const container = document.getElementById('questionContainer');
+            
+            let html = `
+                <div class="question-container">
+                    <div class="question-number">Question ${currentQuestion + 1} of ${QUESTIONS.length}</div>
+                    <h3>${question.q}</h3>
+                    <div class="options">
+            `;
+            
+            question.opts.forEach((opt, index) => {
+                const isSelected = answers[currentQuestion] === opt;
+                html += `
+                    <div class="option ${isSelected ? 'selected' : ''}" onclick="selectOption('${opt.replace(/'/g, "\\'")}')">
+                        ${opt}
+                    </div>
+                `;
+            });
+            
+            html += `
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+            
+            // Update progress bar
+            const progress = ((currentQuestion + 1) / QUESTIONS.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            
+            // Update buttons
+            document.getElementById('prevBtn').style.display = currentQuestion > 0 ? 'inline-block' : 'none';
+            document.getElementById('nextBtn').textContent = currentQuestion === QUESTIONS.length - 1 ? 'See Results 🎯' : 'Next →';
+        }
+
+        // ========================================
+        // SELECT OPTION
+        // ========================================
+        function selectOption(option) {
+            answers[currentQuestion] = option;
+            showQuestion(); // Refresh to show selection
+        }
+
+        // ========================================
+        // NEXT QUESTION
+        // ========================================
+        function nextQuestion() {
+            if (!answers[currentQuestion]) {
+                alert('Please select an option before continuing.');
+                return;
+            }
+            
+            if (currentQuestion < QUESTIONS.length - 1) {
+                currentQuestion++;
+                showQuestion();
+            } else {
+                calculateResults();
+            }
+        }
+
+        // ========================================
+        // PREVIOUS QUESTION
+        // ========================================
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
+            }
+        }
+
+        // ========================================
+        // CALCULATE RESULTS
+        // ========================================
+        function calculateResults() {
+            // Step 1: Determine top majors based on answers
+            const majorScores = {};
+            
+            // Initialize all majors with 0 score
+            Object.keys(MAJOR_KEYWORDS).forEach(major => {
+                majorScores[major] = 0;
+            });
+            
+            // Score majors based on answer keywords
+            answers.forEach(answer => {
+                const lowerAnswer = answer.toLowerCase();
+                Object.keys(MAJOR_KEYWORDS).forEach(major => {
+                    MAJOR_KEYWORDS[major].forEach(keyword => {
+                        if (lowerAnswer.includes(keyword)) {
+                            majorScores[major] += 10;
+                        }
+                    });
+                });
+            });
+            
+            // Get top 3 majors
+            const sortedMajors = Object.entries(majorScores)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 3)
+                .map(entry => entry[0]);
+            
+            // Step 2: Filter colleges by location preference
+            const locationAnswer = answers[10]; // Last question
+            let filteredColleges = filterByLocation(locationAnswer);
+            
+            // Step 3: Filter by academic fit
+            const gpaAnswer = answers[8];
+            const testScoreAnswer = answers[9];
+            filteredColleges = filterByAcademics(filteredColleges, gpaAnswer, testScoreAnswer);
+            
+            // Step 4: Rank colleges by major match
+            const rankedColleges = rankByMajor(filteredColleges, sortedMajors);
+            
+            // Step 5: Get top 5
+            topColleges = rankedColleges.slice(0, 5);
+            
+            // Display results
+            displayResults(topColleges, sortedMajors);
+        }
+
+        // ========================================
+        // FILTER BY LOCATION
+        // ========================================
+        function filterByLocation(locationAnswer) {
+            if (locationAnswer.includes("Stay in Florida")) {
+                return COLLEGES.filter(c => c.state === "FL");
+            } else if (locationAnswer.includes("Southeast")) {
+                return COLLEGES.filter(c => REGIONS.Southeast.includes(c.state));
+            } else if (locationAnswer.includes("Northeast")) {
+                return COLLEGES.filter(c => REGIONS.Northeast.includes(c.state));
+            } else if (locationAnswer.includes("West Coast")) {
+                return COLLEGES.filter(c => REGIONS["West Coast"].includes(c.state));
+            } else if (locationAnswer.includes("Midwest")) {
+                return COLLEGES.filter(c => REGIONS.Midwest.includes(c.state));
+            } else if (locationAnswer.includes("Southwest")) {
+                return COLLEGES.filter(c => REGIONS.Southwest.includes(c.state));
+            } else {
+                return COLLEGES; // Anywhere in U.S.
+            }
+        }
+
+        // ========================================
+        // FILTER BY ACADEMICS
+        // ========================================
+        function filterByAcademics(colleges, gpaAnswer, testScoreAnswer) {
+            // For now, return all colleges
+            // You can add more sophisticated filtering based on GPA/test scores
+            // This would require parsing the college's admission requirements
+            return colleges;
+        }
+
+        // ========================================
+        // RANK BY MAJOR
+        // ========================================
+        function rankByMajor(colleges, topMajors) {
+            return colleges.map(college => {
+                let score = 0;
+                
+                // Check if college offers top majors
+                if (college.strongMajors.includes(topMajors[0])) score += 50;
+                if (college.strongMajors.includes(topMajors[1])) score += 30;
+                if (college.strongMajors.includes(topMajors[2])) score += 20;
+                
+                // Bonus for highly ranked colleges
+                if (college.ranking <= 10) score += 30;
+                else if (college.ranking <= 25) score += 20;
+                else if (college.ranking <= 50) score += 10;
+                
+                // Bonus for campus preferences
+                const sizeAnswer = answers[6];
+                const settingAnswer = answers[7];
+                
+                if (sizeAnswer.includes(college.campusSize)) score += 10;
+                if (settingAnswer.includes(college.setting)) score += 10;
+                
+                return { ...college, matchScore: score };
+            })
+            .sort((a, b) => b.matchScore - a.matchScore);
+        }
+
+        // ========================================
+        // DISPLAY RESULTS
+        // ========================================
+        function displayResults(colleges, topMajors) {
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.innerHTML = '';
+            
+            if (colleges.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div class="error-message">
+                        <h2>No Matches Found</h2>
+                        <p>We couldn't find colleges matching your criteria in the selected region.</p>
+                        <p>Try selecting "Anywhere in the U.S." for more options.</p>
+                        <button class="btn" onclick="restartQuiz()">Start Over</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Results Header
+            let html = `
+                <div style="text-align:center; margin-bottom:30px;">
+                    <p style="font-size:1.1em; color:#666;">Based on your interests in:</p>
+                    <div style="margin:15px 0;">
+                        <span class="major-tag">${topMajors[0]}</span>
+                        <span class="major-tag">${topMajors[1]}</span>
+                        <span class="major-tag">${topMajors[2]}</span>
+                    </div>
+                </div>
+            `;
+            
+            // Display each college
+            colleges.forEach((college, index) => {
+                const matchPercentage = Math.round((college.matchScore / 140) * 100);
+                
+                html += `
+                    <div class="college-card">
+                        <div style="display:flex; justify-content:space-between; align-items:start; flex-wrap:wrap;">
+                            <div>
+                                <span class="college-rank">#${index + 1}</span>
+                                <h3>${college.name}</h3>
+                                <p style="color:#666; margin:5px 0;">${college.city}, ${college.state} | ${college.type}</p>
+                            </div>
+                            <div class="match-score">${matchPercentage}% Match</div>
+                        </div>
+                        
+                        <div class="majors-list">
+                            ${college.strongMajors.slice(0, 5).map(major => 
+                                `<span class="major-tag">${major}</span>`
+                            ).join('')}
+                        </div>
+                        
+                        <div class="college-info">
+                            <div class="info-item">
+                                <div class="info-label">Acceptance Rate</div>
+                                <div class="info-value">${college.acceptance}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">SAT Range</div>
+                                <div class="info-value">${college.sat}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">ACT Range</div>
+                                <div class="info-value">${college.act}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Annual Cost</div>
+                                <div class="info-value">${college.tuition}</div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin:15px 0;">
+                            <strong>Campus:</strong> ${college.campusSize} | ${college.setting}
+                        </div>
+                        
+                        ${college.notablePrograms && college.notablePrograms.length > 0 ? `
+                            <div style="margin:15px 0;">
+                                <strong>Notable Programs:</strong> ${college.notablePrograms.join(', ')}
+                            </div>
+                        ` : ''}
+                        
+                        <a href="${college.website}" target="_blank" class="college-link">Visit Website →</a>
+                    </div>
+                `;
+            });
+            
+            resultsContainer.innerHTML = html;
+            
+            // Show results screen
+            document.getElementById('quizScreen').classList.remove('active');
+            document.getElementById('resultsScreen').classList.add('active');
+        }
+
+        // ========================================
+        // SHOW SCHEDULE
+        // ========================================
+        function showSchedule() {
+            const scheduleContainer = document.getElementById('scheduleContainer');
+            
+            // Get top major from previous results
+            const majorScores = {};
+            Object.keys(MAJOR_KEYWORDS).forEach(major => {
+                majorScores[major] = 0;
+            });
+            
+            answers.forEach(answer => {
+                const lowerAnswer = answer.toLowerCase();
+                Object.keys(MAJOR_KEYWORDS).forEach(major => {
+                    MAJOR_KEYWORDS[major].forEach(keyword => {
+                        if (lowerAnswer.includes(keyword)) {
+                            majorScores[major] += 10;
+                        }
+                    });
+                });
+            });
+            
+            const topMajor = Object.entries(majorScores)
+                .sort((a, b) => b[1] - a[1])[0][0];
+            
+            let html = `
+                <p style="text-align:center; color:#666; margin-bottom:30px; font-size:1.1em;">
+                    Recommended courses based on your interest in <strong>${topMajor}</strong>
+                </p>
+            `;
+            
+            // Generate 4-year plan
+            for (let grade = 9; grade <= 12; grade++) {
+                const gradeName = ['9th Grade (Freshman)', '10th Grade (Sophomore)', '11th Grade (Junior)', '12th Grade (Senior)'][grade - 9];
+                const courses = getCoursesForMajor(topMajor, grade);
+                
+                html += `
+                    <div class="grade-section">
+                        <h4>${gradeName}</h4>
+                        <div class="courses-grid">
+                            ${courses.map(course => `
+                                <div class="course">
+                                    <strong>${course.subject}:</strong><br>${course.course}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            html += `
+                <div style="background:#f0f7ff; padding:20px; border-radius:10px; margin-top:20px;">
+                    <h4 style="color:#1e3c72; margin-top:0;">💡 Additional Recommendations</h4>
+                    <ul style="line-height:1.8; color:#333;">
+                        <li>Maintain a GPA of 3.5+ for competitive colleges</li>
+                        <li>Take SAT/ACT prep courses in 11th grade</li>
+                        <li>Join clubs related to ${topMajor}</li>
+                        <li>Seek leadership positions in extracurriculars</li>
+                        <li>Complete volunteer hours (100+ recommended)</li>
+                        <li>Meet with college counselor regularly starting 10th grade</li>
+                    </ul>
+                </div>
+            `;
+            
+            scheduleContainer.innerHTML = html;
+            
+            // Show schedule screen
+            document.getElementById('resultsScreen').classList.remove('active');
+            document.getElementById('scheduleScreen').classList.add('active');
+        }
+
+        // ========================================
+        // GET COURSES FOR MAJOR
+        // ========================================
+        function getCoursesForMajor(major, grade) {
+            const baseCourses = {
+                9: [
+                    { subject: 'English', course: 'English I' },
+                    { subject: 'Math', course: 'Algebra I or Geometry' },
+                    { subject: 'Science', course: 'Biology' },
+                    { subject: 'Social Studies', course: 'World History' },
+                    { subject: 'Foreign Language', course: 'Spanish/French I' },
+                    { subject: 'Elective', course: 'Arts or Technology' }
+                ],
+                10: [
+                    { subject: 'English', course: 'English II' },
+                    { subject: 'Math', course: 'Geometry or Algebra II' },
+                    { subject: 'Science', course: 'Chemistry' },
+                    { subject: 'Social Studies', course: 'U.S. History' },
+                    { subject: 'Foreign Language', course: 'Spanish/French II' },
+                    { subject: 'Elective', course: 'Career-focused elective' }
+                ],
+                11: [
+                    { subject: 'English', course: 'English III or AP Language' },
+                    { subject: 'Math', course: 'Algebra II or Pre-Calculus' },
+                    { subject: 'Science', course: 'Physics or AP Science' },
+                    { subject: 'Social Studies', course: 'U.S. Government' },
+                    { subject: 'Foreign Language', course: 'Spanish/French III' },
+                    { subject: 'Elective', course: 'AP or Honors elective' }
+                ],
+                12: [
+                    { subject: 'English', course: 'English IV or AP Literature' },
+                    { subject: 'Math', course: 'Pre-Calculus or AP Calculus' },
+                    { subject: 'Science', course: 'AP Science or Elective' },
+                    { subject: 'Social Studies', course: 'Economics or AP History' },
+                    { subject: 'Foreign Language', course: 'Spanish/French IV or AP' },
+                    { subject: 'Elective', course: 'College prep or internship' }
+                ]
+            };
+            
+            let courses = JSON.parse(JSON.stringify(baseCourses[grade])); // Deep copy
+            
+            // Customize based on major
+            if (major === 'Computer Science' || major === 'Engineering') {
+                if (grade >= 10) courses[1].course += ' (Honors recommended)';
+                if (grade >= 11) courses[2].course = 'Physics or AP Physics';
+                if (grade === 12) courses[1].course = 'AP Calculus AB/BC';
+            } else if (major === 'Biology' || major === 'Environmental Science') {
+                if (grade >= 10) courses[2].course += ' (Lab focus)';
+                if (grade === 11) courses[2].course = 'AP Biology or Marine Science';
+                if (grade === 12) courses[2].course = 'AP Environmental Science';
+            } else if (major === 'Business' || major === 'Economics') {
+                if (grade >= 11) courses[5].course = 'Business or Economics elective';
+                if (grade === 12) courses[3].course = 'AP Economics';
+            } else if (major === 'Medicine') {
+                if (grade >= 10) courses[2].course += ' (Honors)';
+                if (grade === 11) courses[2].course = 'AP Biology or AP Chemistry';
+                if (grade === 12) courses[2].course = 'AP Biology and AP Chemistry';
+            }
+            
+            return courses;
+        }
+
+        // ========================================
+        // NAVIGATION FUNCTIONS
+        // ========================================
+        function restartQuiz() {
+            currentQuestion = 0;
+            answers = [];
+            topColleges = [];
+            
+            document.getElementById('resultsScreen').classList.remove('active');
+            document.getElementById('scheduleScreen').classList.remove('active');
+            document.getElementById('welcomeScreen').classList.add('active');
+        }
+
+        function backToResults() {
+            document.getElementById('scheduleScreen').classList.remove('active');
+            document.getElementById('resultsScreen').classList.add('active');
+        }
+
+        // ========================================
+        // INITIALIZE APP
+        // ========================================
+        window.onload = function() {
+            // Hide loading, show welcome
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.remove('active');
+                document.getElementById('welcomeScreen').classList.add('active');
+            }, 1000);
+        };
+    </script>
+</body>
+</html>
