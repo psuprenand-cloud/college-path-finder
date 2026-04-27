@@ -1651,8 +1651,15 @@
             
             // Filter colleges by location
             const locationAnswer = answers[13]; // Last question (now question 14)
-            console.log("=== DEBUG: LOCATION ===");
-            console.log("Location answer:", locationAnswer);
+            console.log("=== LOCATION DEBUG ===");
+            console.log("Raw location answer:", locationAnswer);
+            console.log("Type:", typeof locationAnswer);
+            console.log("Includes 'Stay in Florida'?", locationAnswer.includes("Stay in Florida"));
+            
+            let filteredColleges = filterByLocation(COLLEGES, locationAnswer);
+            
+            console.log("Filtered colleges count:", filteredColleges.length);
+            console.log("First 5 colleges:", filteredColleges.slice(0, 5).map(c => c.name + " (" + c.state + ")"));
             
             let filteredColleges = filterByLocation(COLLEGES, locationAnswer);
             console.log("=== DEBUG: FILTERED COLLEGES ===");
