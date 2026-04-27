@@ -1809,65 +1809,137 @@
         // GET COURSES FOR MAJOR
         // ========================================
         function getCoursesForMajor(major, grade) {
+            // Get user preferences
+            const rigorAnswer = answers[10] || '';
+            const languageAnswer = answers[11] || '';
+            const artsAnswer = answers[12] || '';
+            
+            // Determine rigor level
+            const isMaxRigor = rigorAnswer.includes('Maximum challenge');
+            const isBalanced = rigorAnswer.includes('Balanced');
+            const isModerate = rigorAnswer.includes('Moderate');
+            
+            // Determine language
+            let language = 'Spanish/French';
+            if (languageAnswer.includes('Spanish')) language = 'Spanish';
+            else if (languageAnswer.includes('French')) language = 'French';
+            else if (languageAnswer.includes('Mandarin')) language = 'Mandarin Chinese';
+            else if (languageAnswer.includes('German')) language = 'German';
+            
+            // Determine arts focus
+            let artsElective = 'Arts or Technology';
+            if (artsAnswer.includes('Visual Arts')) artsElective = 'Visual Arts';
+            else if (artsAnswer.includes('Performing Arts')) artsElective = 'Theater/Dance';
+            else if (artsAnswer.includes('Music')) artsElective = 'Music (Band/Orchestra/Choir)';
+            else if (artsAnswer.includes('Digital Arts')) artsElective = 'Digital Arts/Photography';
+            else if (artsAnswer.includes('No')) artsElective = 'Technology or Career Elective';
+            
             const baseCourses = {
                 9: [
                     { subject: 'English', course: 'English I' },
                     { subject: 'Math', course: 'Algebra I or Geometry' },
                     { subject: 'Science', course: 'Biology' },
                     { subject: 'Social Studies', course: 'World History' },
-                    { subject: 'Foreign Language', course: 'Spanish/French I' },
-                    { subject: 'Elective', course: 'Arts or Technology' }
+                    { subject: 'Foreign Language', course: language + ' I' },
+                    { subject: 'Elective', course: artsElective }
                 ],
                 10: [
                     { subject: 'English', course: 'English II' },
                     { subject: 'Math', course: 'Geometry or Algebra II' },
                     { subject: 'Science', course: 'Chemistry' },
                     { subject: 'Social Studies', course: 'U.S. History' },
-                    { subject: 'Foreign Language', course: 'Spanish/French II' },
-                    { subject: 'Elective', course: 'Career-focused elective' }
+                    { subject: 'Foreign Language', course: language + ' II' },
+                    { subject: 'Elective', course: artsElective + ' (Advanced)' }
                 ],
                 11: [
-                    { subject: 'English', course: 'English III or AP Language' },
+                    { subject: 'English', course: 'English III' },
                     { subject: 'Math', course: 'Algebra II or Pre-Calculus' },
-                    { subject: 'Science', course: 'Physics or AP Science' },
+                    { subject: 'Science', course: 'Physics' },
                     { subject: 'Social Studies', course: 'U.S. Government' },
-                    { subject: 'Foreign Language', course: 'Spanish/French III' },
-                    { subject: 'Elective', course: 'AP or Honors elective' }
+                    { subject: 'Foreign Language', course: language + ' III' },
+                    { subject: 'Elective', course: 'Career-focused elective' }
                 ],
                 12: [
-                    { subject: 'English', course: 'English IV or AP Literature' },
-                    { subject: 'Math', course: 'Pre-Calculus or AP Calculus' },
-                    { subject: 'Science', course: 'AP Science or Elective' },
-                    { subject: 'Social Studies', course: 'Economics or AP History' },
-                    { subject: 'Foreign Language', course: 'Spanish/French IV or AP' },
+                    { subject: 'English', course: 'English IV' },
+                    { subject: 'Math', course: 'Pre-Calculus or Statistics' },
+                    { subject: 'Science', course: 'Science Elective' },
+                    { subject: 'Social Studies', course: 'Economics' },
+                    { subject: 'Foreign Language', course: language + ' IV' },
                     { subject: 'Elective', course: 'College prep or internship' }
                 ]
             };
             
             let courses = JSON.parse(JSON.stringify(baseCourses[grade])); // Deep copy
             
+            // Apply rigor level (AP/Honors)
+            if (isMaxRigor) {
+                if (grade === 10) {
+                    courses[0].course = 'English II Honors';
+                    courses[1].course = 'Geometry Honors or Algebra II Honors';
+                    courses[2].course = 'Chemistry Honors';
+                    courses[3].course = 'AP World History or U.S. History Honors';
+                }
+                if (grade === 11) {
+                    courses[0].course = 'AP English Language';
+                    courses[1].course = 'AP Calculus AB or Pre-Calculus Honors';
+                    courses[2].course = 'AP Physics or AP Chemistry';
+                    courses[3].course = 'AP U.S. Government';
+                }
+                if (grade === 12) {
+                    courses[0].course = 'AP English Literature';
+                    courses[1].course = 'AP Calculus BC or AP Statistics';
+                    courses[2].course = 'AP Science (Biology/Chemistry/Physics)';
+                    courses[3].course = 'AP Economics (Macro/Micro)';
+                }
+            } else if (isBalanced) {
+                if (grade >= 11) {
+                    courses[0].course = 'AP English Language or English III Honors';
+                    courses[1].course = 'Pre-Calculus Honors';
+                }
+                if (grade === 12) {
+                    courses[0].course = 'AP English Literature or English IV Honors';
+                    courses[3].course = 'AP Economics or Economics Honors';
+                }
+            } else if (isModerate) {
+                if (grade === 11) {
+                    courses[0].course = 'English III Honors';
+                }
+                if (grade === 12) {
+                    courses[0].course = 'English IV Honors or AP English';
+                }
+            }
+            
             // Customize based on major
             if (major === 'Computer Science' || major === 'Engineering') {
-                if (grade >= 10) courses[1].course += ' (Honors recommended)';
-                if (grade >= 11) courses[2].course = 'Physics or AP Physics';
-                if (grade === 12) courses[1].course = 'AP Calculus AB/BC';
+                if (grade >= 10) courses[1].course += ' + Computer Science';
+                if (grade >= 11) courses[2].course = isMaxRigor ? 'AP Physics C' : 'AP Physics 1';
+                if (grade === 12) courses[1].course = isMaxRigor ? 'AP Calculus BC' : 'AP Calculus AB';
             } else if (major === 'Biology' || major === 'Environmental Science') {
                 if (grade >= 10) courses[2].course += ' (Lab focus)';
-                if (grade === 11) courses[2].course = 'AP Biology or Marine Science';
-                if (grade === 12) courses[2].course = 'AP Environmental Science';
+                if (grade === 11) courses[2].course = 'AP Biology';
+                if (grade === 12) courses[2].course = 'AP Environmental Science or AP Biology';
             } else if (major === 'Business' || major === 'Economics') {
-                if (grade >= 11) courses[5].course = 'Business or Economics elective';
-                if (grade === 12) courses[3].course = 'AP Economics';
+                if (grade >= 11) courses[5].course = 'Business Management or Economics';
+                if (grade === 12) courses[3].course = 'AP Economics (Macro & Micro)';
             } else if (major === 'Medicine') {
-                if (grade >= 10) courses[2].course += ' (Honors)';
-                if (grade === 11) courses[2].course = 'AP Biology or AP Chemistry';
-                if (grade === 12) courses[2].course = 'AP Biology and AP Chemistry';
+                if (grade >= 10) courses[2].course += ' Honors';
+                if (grade === 11) courses[2].course = 'AP Chemistry';
+                if (grade === 12) courses[2].course = 'AP Biology + AP Chemistry';
             } else if (major === 'Arts') {
-                if (grade >= 10) courses[5].course = 'Advanced Art or Music';
+                if (grade >= 10) courses[5].course = 'Advanced ' + artsElective;
                 if (grade >= 11) courses[5].course = 'AP Art or AP Music Theory';
             } else if (major === 'Psychology' || major === 'Education') {
-                if (grade >= 11) courses[5].course = 'Psychology or Child Development';
+                if (grade >= 11) courses[5].course = 'AP Psychology';
                 if (grade === 12) courses[3].course = 'AP Psychology';
+            }
+            
+            // Handle "not interested in language" option
+            if (languageAnswer.includes('Not interested')) {
+                courses[4].course = 'Additional Elective (Language not required)';
+            } else if (languageAnswer.includes('2-3 years')) {
+                if (grade >= 11) {
+                    courses[4].course = 'Additional Elective (Language complete)';
+                }
             }
             
             return courses;
