@@ -1311,6 +1311,7 @@
         ];
 
         // ========================================
+        // ========================================
         // QUIZ QUESTIONS
         // ========================================
         const QUESTIONS = [
@@ -1354,81 +1355,102 @@
                 opts: [
                     "Analytical thinking & logic",
                     "Creativity & innovation",
-                    "Communication & writing",
-                    "Leadership & teamwork",
-                    "Technical & hands-on skills",
+                    "Communication & leadership",
+                    "Problem-solving & critical thinking",
+                    "Attention to detail & organization",
                     "Empathy & interpersonal skills"
                 ]
             },
             {
-                q: "What type of learning environment do you prefer?",
+                q: "What type of college environment appeals to you?",
                 opts: [
-                    "Hands-on labs & experiments",
-                    "Group discussions & collaboration",
-                    "Independent research & study",
-                    "Real-world projects & internships",
-                    "Creative studios & workshops",
-                    "Lectures & structured learning"
-                ]
-            },
-            {
-                q: "What impact do you want to make?",
-                opts: [
-                    "Advance technology & innovation",
-                    "Improve health & save lives",
-                    "Create art & inspire others",
-                    "Build businesses & create jobs",
-                    "Protect the environment",
-                    "Promote justice & equality",
-                    "Educate & mentor others",
-                    "Discover new scientific knowledge"
-                ]
-            },
-            {
-                q: "What's your preferred campus size?",
-                opts: [
-                    "Small (under 5,000 students)",
-                    "Medium (5,000-15,000 students)",
-                    "Large (over 15,000 students)",
+                    "Large university with lots of activities",
+                    "Medium-sized school with balanced community",
+                    "Small college with close-knit community",
                     "No preference"
                 ]
             },
             {
-                q: "What campus setting appeals to you?",
+                q: "What setting do you prefer for college?",
                 opts: [
                     "Urban (big city)",
                     "Suburban (near a city)",
-                    "Rural (countryside)",
+                    "Rural (countryside/small town)",
                     "No preference"
                 ]
             },
             {
-                q: "What's your current GPA range?",
+                q: "Do you prefer public or private colleges?",
                 opts: [
-                    "3.8-4.0+ (weighted)",
-                    "3.5-3.7 (weighted)",
-                    "3.0-3.4 (weighted)",
-                    "Below 3.0 (weighted)"
+                    "Public universities",
+                    "Private universities",
+                    "No preference"
                 ]
             },
             {
-                q: "What's your SAT/ACT score range? (or expected)",
+                q: "What's your current GPA (or expected GPA)?",
                 opts: [
-                    "SAT 1400+ / ACT 32+",
-                    "SAT 1200-1390 / ACT 26-31",
-                    "SAT 1000-1190 / ACT 21-25",
+                    "4.0 (Perfect grades)",
+                    "3.7-3.9 (Mostly A's)",
+                    "3.3-3.6 (A's and B's)",
+                    "3.0-3.2 (Mostly B's)",
+                    "Below 3.0"
+                ]
+            },
+            {
+                q: "What are your standardized test scores (or expected range)?",
+                opts: [
+                    "SAT 1400+ / ACT 32+ (Top scores)",
+                    "SAT 1200-1390 / ACT 26-31 (Above average)",
+                    "SAT 1000-1190 / ACT 21-25 (Average)",
                     "Below SAT 1000 / ACT 21",
-                    "Haven't taken yet"
+                    "Haven't taken yet / Not sure"
                 ]
             },
             {
-                q: "Where would you like to attend college?",
+                q: "What level of academic rigor do you prefer at Saint Stephen's?",
+                opts: [
+                    "Maximum challenge - AP and Honors courses",
+                    "Balanced - Mix of Honors and college prep",
+                    "College prep - Standard track courses"
+                ]
+            },
+            {
+                q: "Which foreign language track interests you at Saint Stephen's?",
+                opts: [
+                    "Spanish (4 years)",
+                    "Latin (4 years)",
+                    "Mandarin Chinese (4 years)",
+                    "Complete 3 years minimum, then switch or stop"
+                ]
+            },
+            {
+                q: "Are you interested in visual or performing arts?",
+                opts: [
+                    "Yes - Visual Arts (Studio Art, Ceramics, Photography, Graphic Design)",
+                    "Yes - Performing Arts (Theatre, Band, Orchestra)",
+                    "Yes - Digital Arts (Video Journalism, Yearbook)",
+                    "No - I prefer STEM or other electives"
+                ]
+            },
+            {
+                q: "Are you interested in pursuing a graduation distinction?",
+                opts: [
+                    "Ocean Academy (Marine Science focus)",
+                    "Arts Conservatory (Visual Arts focus)",
+                    "Capstone Scholar (Original research)",
+                    "Global Scholars (Cross-cultural work)",
+                    "Not interested in a distinction"
+                ]
+            },
+            {
+                q: "Where would you like to go to college?",
                 opts: [
                     "Stay in Florida",
-                    "Southeast Region (FL, GA, SC, NC, TN, AL, VA)",
-                    "Northeast (MA, NY, PA, NJ, CT, etc.)",
-                    "West Coast (CA, OR, WA)",
-                    "Midwest (IL, MI, OH, WI, etc.)",
+                    "Southeast (GA, NC, SC, TN, AL, etc.)",
+                    "Northeast (NY, MA, PA, etc.)",
+                    "West Coast (CA, WA, OR)",
+                    "Midwest (IL, MI, OH, etc.)",
                     "Southwest (TX, AZ, CO, etc.)",
                     "Anywhere in the U.S."
                 ]
@@ -1556,39 +1578,101 @@
         // CALCULATE RESULTS
         // ========================================
         function calculateResults() {
-            const majorScores = {};
+            // Determine top majors based on interests
+            const interestAnswer = answers[0];
+            const activityAnswer = answers[1];
+            const careerAnswer = answers[2];
             
-            Object.keys(MAJOR_KEYWORDS).forEach(major => {
-                majorScores[major] = 0;
+            let majorScores = {};
+            const allMajors = ["Computer Science", "Engineering", "Business", "Biology", "Psychology", 
+                             "Medicine", "Arts", "Economics", "Education", "Environmental Science"];
+            
+            allMajors.forEach(major => majorScores[major] = 0);
+            
+            // Score majors based on answers
+            if (interestAnswer.includes("Math & Science")) {
+                majorScores["Engineering"] += 3;
+                majorScores["Computer Science"] += 2;
+                majorScores["Biology"] += 2;
+            }
+            if (interestAnswer.includes("Technology")) {
+                majorScores["Computer Science"] += 3;
+                majorScores["Engineering"] += 2;
+            }
+            if (interestAnswer.includes("Arts")) {
+                majorScores["Arts"] += 3;
+                majorScores["Education"] += 1;
+            }
+            if (interestAnswer.includes("Business")) {
+                majorScores["Business"] += 3;
+                majorScores["Economics"] += 2;
+            }
+            if (interestAnswer.includes("Health")) {
+                majorScores["Medicine"] += 3;
+                majorScores["Biology"] += 2;
+            }
+            if (interestAnswer.includes("Social Sciences")) {
+                majorScores["Psychology"] += 3;
+                majorScores["Education"] += 2;
+            }
+            
+            if (careerAnswer.includes("Engineer")) {
+                majorScores["Engineering"] += 3;
+            }
+            if (careerAnswer.includes("Doctor")) {
+                majorScores["Medicine"] += 3;
+                majorScores["Biology"] += 2;
+            }
+            if (careerAnswer.includes("Software")) {
+                majorScores["Computer Science"] += 3;
+            }
+            if (careerAnswer.includes("Business")) {
+                majorScores["Business"] += 3;
+                majorScores["Economics"] += 2;
+            }
+            if (careerAnswer.includes("Teacher")) {
+                majorScores["Education"] += 3;
+                majorScores["Psychology"] += 1;
+            }
+            if (careerAnswer.includes("Artist")) {
+                majorScores["Arts"] += 3;
+            }
+            if (careerAnswer.includes("Scientist")) {
+                majorScores["Biology"] += 2;
+                majorScores["Environmental Science"] += 2;
+            }
+            
+            // Sort majors by score
+            let sortedMajors = Object.keys(majorScores).sort((a, b) => majorScores[b] - majorScores[a]);
+            
+            console.log("=== DEBUG: TOP MAJORS ===");
+            console.log("Top 3 majors:", sortedMajors.slice(0, 3));
+            console.log("Major scores:", majorScores);
+            
+            // Filter colleges by location
+            const locationAnswer = answers[13]; // Last question (now question 14)
+            console.log("=== DEBUG: LOCATION ===");
+            console.log("Location answer:", locationAnswer);
+            
+            let filteredColleges = filterByLocation(COLLEGES, locationAnswer);
+            console.log("=== DEBUG: FILTERED COLLEGES ===");
+            console.log("Total colleges after location filter:", filteredColleges.length);
+            console.log("College names:", filteredColleges.map(c => c.name));
+            
+            // Rank colleges by major match
+            let rankedColleges = rankByMajor(filteredColleges, sortedMajors);
+            console.log("=== DEBUG: RANKED COLLEGES ===");
+            console.log("Colleges with scores:");
+            rankedColleges.forEach(c => {
+                console.log(`${c.name}: ${c.matchScore} points`);
             });
             
-            answers.forEach(answer => {
-                const lowerAnswer = answer.toLowerCase();
-                Object.keys(MAJOR_KEYWORDS).forEach(major => {
-                    MAJOR_KEYWORDS[major].forEach(keyword => {
-                        if (lowerAnswer.includes(keyword)) {
-                            majorScores[major] += 10;
-                        }
-                    });
-                });
-            });
-            
-            const sortedMajors = Object.entries(majorScores)
-                .sort((a, b) => b[1] - a[1])
-                .slice(0, 3)
-                .map(entry => entry[0]);
-            
-            const locationAnswer = answers[10];
-            let filteredColleges = filterByLocation(locationAnswer);
-            
-            const gpaAnswer = answers[8];
-            const testScoreAnswer = answers[9];
-            filteredColleges = filterByAcademics(filteredColleges, gpaAnswer, testScoreAnswer);
-            
-            const rankedColleges = rankByMajor(filteredColleges, sortedMajors);
-            
+            // Get top 5
             topColleges = rankedColleges.slice(0, 5);
+            console.log("=== DEBUG: TOP 5 ===");
+            console.log("Final top 5:", topColleges.map(c => c.name));
             
+            // Display results
             displayResults(topColleges, sortedMajors);
         }
 
@@ -1805,140 +1889,171 @@
             document.getElementById('scheduleScreen').classList.add('active');
         }
 
-        // ========================================
-        // GET COURSES FOR MAJOR
+         // ========================================
+        // GET COURSES FOR MAJOR (SAINT STEPHEN'S SPECIFIC)
         // ========================================
         function getCoursesForMajor(major, grade) {
             // Get user preferences
-            const rigorAnswer = answers[10] || '';
-            const languageAnswer = answers[11] || '';
-            const artsAnswer = answers[12] || '';
+            const rigorAnswer = answers[9] || '';
+            const languageAnswer = answers[10] || '';
+            const artsAnswer = answers[11] || '';
+            const distinctionAnswer = answers[12] || '';
             
             // Determine rigor level
             const isMaxRigor = rigorAnswer.includes('Maximum challenge');
             const isBalanced = rigorAnswer.includes('Balanced');
-            const isModerate = rigorAnswer.includes('Moderate');
             
             // Determine language
-            let language = 'Spanish/French';
-            if (languageAnswer.includes('Spanish')) language = 'Spanish';
-            else if (languageAnswer.includes('French')) language = 'French';
-            else if (languageAnswer.includes('Mandarin')) language = 'Mandarin Chinese';
-            else if (languageAnswer.includes('German')) language = 'German';
+            let language = 'Spanish';
+            if (languageAnswer.includes('Latin')) language = 'Latin';
+            else if (languageAnswer.includes('Mandarin') || languageAnswer.includes('Chinese')) language = 'Chinese';
             
             // Determine arts focus
-            let artsElective = 'Arts or Technology';
-            if (artsAnswer.includes('Visual Arts')) artsElective = 'Visual Arts';
-            else if (artsAnswer.includes('Performing Arts')) artsElective = 'Theater/Dance';
-            else if (artsAnswer.includes('Music')) artsElective = 'Music (Band/Orchestra/Choir)';
-            else if (artsAnswer.includes('Digital Arts')) artsElective = 'Digital Arts/Photography';
-            else if (artsAnswer.includes('No')) artsElective = 'Technology or Career Elective';
+            let artsElective = 'sTEAm Wheel or Arts elective';
+            if (artsAnswer.includes('Visual Arts')) artsElective = 'Studio Art 2D or Ceramics';
+            else if (artsAnswer.includes('Performing Arts')) artsElective = 'Theatre, Band, or Orchestra';
+            else if (artsAnswer.includes('Digital Arts')) artsElective = 'Video Journalism or Yearbook';
+            else if (artsAnswer.includes('No')) artsElective = 'Intro to Computer Science or Engineering';
             
             const baseCourses = {
                 9: [
-                    { subject: 'English', course: 'English I' },
-                    { subject: 'Math', course: 'Algebra I or Geometry' },
+                    { subject: 'English', course: 'English 9' },
+                    { subject: 'Math', course: 'Algebra 1 or Geometry' },
                     { subject: 'Science', course: 'Biology' },
-                    { subject: 'Social Studies', course: 'World History' },
-                    { subject: 'Foreign Language', course: language + ' I' },
-                    { subject: 'Elective', course: artsElective }
+                    { subject: 'Social Studies', course: 'Ancient World History' },
+                    { subject: 'Language', course: language + ' 1 or 2' },
+                    { subject: 'Arts/Elective', course: artsElective }
                 ],
                 10: [
-                    { subject: 'English', course: 'English II' },
-                    { subject: 'Math', course: 'Geometry or Algebra II' },
+                    { subject: 'English', course: 'English 10' },
+                    { subject: 'Math', course: 'Geometry or Algebra 2' },
                     { subject: 'Science', course: 'Chemistry' },
-                    { subject: 'Social Studies', course: 'U.S. History' },
-                    { subject: 'Foreign Language', course: language + ' II' },
-                    { subject: 'Elective', course: artsElective + ' (Advanced)' }
+                    { subject: 'Social Studies', course: 'Modern World History' },
+                    { subject: 'Language', course: language + ' 2 or 3' },
+                    { subject: 'Elective', course: artsElective }
                 ],
                 11: [
-                    { subject: 'English', course: 'English III' },
-                    { subject: 'Math', course: 'Algebra II or Pre-Calculus' },
+                    { subject: 'English', course: 'English Seminars' },
+                    { subject: 'Math', course: 'Algebra 2 or Pre-Calculus' },
                     { subject: 'Science', course: 'Physics' },
-                    { subject: 'Social Studies', course: 'U.S. Government' },
-                    { subject: 'Foreign Language', course: language + ' III' },
+                    { subject: 'Social Studies', course: 'US History' },
+                    { subject: 'Language', course: language + ' 3 or 4' },
                     { subject: 'Elective', course: 'Career-focused elective' }
                 ],
                 12: [
-                    { subject: 'English', course: 'English IV' },
-                    { subject: 'Math', course: 'Pre-Calculus or Statistics' },
+                    { subject: 'English', course: 'English Seminars' },
+                    { subject: 'Math', course: 'Pre-Calculus or College Algebra' },
                     { subject: 'Science', course: 'Science Elective' },
-                    { subject: 'Social Studies', course: 'Economics' },
-                    { subject: 'Foreign Language', course: language + ' IV' },
-                    { subject: 'Elective', course: 'College prep or internship' }
+                    { subject: 'Social Studies', course: 'Global Economics or elective' },
+                    { subject: 'Language', course: language + ' 4 or elective' },
+                    { subject: 'Elective', course: 'Specialized elective or internship' }
                 ]
             };
             
             let courses = JSON.parse(JSON.stringify(baseCourses[grade])); // Deep copy
             
-            // Apply rigor level (AP/Honors)
+            // Apply rigor level (Honors and AP)
             if (isMaxRigor) {
+                if (grade === 9) {
+                    courses[1].course = 'Geometry Honors';
+                    courses[2].course = 'Biology Honors';
+                }
                 if (grade === 10) {
-                    courses[0].course = 'English II Honors';
-                    courses[1].course = 'Geometry Honors or Algebra II Honors';
+                    courses[0].course = 'English 10 Honors';
+                    courses[1].course = 'Algebra 2 & Trigonometry Honors';
                     courses[2].course = 'Chemistry Honors';
-                    courses[3].course = 'AP World History or U.S. History Honors';
+                    courses[3].course = 'AP World History: Modern';
                 }
                 if (grade === 11) {
-                    courses[0].course = 'AP English Language';
-                    courses[1].course = 'AP Calculus AB or Pre-Calculus Honors';
-                    courses[2].course = 'AP Physics or AP Chemistry';
-                    courses[3].course = 'AP U.S. Government';
+                    courses[0].course = 'AP Language & Composition';
+                    courses[1].course = 'Pre-Calculus Honors or Pre-Calc & Diff Calc Honors';
+                    courses[2].course = 'Physics Honors';
+                    courses[3].course = 'AP US History';
                 }
                 if (grade === 12) {
-                    courses[0].course = 'AP English Literature';
-                    courses[1].course = 'AP Calculus BC or AP Statistics';
-                    courses[2].course = 'AP Science (Biology/Chemistry/Physics)';
-                    courses[3].course = 'AP Economics (Macro/Micro)';
+                    courses[0].course = 'AP Literature & Composition';
+                    courses[1].course = 'AP Calculus AB or BC';
+                    courses[2].course = 'AP Science (Biology/Chemistry/Physics C)';
+                    courses[3].course = 'AP European History or Global Economics';
                 }
             } else if (isBalanced) {
-                if (grade >= 11) {
-                    courses[0].course = 'AP English Language or English III Honors';
-                    courses[1].course = 'Pre-Calculus Honors';
+                if (grade === 10) {
+                    courses[0].course = 'English 10 Honors';
+                    courses[1].course = 'Advanced Algebra 2';
+                    courses[2].course = 'Chemistry Honors';
                 }
-                if (grade === 12) {
-                    courses[0].course = 'AP English Literature or English IV Honors';
-                    courses[3].course = 'AP Economics or Economics Honors';
-                }
-            } else if (isModerate) {
                 if (grade === 11) {
-                    courses[0].course = 'English III Honors';
+                    courses[0].course = 'AP Language & Composition or English Seminars';
+                    courses[1].course = 'Pre-Calculus Honors';
+                    courses[2].course = 'Physics Honors';
+                    courses[3].course = 'AP US History or US History';
                 }
                 if (grade === 12) {
-                    courses[0].course = 'English IV Honors or AP English';
+                    courses[0].course = 'AP Literature or English Seminars';
+                    courses[1].course = 'AP Calculus AB or Pre-Calculus';
+                    courses[2].course = 'AP Science or Science elective';
                 }
             }
             
             // Customize based on major
             if (major === 'Computer Science' || major === 'Engineering') {
-                if (grade >= 10) courses[1].course += ' + Computer Science';
-                if (grade >= 11) courses[2].course = isMaxRigor ? 'AP Physics C' : 'AP Physics 1';
-                if (grade === 12) courses[1].course = isMaxRigor ? 'AP Calculus BC' : 'AP Calculus AB';
+                if (grade >= 10) courses[5].course = 'Intro to Computer Science';
+                if (grade === 11) {
+                    courses[2].course = isMaxRigor ? 'Physics Honors' : 'Physics';
+                    courses[5].course = 'Engineering or AP Computer Science Principles';
+                }
+                if (grade === 12) {
+                    courses[1].course = isMaxRigor ? 'AP Calculus BC' : 'AP Calculus AB';
+                    courses[2].course = 'AP Physics C or Engineering';
+                    courses[5].course = 'AP Computer Science A or AP Cybersecurity';
+                }
             } else if (major === 'Biology' || major === 'Environmental Science') {
-                if (grade >= 10) courses[2].course += ' (Lab focus)';
-                if (grade === 11) courses[2].course = 'AP Biology';
-                if (grade === 12) courses[2].course = 'AP Environmental Science or AP Biology';
+                if (grade >= 10) courses[5].course = 'Marine Science';
+                if (grade === 11) {
+                    courses[2].course = isMaxRigor ? 'Physics Honors' : 'Physics';
+                    courses[5].course = 'Marine Science 2';
+                }
+                if (grade === 12) {
+                    courses[2].course = 'AP Biology or AP Environmental Science';
+                    courses[5].course = 'Marine Science 3 Honors (Ocean Academy)';
+                }
             } else if (major === 'Business' || major === 'Economics') {
-                if (grade >= 11) courses[5].course = 'Business Management or Economics';
-                if (grade === 12) courses[3].course = 'AP Economics (Macro & Micro)';
+                if (grade >= 11) courses[5].course = 'Global Economics or Business elective';
+                if (grade === 12) courses[3].course = 'Global Economics';
             } else if (major === 'Medicine') {
-                if (grade >= 10) courses[2].course += ' Honors';
-                if (grade === 11) courses[2].course = 'AP Chemistry';
-                if (grade === 12) courses[2].course = 'AP Biology + AP Chemistry';
+                if (grade >= 10) courses[2].course = isMaxRigor ? 'Chemistry Honors' : 'Chemistry';
+                if (grade === 11) courses[2].course = isMaxRigor ? 'Physics Honors' : 'Physics';
+                if (grade === 12) {
+                    courses[2].course = 'AP Biology and AP Chemistry';
+                    courses[5].course = 'Marine Science or Health Sciences elective';
+                }
             } else if (major === 'Arts') {
-                if (grade >= 10) courses[5].course = 'Advanced ' + artsElective;
-                if (grade >= 11) courses[5].course = 'AP Art or AP Music Theory';
+                if (grade >= 10) courses[5].course = 'Advanced Studio Art 2D or Ceramics';
+                if (grade === 11) courses[5].course = 'Studio Art 2D Honors or Ceramics 2 Honors';
+                if (grade === 12) courses[5].course = 'AP 2-D or 3-D Art and Design (Arts Conservatory)';
             } else if (major === 'Psychology' || major === 'Education') {
-                if (grade >= 11) courses[5].course = 'AP Psychology';
-                if (grade === 12) courses[3].course = 'AP Psychology';
+                if (grade >= 11) courses[5].course = 'Psychology or Education elective';
+                if (grade === 12) courses[3].course = 'Humanities: the Lyceum';
             }
             
-            // Handle "not interested in language" option
-            if (languageAnswer.includes('Not interested')) {
-                courses[4].course = 'Additional Elective (Language not required)';
-            } else if (languageAnswer.includes('2-3 years')) {
-                if (grade >= 11) {
-                    courses[4].course = 'Additional Elective (Language complete)';
+            // Add distinction-specific recommendations
+            if (distinctionAnswer.includes('Ocean Academy')) {
+                if (grade >= 10) courses[5].course = 'Marine Science (required for Ocean Academy)';
+                if (grade === 11) courses[5].course = 'Marine Science 2';
+                if (grade === 12) courses[5].course = 'Marine Science 3 Honors + Research Project';
+            } else if (distinctionAnswer.includes('Arts Conservatory')) {
+                if (grade >= 10) courses[5].course = 'Visual Arts (4 courses required)';
+                if (grade >= 11) courses[5].course = 'Honors or AP Art course';
+            } else if (distinctionAnswer.includes('Capstone Scholar')) {
+                if (grade === 12) courses[5].course = 'Capstone Research Project';
+            } else if (distinctionAnswer.includes('Global Scholars')) {
+                if (grade >= 11) courses[5].course = 'Globally-focused elective + Exchange program';
+            }
+            
+            // Handle language completion
+            if (languageAnswer.includes('3 years minimum')) {
+                if (grade >= 12) {
+                    courses[4].course = 'Elective (Language requirement complete)';
                 }
             }
             
