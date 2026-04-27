@@ -1656,13 +1656,13 @@
             console.log("Type:", typeof locationAnswer);
             console.log("Includes 'Stay in Florida'?", locationAnswer.includes("Stay in Florida"));
             
-            let filteredColleges = filterByLocation(COLLEGES, locationAnswer);
-            
+           let filteredColleges = filterByLocation(COLLEGES, locationAnswer);  // ← Only ONE call
+
+            console.log("=== LOCATION DEBUG ===");
+            console.log("Raw location answer:", locationAnswer);
+            console.log("Includes 'Stay in Florida'?", locationAnswer.includes("Stay in Florida"));
             console.log("Filtered colleges count:", filteredColleges.length);
             console.log("First 5 colleges:", filteredColleges.slice(0, 5).map(c => c.name + " (" + c.state + ")"));
-            
-            filteredColleges = filterByLocation(COLLEGES, locationAnswer);
-            console.log("=== DEBUG: FILTERED COLLEGES ===");
             console.log("Total colleges after location filter:", filteredColleges.length);
             console.log("College names:", filteredColleges.map(c => c.name));
             
