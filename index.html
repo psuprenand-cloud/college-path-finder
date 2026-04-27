@@ -1717,32 +1717,35 @@
         }
 
         // ========================================
-        // FILTER BY ACADEMICS
-        // ========================================
-        function filterByAcademics(colleges, gpaAnswer, testScoreAnswer) {
-            return colleges;
-        }
-
-        // ========================================
         // RANK BY MAJOR
         // ========================================
         function rankByMajor(colleges, topMajors) {
             return colleges.map(college => {
-                let score = 0;
+                let score = 10; // Base score so all colleges show up
                 
-                if (college.strongMajors.includes(topMajors[0])) score += 50;
-                if (college.strongMajors.includes(topMajors[1])) score += 30;
-                if (college.strongMajors.includes(topMajors[2])) score += 20;
+                // Check if college offers top majors
+                if (college.strongMajors && college.strongMajors.includes(topMajors[0])) score += 50;
+                if (college.strongMajors && college.strongMajors.includes(topMajors[1])) score += 30;
+                if (college.strongMajors && college.strongMajors.includes(topMajors[2])) score += 20;
                 
+                // Bonus for highly ranked colleges
                 if (college.ranking <= 10) score += 30;
                 else if (college.ranking <= 25) score += 20;
-                else if (college.ranking <= 50) score += 10;
+                else if (college.ranking <= 50) score += 15;
+                else if (college.ranking <= 100) score += 10;
+                else score += 5;
                 
-                const sizeAnswer = answers[6];
-                const settingAnswer = answers[7];
+                // Bonus for campus preferences
+                const sizeAnswer = answers[4] || '';
+                const settingAnswer = answers[5] || '';
                 
-                if (sizeAnswer.includes(college.campusSize)) score += 10;
-                if (settingAnswer.includes(college.setting)) score += 10;
+                if (sizeAnswer.includes("Large") && college.campusSize === "Large") score += 10;
+                if (sizeAnswer.includes("Medium") && college.campusSize === "Medium") score += 10;
+                if (sizeAnswer.includes("Small") && college.campusSize === "Small") score += 10;
+                
+                if (settingAnswer.includes("Urban") && college.setting === "Urban") score += 10;
+                if (settingAnswer.includes("Suburban") && college.setting === "Suburban") score += 10;
+                if (settingAnswer.includes("Rural") && college.setting === "Rural") score += 10;
                 
                 return { ...college, matchScore: score };
             })
@@ -1750,184 +1753,154 @@
         }
 
         // ========================================
+        // CALCULATE RESULTS
+        // ========================================
+        function calculateResults() {
+            const interestAnswer = answers[0] || '';
+            const activityAnswer = answers[1] || '';
+            const careerAnswer = answers[2] || '';
+            
+            let majorScores = {};
+            const allMajors = ["Computer Science", "Engineering", "Business", "Biology", "Psychology", 
+                             "Medicine", "Arts", "Economics", "Education", "Environmental Science"];
+            
+            allMajors.forEach(major => majorScores[major] = 0);
+            
+            // Score majors based on answers
+            if (interestAnswer.includes("Math & Science")) {
+                majorScores["Engineering"] += 3;
+                majorScores["Computer Science"] += 2;
+                majorScores["Biology"] += 2;
+            }
+            if (interestAnswer.includes("Technology")) {
+                majorScores["Computer Science"] += 3;
+                majorScores["Engineering"] += 2;
+            }
+            if (interestAnswer.includes("Arts")) {
+                majorScores["Arts"] += 3;
+                majorScores["Education"] += 1;
+            }
+            if (interestAnswer.includes("Business")) {
+                majorScores["Business"] += 3;
+                majorScores["Economics"] += 2;
+            }
+            if (interestAnswer.includes("Health")) {
+                majorScores["Medicine"] += 3;
+                majorScores["Biology"] += 2;
+            }
+            if (interestAnswer.includes("Social Sciences")) {
+                majorScores["Psychology"] += 3;
+                majorScores["Education"] += 2;
+            }
+            
+            if (careerAnswer.includes("Engineer")) {
+                majorScores["Engineering"] += 3;
+            }
+            if (careerAnswer.includes("Doctor")) {
+                majorScores["Medicine"] += 3;
+                majorScores["Biology"] += 2;
+            }
+            if (careerAnswer.includes("Software")) {
+                majorScores["Computer Science"] += 3;
+            }
+            if (careerAnswer.includes("Business")) {
+                majorScores["Business"] += 3;
+                majorScores["Economics"] += 2;
+            }
+            if (careerAnswer.includes("Teacher")) {
+                majorScores["Education"] += 3;
+                majorScores["Psychology"] += 1;
+            }
+            if (careerAnswer.includes("Artist")) {
+                majorScores["Arts"] += 3;
+            }
+            if (careerAnswer.includes("Scientist")) {
+                majorScores["Biology"] += 2;
+                majorScores["Environmental Science"] += 2;
+            }
+            
+            let sortedMajors = Object.keys(majorScores).sort((a, b) => majorScores[b] - majorScores[a]);
+            
+            const locationAnswer = answers[13] || '';
+            
+            let filteredColleges = filterByLocation(COLLEGES, locationAnswer);
+            let rankedColleges = rankByMajor(filteredColleges, sortedMajors);
+            
+            topColleges = rankedColleges.slice(0, 5);
+            
+            displayResults(topColleges, sortedMajors);
+        }
+
+        // ========================================
         // DISPLAY RESULTS
         // ========================================
-        function displayResults(colleges, topMajors) {
-            const resultsContainer = document.getElementById('resultsContainer');
-            resultsContainer.innerHTML = '';
-            
-            if (colleges.length === 0) {
-                resultsContainer.innerHTML = `
-                    <div class="error-message">
-                        <h2>No Matches Found</h2>
-                        <p>We couldn't find colleges matching your criteria in the selected region.</p>
-                        <p>Try selecting "Anywhere in the U.S." for more options.</p>
-                        <button class="btn" onclick="restartQuiz()">Start Over</button>
-                    </div>
-                `;
-                return;
-            }
-            
-            let html = `
-                <div style="text-align:center; margin-bottom:30px;">
-                    <p style="font-size:1.1em; color:#666;">Based on your interests in:</p>
-                    <div style="margin:15px 0;">
-                        <span class="major-tag">${topMajors[0]}</span>
-                        <span class="major-tag">${topMajors[1]}</span>
-                        <span class="major-tag">${topMajors[2]}</span>
-                    </div>
-                </div>
-            `;
+        function displayResults(colleges, majors) {
+            const container = document.getElementById('resultsContainer');
+            container.innerHTML = '';
             
             colleges.forEach((college, index) => {
-                const matchPercentage = Math.round((college.matchScore / 140) * 100);
-                
-                html += `
-                    <div class="college-card">
-                        <div style="display:flex; justify-content:space-between; align-items:start; flex-wrap:wrap;">
-                            <div>
-                                <span class="college-rank">#${index + 1}</span>
-                                <h3>${college.name}</h3>
-                                <p style="color:#666; margin:5px 0;">${college.city}, ${college.state} | ${college.type}</p>
-                            </div>
-                            <div class="match-score">${matchPercentage}% Match</div>
-                        </div>
-                        
-                        <div class="majors-list">
-                            ${college.strongMajors.slice(0, 5).map(major => 
-                                `<span class="major-tag">${major}</span>`
-                            ).join('')}
-                        </div>
-                        
-                        <div class="college-info">
-                            <div class="info-item">
-                                <div class="info-label">Acceptance Rate</div>
-                                <div class="info-value">${college.acceptance}</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">SAT Range</div>
-                                <div class="info-value">${college.sat}</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">ACT Range</div>
-                                <div class="info-value">${college.act}</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">Annual Cost</div>
-                                <div class="info-value">${college.tuition}</div>
-                            </div>
-                        </div>
-                        
-                        <div style="margin:15px 0;">
-                            <strong>Campus:</strong> ${college.campusSize} | ${college.setting}
-                        </div>
-                        
-                        ${college.notablePrograms && college.notablePrograms.length > 0 ? `
-                            <div style="margin:15px 0;">
-                                <strong>Notable Programs:</strong> ${college.notablePrograms.join(', ')}
-                            </div>
-                        ` : ''}
-                        
-                        <a href="${college.website}" target="_blank" class="college-link">Visit Website →</a>
+                const card = document.createElement('div');
+                card.className = 'college-card';
+                card.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3>${index + 1}. ${college.name}</h3>
+                        <span class="match-score">${college.matchScore}% Match</span>
                     </div>
+                    
+                    <p style="color: #666; margin-bottom: 15px;">
+                        <span class="college-rank">Rank #${college.ranking}</span>
+                        ${college.city}, ${college.state} • ${college.type}
+                    </p>
+                    
+                    <div class="college-info">
+                        <div class="info-item">
+                            <div class="info-label">Acceptance Rate</div>
+                            <div class="info-value">${college.acceptance}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">SAT Range</div>
+                            <div class="info-value">${college.sat}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Campus Size</div>
+                            <div class="info-value">${college.campusSize}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Setting</div>
+                            <div class="info-value">${college.setting}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="majors-list">
+                        <strong>Strong Majors:</strong><br>
+                        ${college.strongMajors.map(major => `<span class="major-tag">${major}</span>`).join('')}
+                    </div>
+                    
+                    <p style="margin-top: 15px;"><strong>Tuition:</strong> ${college.tuition}</p>
+                    <a href="${college.website}" target="_blank" class="college-link">Visit Website →</a>
                 `;
+                container.appendChild(card);
             });
             
-            resultsContainer.innerHTML = html;
-            
-            document.getElementById('quizScreen').classList.remove('active');
-            document.getElementById('resultsScreen').classList.add('active');
+            showScreen('resultsScreen');
         }
 
         // ========================================
-        // SHOW SCHEDULE
-        // ========================================
-        function showSchedule() {
-            const scheduleContainer = document.getElementById('scheduleContainer');
-            
-            const majorScores = {};
-            Object.keys(MAJOR_KEYWORDS).forEach(major => {
-                majorScores[major] = 0;
-            });
-            
-            answers.forEach(answer => {
-                const lowerAnswer = answer.toLowerCase();
-                Object.keys(MAJOR_KEYWORDS).forEach(major => {
-                    MAJOR_KEYWORDS[major].forEach(keyword => {
-                        if (lowerAnswer.includes(keyword)) {
-                            majorScores[major] += 10;
-                        }
-                    });
-                });
-            });
-            
-            const topMajor = Object.entries(majorScores)
-                .sort((a, b) => b[1] - a[1])[0][0];
-            
-            let html = `
-                <p style="text-align:center; color:#666; margin-bottom:30px; font-size:1.1em;">
-                    Recommended courses based on your interest in <strong>${topMajor}</strong>
-                </p>
-            `;
-            
-            for (let grade = 9; grade <= 12; grade++) {
-                const gradeName = ['9th Grade (Freshman)', '10th Grade (Sophomore)', '11th Grade (Junior)', '12th Grade (Senior)'][grade - 9];
-                const courses = getCoursesForMajor(topMajor, grade);
-                
-                html += `
-                    <div class="grade-section">
-                        <h4>${gradeName}</h4>
-                        <div class="courses-grid">
-                            ${courses.map(course => `
-                                <div class="course">
-                                    <strong>${course.subject}:</strong><br>${course.course}
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-            }
-            
-            html += `
-                <div style="background:#f0f7ff; padding:20px; border-radius:10px; margin-top:20px;">
-                    <h4 style="color:#1e3c72; margin-top:0;">💡 Additional Recommendations</h4>
-                    <ul style="line-height:1.8; color:#333;">
-                        <li>Maintain a GPA of 3.5+ for competitive colleges</li>
-                        <li>Take SAT/ACT prep courses in 11th grade</li>
-                        <li>Join clubs related to ${topMajor}</li>
-                        <li>Seek leadership positions in extracurriculars</li>
-                        <li>Complete volunteer hours (100+ recommended)</li>
-                        <li>Meet with college counselor regularly starting 10th grade</li>
-                    </ul>
-                </div>
-            `;
-            
-            scheduleContainer.innerHTML = html;
-            
-            document.getElementById('resultsScreen').classList.remove('active');
-            document.getElementById('scheduleScreen').classList.add('active');
-        }
-
-         // ========================================
-        // GET COURSES FOR MAJOR (SAINT STEPHEN'S SPECIFIC)
+        // GET COURSES FOR MAJOR (SAINT STEPHEN'S)
         // ========================================
         function getCoursesForMajor(major, grade) {
-            // Get user preferences
             const rigorAnswer = answers[9] || '';
             const languageAnswer = answers[10] || '';
             const artsAnswer = answers[11] || '';
             const distinctionAnswer = answers[12] || '';
             
-            // Determine rigor level
             const isMaxRigor = rigorAnswer.includes('Maximum challenge');
             const isBalanced = rigorAnswer.includes('Balanced');
             
-            // Determine language
             let language = 'Spanish';
             if (languageAnswer.includes('Latin')) language = 'Latin';
             else if (languageAnswer.includes('Mandarin') || languageAnswer.includes('Chinese')) language = 'Chinese';
             
-            // Determine arts focus
             let artsElective = 'sTEAm Wheel or Arts elective';
             if (artsAnswer.includes('Visual Arts')) artsElective = 'Studio Art 2D or Ceramics';
             else if (artsAnswer.includes('Performing Arts')) artsElective = 'Theatre, Band, or Orchestra';
@@ -1969,9 +1942,8 @@
                 ]
             };
             
-            let courses = JSON.parse(JSON.stringify(baseCourses[grade])); // Deep copy
+            let courses = JSON.parse(JSON.stringify(baseCourses[grade]));
             
-            // Apply rigor level (Honors and AP)
             if (isMaxRigor) {
                 if (grade === 9) {
                     courses[1].course = 'Geometry Honors';
@@ -2019,7 +1991,7 @@
                 if (grade >= 10) courses[5].course = 'Intro to Computer Science';
                 if (grade === 11) {
                     courses[2].course = isMaxRigor ? 'Physics Honors' : 'Physics';
-                    courses[5].course = 'Engineering or AP Computer Science Principles';
+                    courses[5].course = 'Engineering or AP Cybersecurity';
                 }
                 if (grade === 12) {
                     courses[1].course = isMaxRigor ? 'AP Calculus BC' : 'AP Calculus AB';
@@ -2036,9 +2008,6 @@
                     courses[2].course = 'AP Biology or AP Environmental Science';
                     courses[5].course = 'Marine Science 3 Honors (Ocean Academy)';
                 }
-            } else if (major === 'Business' || major === 'Economics') {
-                if (grade >= 11) courses[5].course = 'Global Economics or Business elective';
-                if (grade === 12) courses[3].course = 'Global Economics';
             } else if (major === 'Medicine') {
                 if (grade >= 10) courses[2].course = isMaxRigor ? 'Chemistry Honors' : 'Chemistry';
                 if (grade === 11) courses[2].course = isMaxRigor ? 'Physics Honors' : 'Physics';
@@ -2050,62 +2019,131 @@
                 if (grade >= 10) courses[5].course = 'Advanced Studio Art 2D or Ceramics';
                 if (grade === 11) courses[5].course = 'Studio Art 2D Honors or Ceramics 2 Honors';
                 if (grade === 12) courses[5].course = 'AP 2-D or 3-D Art and Design (Arts Conservatory)';
-            } else if (major === 'Psychology' || major === 'Education') {
-                if (grade >= 11) courses[5].course = 'Psychology or Education elective';
-                if (grade === 12) courses[3].course = 'Humanities: the Lyceum';
             }
             
-            // Add distinction-specific recommendations
             if (distinctionAnswer.includes('Ocean Academy')) {
                 if (grade >= 10) courses[5].course = 'Marine Science (required for Ocean Academy)';
                 if (grade === 11) courses[5].course = 'Marine Science 2';
                 if (grade === 12) courses[5].course = 'Marine Science 3 Honors + Research Project';
-            } else if (distinctionAnswer.includes('Arts Conservatory')) {
-                if (grade >= 10) courses[5].course = 'Visual Arts (4 courses required)';
-                if (grade >= 11) courses[5].course = 'Honors or AP Art course';
-            } else if (distinctionAnswer.includes('Capstone Scholar')) {
-                if (grade === 12) courses[5].course = 'Capstone Research Project';
-            } else if (distinctionAnswer.includes('Global Scholars')) {
-                if (grade >= 11) courses[5].course = 'Globally-focused elective + Exchange program';
-            }
-            
-            // Handle language completion
-            if (languageAnswer.includes('3 years minimum')) {
-                if (grade >= 12) {
-                    courses[4].course = 'Elective (Language requirement complete)';
-                }
             }
             
             return courses;
         }
 
         // ========================================
-        // NAVIGATION FUNCTIONS
+        // DISPLAY SCHEDULE
         // ========================================
+        function displaySchedule() {
+            const container = document.getElementById('scheduleContainer');
+            container.innerHTML = '';
+            
+            const topMajor = topColleges[0].strongMajors[0];
+            
+            [9, 10, 11, 12].forEach(grade => {
+                const section = document.createElement('div');
+                section.className = 'grade-section';
+                
+                const courses = getCoursesForMajor(topMajor, grade);
+                
+                section.innerHTML = `
+                    <h4>Grade ${grade} - ${grade === 9 ? 'Freshman' : grade === 10 ? 'Sophomore' : grade === 11 ? 'Junior' : 'Senior'} Year</h4>
+                    <div class="courses-grid">
+                        ${courses.map(course => `
+                            <div class="course">
+                                <strong>${course.subject}</strong><br>
+                                ${course.course}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                container.appendChild(section);
+            });
+        }
+
+        // ========================================
+        // UI FUNCTIONS
+        // ========================================
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function startQuiz() {
+            showScreen('quizScreen');
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            const container = document.getElementById('questionContainer');
+            const question = QUESTIONS[currentQuestion];
+            
+            container.innerHTML = `
+                <div class="question-number">Question ${currentQuestion + 1} of ${QUESTIONS.length}</div>
+                <h3>${question.q}</h3>
+                <div class="options">
+                    ${question.opts.map((opt, i) => `
+                        <div class="option" onclick="selectOption(${i})">${opt}</div>
+                    `).join('')}
+                </div>
+            `;
+            
+            document.getElementById('progressBar').style.width = ((currentQuestion / QUESTIONS.length) * 100) + '%';
+            document.getElementById('prevBtn').style.display = currentQuestion > 0 ? 'block' : 'none';
+        }
+
+        function selectOption(index) {
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            options[index].classList.add('selected');
+            answers[currentQuestion] = QUESTIONS[currentQuestion].opts[index];
+        }
+
+        function nextQuestion() {
+            if (!answers[currentQuestion]) {
+                alert('Please select an option');
+                return;
+            }
+            
+            if (currentQuestion < QUESTIONS.length - 1) {
+                currentQuestion++;
+                displayQuestion();
+            } else {
+                calculateResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                displayQuestion();
+            }
+        }
+
+        function showSchedule() {
+            displaySchedule();
+            showScreen('scheduleScreen');
+        }
+
+        function backToResults() {
+            showScreen('resultsScreen');
+        }
+
         function restartQuiz() {
             currentQuestion = 0;
             answers = [];
             topColleges = [];
-            
-            document.getElementById('resultsScreen').classList.remove('active');
-            document.getElementById('scheduleScreen').classList.remove('active');
-            document.getElementById('welcomeScreen').classList.add('active');
-        }
-
-        function backToResults() {
-            document.getElementById('scheduleScreen').classList.remove('active');
-            document.getElementById('resultsScreen').classList.add('active');
+            showScreen('welcomeScreen');
         }
 
         // ========================================
-        // INITIALIZE APP
+        // INITIALIZE
         // ========================================
-        window.onload = function() {
+        window.addEventListener('load', () => {
             setTimeout(() => {
-                document.getElementById('loadingScreen').classList.remove('active');
-                document.getElementById('welcomeScreen').classList.add('active');
-            }, 1000);
-        };
+                showScreen('welcomeScreen');
+            }, 1500);
+        });
     </script>
 </body>
 </html>
