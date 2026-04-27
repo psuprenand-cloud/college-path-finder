@@ -1679,22 +1679,41 @@
         // ========================================
         // FILTER BY LOCATION
         // ========================================
-        function filterByLocation(locationAnswer) {
-            if (locationAnswer.includes("Stay in Florida")) {
-                return COLLEGES.filter(c => c.state === "FL");
-            } else if (locationAnswer.includes("Southeast")) {
-                return COLLEGES.filter(c => REGIONS.Southeast.includes(c.state));
-            } else if (locationAnswer.includes("Northeast")) {
-                return COLLEGES.filter(c => REGIONS.Northeast.includes(c.state));
-            } else if (locationAnswer.includes("West Coast")) {
-                return COLLEGES.filter(c => REGIONS["West Coast"].includes(c.state));
-            } else if (locationAnswer.includes("Midwest")) {
-                return COLLEGES.filter(c => REGIONS.Midwest.includes(c.state));
-            } else if (locationAnswer.includes("Southwest")) {
-                return COLLEGES.filter(c => REGIONS.Southwest.includes(c.state));
-            } else {
-                return COLLEGES;
+        function filterByLocation(colleges, locationAnswer) {
+            if (!locationAnswer || locationAnswer.includes("Anywhere")) {
+                return colleges;
             }
+            
+            if (locationAnswer.includes("Stay in Florida")) {
+                return colleges.filter(c => c.state === "FL");
+            }
+            
+            if (locationAnswer.includes("Southeast")) {
+                const southeastStates = ["FL", "GA", "NC", "SC", "TN", "AL", "MS", "LA", "KY", "VA", "WV"];
+                return colleges.filter(c => southeastStates.includes(c.state));
+            }
+            
+            if (locationAnswer.includes("Northeast")) {
+                const northeastStates = ["NY", "MA", "PA", "NJ", "CT", "RI", "NH", "VT", "ME", "MD", "DE", "DC"];
+                return colleges.filter(c => northeastStates.includes(c.state));
+            }
+            
+            if (locationAnswer.includes("West Coast")) {
+                const westCoastStates = ["CA", "WA", "OR", "NV", "AZ"];
+                return colleges.filter(c => westCoastStates.includes(c.state));
+            }
+            
+            if (locationAnswer.includes("Midwest")) {
+                const midwestStates = ["IL", "MI", "OH", "IN", "WI", "MN", "IA", "MO", "KS", "NE", "SD", "ND"];
+                return colleges.filter(c => midwestStates.includes(c.state));
+            }
+            
+            if (locationAnswer.includes("Southwest")) {
+                const southwestStates = ["TX", "AZ", "NM", "OK", "CO", "UT"];
+                return colleges.filter(c => southwestStates.includes(c.state));
+            }
+            
+            return colleges;
         }
 
         // ========================================
