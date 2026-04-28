@@ -1726,38 +1726,40 @@
         // ========================================
         // RANK BY MAJOR
         // ========================================
-        function rankByMajor(colleges, topMajors) {
-            return colleges.map(college => {
-                let score = 10; // Base score so all colleges show up
-                
-                // Check if college offers top majors
-                if (college.strongMajors && college.strongMajors.includes(topMajors[0])) score += 50;
-                if (college.strongMajors && college.strongMajors.includes(topMajors[1])) score += 30;
-                if (college.strongMajors && college.strongMajors.includes(topMajors[2])) score += 20;
-                
-                // Bonus for highly ranked colleges
-                if (college.ranking <= 10) score += 30;
-                else if (college.ranking <= 25) score += 20;
-                else if (college.ranking <= 50) score += 15;
-                else if (college.ranking <= 100) score += 10;
-                else score += 5;
-                
-                // Bonus for campus preferences
-                const sizeAnswer = answers[4] || '';
-                const settingAnswer = answers[5] || '';
-                
-                if (sizeAnswer.includes("Large") && college.campusSize === "Large") score += 10;
-                if (sizeAnswer.includes("Medium") && college.campusSize === "Medium") score += 10;
-                if (sizeAnswer.includes("Small") && college.campusSize === "Small") score += 10;
-                
-                if (settingAnswer.includes("Urban") && college.setting === "Urban") score += 10;
-                if (settingAnswer.includes("Suburban") && college.setting === "Suburban") score += 10;
-                if (settingAnswer.includes("Rural") && college.setting === "Rural") score += 10;
-                
-                return { ...college, matchScore: score };
-            })
-            .sort((a, b) => b.matchScore - a.matchScore);
-        }
+       function rankByMajor(colleges, topMajors) {
+        return colleges.map(college => {
+            let score = 0;
+        
+            // Major matching (max 60 points)
+            if (college.strongMajors && college.strongMajors.includes(topMajors[0])) score += 30;
+            if (college.strongMajors && college.strongMajors.includes(topMajors[1])) score += 20;
+            if (college.strongMajors && college.strongMajors.includes(topMajors[2])) score += 10;
+        
+            // Ranking bonus (max 20 points)
+            if (college.ranking <= 10) score += 20;
+            else if (college.ranking <= 25) score += 15;
+            else if (college.ranking <= 50) score += 10;
+            else if (college.ranking <= 100) score += 5;
+        
+            // Campus preferences (max 20 points)
+            const sizeAnswer = answers[4] || '';
+            const settingAnswer = answers[5] || '';
+        
+            if (sizeAnswer.includes("Large") && college.campusSize === "Large") score += 10;
+            if (sizeAnswer.includes("Medium") && college.campusSize === "Medium") score += 10;
+            if (sizeAnswer.includes("Small") && college.campusSize === "Small") score += 10;
+        
+            if (settingAnswer.includes("Urban") && college.setting === "Urban") score += 10;
+            if (settingAnswer.includes("Suburban") && college.setting === "Suburban") score += 10;
+            if (settingAnswer.includes("Rural") && college.setting === "Rural") score += 10;
+        
+            // Convert to percentage (max possible score is 100)
+            const matchScore = Math.min(100, score);
+        
+            return { ...college, matchScore: matchScore };
+        })
+        .sort((a, b) => b.matchScore - a.matchScore);
+    }
 
         // ========================================
         // CALCULATE RESULTS
