@@ -35,381 +35,196 @@
         }
 
         .header h1 {
-            font-size: 2em;
+            font-size: 2.5em;
             margin-bottom: 10px;
-        }
-
-        .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-
-        .content {
-            padding: 40px;
         }
 
         .screen {
             display: none;
+            padding: 40px;
         }
 
         .screen.active {
             display: block;
-            animation: fadeIn 0.5s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
             border: none;
-            padding: 15px 40px;
+            padding: 15px 30px;
+            border-radius: 30px;
             font-size: 1.1em;
-            border-radius: 50px;
             cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
 
-        .btn-secondary {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-
-        .welcome-content {
-            text-align: center;
-        }
-
-        .welcome-content h2 {
-            color: #1e3c72;
-            margin-bottom: 20px;
-            font-size: 2em;
-        }
-
-        .welcome-content p {
-            color: #666;
-            font-size: 1.1em;
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-
-        .features {
+        .options-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr;
+            gap: 15px;
             margin: 30px 0;
         }
 
-        .feature {
-            background: #f8f9fa;
+        .option-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
             padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .feature-icon {
-            font-size: 3em;
-            margin-bottom: 10px;
-        }
-
-        .feature h3 {
-            color: #1e3c72;
-            margin-bottom: 10px;
-        }
-
-        .feature p {
-            color: #666;
-            font-size: 0.9em;
-        }
-
-        .question-container {
-            margin: 20px 0;
-        }
-
-        .question-number {
-            color: #667eea;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .question-container h3 {
-            color: #1e3c72;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-
-        .options {
-            display: grid;
-            gap: 15px;
-        }
-
-        .option {
-            background: #f8f9fa;
-            padding: 15px 20px;
-            border-radius: 10px;
             cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
+            transition: all 0.3s ease;
         }
 
-        .option:hover {
-            background: #e9ecef;
-            transform: translateX(5px);
+        .option-card:hover {
+            border-color: #1e3c72;
+            background-color: #f7f9fc;
         }
 
-        .option.selected {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-color: #667eea;
+        .option-card.selected {
+            border-color: #1e3c72;
+            background-color: #eef2f7;
+        }
+
+        .college-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .college-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .badge {
+            background: #eef2f7;
+            color: #1e3c72;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #333;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin: 4px;
+            font-size: 0.9em;
         }
 
         .progress-bar {
             width: 100%;
             height: 8px;
-            background: #e9ecef;
-            border-radius: 10px;
+            background: #e0e0e0;
             margin-bottom: 30px;
-            overflow: hidden;
+            border-radius: 4px;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            transition: width 0.3s;
+            background: #1e3c72;
             width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 4px;
         }
 
-        .button-group {
-            display: flex;
-            justify-content: space-between;
+        .roadmap-container {
             margin-top: 30px;
         }
 
-        .college-card {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            border-left: 5px solid #667eea;
-        }
-
-        .college-card h3 {
-            color: #1e3c72;
-            margin-bottom: 10px;
-        }
-
-        .college-rank {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            margin-right: 10px;
-        }
-
-        .match-score {
-            background: #4caf50;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-
-        .college-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .info-item {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .info-label {
-            color: #666;
-            font-size: 0.85em;
-            margin-bottom: 5px;
-        }
-
-        .info-value {
-            color: #1e3c72;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-
-        .major-tag {
-            display: inline-block;
-            background: #e3f2fd;
-            color: #1976d2;
-            padding: 5px 15px;
-            border-radius: 20px;
-            margin: 5px;
-            font-size: 0.9em;
-        }
-
-        .majors-list {
-            margin: 15px 0;
-        }
-
-        .college-link {
-            display: inline-block;
-            color: #667eea;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        .college-link:hover {
-            text-decoration: underline;
-        }
-
-        .loading-spinner {
-            text-align: center;
-            padding: 50px;
-        }
-
-        .spinner {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #667eea;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         .grade-section {
-            background: #f8f9fa;
+            background: #f8fafc;
+            border-left: 4px solid #1e3c72;
             padding: 20px;
-            border-radius: 10px;
             margin-bottom: 20px;
-        }
-
-        .grade-section h4 {
-            color: #1e3c72;
-            margin-bottom: 15px;
-            font-size: 1.3em;
+            border-radius: 0 12px 12px 0;
         }
 
         .courses-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
         }
 
         .course {
             background: white;
-            padding: 15px;
+            padding: 12px;
             border-radius: 8px;
-            border-left: 3px solid #667eea;
-        }
-
-        @media (max-width: 768px) {
-            .header h1 { font-size: 1.5em; }
-            .content { padding: 20px; }
-            .btn { padding: 12px 30px; font-size: 1em; }
-            .college-info { grid-template-columns: 1fr 1fr; }
+            border: 1px solid #e2e8f0;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>🎓 College & Career Pathfinder</h1>
-            <p>Discover your perfect college match and plan your academic journey</p>
+        <div id="welcomeScreen" class="screen active">
+            <div class="header">
+                <h1>College & Career Pathfinder</h1>
+                <p>Find your perfect institutional match and academic path</p>
+            </div>
+            <div style="padding: 40px; text-align: center;">
+                <p style="font-size: 1.2em; margin-bottom: 30px; color: #555;">
+                    Take our comprehensive evaluation to find matching colleges nationwide and receive a structured academic roadmap tailored to your specific choices.
+                </p>
+                <button class="btn" onclick="startQuiz()">Begin College Search</button>
+            </div>
         </div>
 
-        <div class="content">
-            <div id="loadingScreen" class="screen active">
-                <div class="loading-spinner">
-                    <div class="spinner"></div>
-                    <h2 style="color: #1e3c72;">Loading College Database...</h2>
-                    <p style="color: #666;">Preparing your personalized experience</p>
+        <div id="quizScreen" class="screen">
+            <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+            <h2 id="questionText" style="color: #1e3c72; margin-bottom: 10px;">Question</h2>
+            <p id="questionDesc" style="color: #666; margin-bottom: 20px;">Description</p>
+            <div id="optionsContainer" class="options-grid"></div>
+            <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <button class="btn" style="background: #666;" onclick="prevQuestion()">Previous</button>
+                <button class="btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+
+        <div id="resultsScreen" class="screen">
+            <div class="header">
+                <h2>Your College Matches</h2>
+                <p>Based on your profile, academic goals, and location criteria</p>
+            </div>
+            <div style="padding: 20px 0;">
+                <div id="collegesList"></div>
+                <div style="text-align: center; margin-top: 30px; display: flex; justify-content: center; gap: 20px;">
+                    <button class="btn" onclick="showSchedule()">Generate Academic Roadmap</button>
+                    <button class="btn" style="background: #666;" onclick="restartQuiz()">Restart Quiz</button>
                 </div>
             </div>
+        </div>
 
-            <div id="welcomeScreen" class="screen">
-                <div class="welcome-content">
-                    <h2>Welcome to Your College Journey! 🚀</h2>
-                    <p>This interactive quiz will help you discover colleges that match your interests, academic goals, and career aspirations.</p>
-                    
-                    <div class="features">
-                        <div class="feature">
-                            <div class="feature-icon">🎯</div>
-                            <h3>Personalized Matches</h3>
-                            <p>Get college recommendations based on your unique profile</p>
-                        </div>
-                        <div class="feature">
-                            <div class="feature-icon">📚</div>
-                            <h3>Academic Planning</h3>
-                            <p>Receive a customized 4-year high school course plan</p>
-                        </div>
-                        <div class="feature">
-                            <div class="feature-icon">💼</div>
-                            <h3>Career Guidance</h3>
-                            <p>Explore majors aligned with your interests and goals</p>
-                        </div>
-                    </div>
-
-                    <p style="margin-top: 30px;"><strong>Ready to find your perfect college match?</strong></p>
-                    <button class="btn" onclick="startQuiz()">Start Quiz 🎓</button>
-                </div>
+        <div id="scheduleScreen" class="screen">
+            <div class="header">
+                <h2>Your High School Academic Roadmap</h2>
+                <p>Recommended schedule based on your targeted institutions and rigor matches</p>
             </div>
-
-            <div id="quizScreen" class="screen">
-                <div class="progress-bar">
-                    <div id="progressBar" class="progress-fill"></div>
-                </div>
-                
-                <div id="questionContainer"></div>
-
-                <div class="button-group">
-                    <button id="prevBtn" class="btn btn-secondary" onclick="previousQuestion()" style="display:none;">← Previous</button>
-                    <button id="nextBtn" class="btn" onclick="nextQuestion()">Next →</button>
-                </div>
-            </div>
-
-            <div id="resultsScreen" class="screen">
-                <div style="text-align: center; margin-bottom: 30px;">
-                    <h2 style="color: #1e3c72;">🎉 Your Top College Matches!</h2>
-                    <p style="color: #666; font-size: 1.1em;">Here are the colleges that best fit your profile</p>
-                </div>
-
-                <div id="resultsContainer"></div>
-
+            <div style="padding: 20px 0;">
+                <div id="roadmapContainer" class="roadmap-container"></div>
                 <div style="text-align: center; margin-top: 30px;">
-                    <button class="btn" onclick="showSchedule()">View 4-Year Course Plan 📅</button>
-                    <button class="btn btn-secondary" onclick="restartQuiz()">Start Over 🔄</button>
-                </div>
-            </div>
-
-            <div id="scheduleScreen" class="screen">
-                <div style="text-align: center; margin-bottom: 30px;">
-                    <h2 style="color: #1e3c72;">📅 Your 4-Year High School Plan</h2>
-                    <p style="color: #666; font-size: 1.1em;">Follow this roadmap to prepare for your dream college</p>
-                </div>
-
-                <div id="scheduleContainer"></div>
-
-                <div style="text-align: center; margin-top: 30px;">
-                    <button class="btn" onclick="backToResults()">← Back to Results</button>
-                    <button class="btn btn-secondary" onclick="restartQuiz()">Start Over 🔄</button>
+                    <button class="btn" onclick="backToResults()">Back to Matches</button>
                 </div>
             </div>
         </div>
@@ -417,664 +232,2333 @@
 
     <script>
         // ========================================
-        // GLOBAL VARIABLES
+        // COLLEGE DATABASE - COMPLETE 270 SCHOOLS
         // ========================================
+        const COLLEGES = [
+            // --- FLORIDA SCHOOLS ---
+            {
+                name: "University of Florida",
+                city: "Gainesville",
+                state: "FL",
+                type: "Public",
+                ranking: 28,
+                acceptance: "23%",
+                sat: "1330-1470",
+                act: "30-34",
+                tuition: "$6,381 (in-state), $28,658 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Engineering", "Business", "Biology", "Psychology", "Computer Science"],
+                notablePrograms: ["Honors Program", "Research University", "SEC Athletics"],
+                website: "https://www.ufl.edu"
+            },
+            {
+                name: "University of Miami",
+                city: "Coral Gables",
+                state: "FL",
+                type: "Private",
+                ranking: 55,
+                acceptance: "28%",
+                sat: "1340-1500",
+                act: "31-34",
+                tuition: "$58,104",
+                campusSize: "Medium",
+                setting: "Suburban",
+                strongMajors: ["Business", "Marine Science", "Biology", "Psychology", "Music"],
+                notablePrograms: ["Marine Biology", "Music School", "Pre-Med"],
+                website: "https://www.miami.edu"
+            },
+            {
+                name: "Florida State University",
+                city: "Tallahassee",
+                state: "FL",
+                type: "Public",
+                ranking: 55,
+                acceptance: "37%",
+                sat: "1210-1360",
+                act: "27-31",
+                tuition: "$5,656 (in-state), $18,786 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Business", "Film", "Psychology", "Biology", "Political Science"],
+                notablePrograms: ["Film School", "Research University", "FAMU-FSU Engineering"],
+                website: "https://www.fsu.edu"
+            },
+            {
+                name: "University of Central Florida",
+                city: "Orlando",
+                state: "FL",
+                type: "Public",
+                ranking: 160,
+                acceptance: "44%",
+                sat: "1190-1360",
+                act: "25-29",
+                tuition: "$6,368 (in-state), $22,467 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Engineering", "Computer Science", "Business", "Hospitality", "Psychology"],
+                notablePrograms: ["Space Research", "Hospitality Management"],
+                website: "https://www.ucf.edu"
+            },
+            {
+                name: "University of South Florida",
+                city: "Tampa",
+                state: "FL",
+                type: "Public",
+                ranking: 127,
+                acceptance: "49%",
+                sat: "1170-1340",
+                act: "25-30",
+                tuition: "$6,410 (in-state), $17,324 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Business", "Engineering", "Health Sciences", "Education", "Psychology"],
+                notablePrograms: ["Medical School", "Research University"],
+                website: "https://www.usf.edu"
+            },
+            {
+                name: "Florida International University",
+                city: "Miami",
+                state: "FL",
+                type: "Public",
+                ranking: 216,
+                acceptance: "64%",
+                sat: "1080-1250",
+                act: "22-27",
+                tuition: "$6,556 (in-state), $18,963 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Business", "Engineering", "Hospitality", "International Relations", "Biology"],
+                notablePrograms: ["International Business", "Hospitality Management"],
+                website: "https://www.fiu.edu"
+            },
+            {
+                name: "Florida Atlantic University",
+                city: "Boca Raton",
+                state: "FL",
+                type: "Public",
+                ranking: 263,
+                acceptance: "63%",
+                sat: "1080-1230",
+                act: "22-26",
+                tuition: "$4,879 (in-state), $17,324 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Business", "Engineering", "Nursing", "Ocean Engineering", "Psychology"],
+                notablePrograms: ["Ocean Engineering", "Marine Science"],
+                website: "https://www.fau.edu"
+            },
+            {
+                name: "University of North Florida",
+                city: "Jacksonville",
+                state: "FL",
+                type: "Public",
+                ranking: 227,
+                acceptance: "71%",
+                sat: "1130-1290",
+                act: "23-28",
+                tuition: "$6,389 (in-state), $20,798 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Suburban",
+                strongMajors: ["Business", "Engineering", "Health Sciences", "Education", "Biology"],
+                notablePrograms: ["Coastal Biology", "Transportation & Logistics"],
+                website: "https://www.unf.edu"
+            },
+            {
+                name: "Rollins College",
+                city: "Winter Park",
+                state: "FL",
+                type: "Private",
+                ranking: 1,
+                acceptance: "49%",
+                sat: "1200-1370",
+                act: "27-31",
+                tuition: "$56,250",
+                campusSize: "Small",
+                setting: "Suburban",
+                strongMajors: ["Business", "International Business", "Psychology", "Biology", "Environmental Science"],
+                notablePrograms: ["Liberal Arts", "Study Abroad"],
+                website: "https://www.rollins.edu"
+            },
+            {
+                name: "Stetson University",
+                city: "DeLand",
+                state: "FL",
+                type: "Private",
+                ranking: 127,
+                acceptance: "94%",
+                sat: "1120-1310",
+                act: "23-29",
+                tuition: "$52,530",
+                campusSize: "Small",
+                setting: "Suburban",
+                strongMajors: ["Business", "Music", "Psychology", "Biology", "Education"],
+                notablePrograms: ["Music School", "Law School"],
+                website: "https://www.stetson.edu"
+            },
+
+            // --- COLORADO SCHOOLS ---
+            {
+                name: "Colorado School of Mines",
+                city: "Golden",
+                state: "CO",
+                type: "Public",
+                ranking: 1,
+                acceptance: "60%",
+                sat: "1320-1480",
+                act: "29-33",
+                tuition: "$19,100 (in-state), $40,800 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Suburban",
+                strongMajors: ["Engineering", "Computer Science", "Geology", "Energy Systems"],
+                notablePrograms: ["Top Engineering School", "STEM Focus", "High ROI"],
+                website: "https://www.mines.edu"
+            },
+            {
+                name: "University of Colorado Boulder",
+                city: "Boulder",
+                state: "CO",
+                type: "Public",
+                ranking: 2,
+                acceptance: "76%",
+                sat: "1180-1390",
+                act: "27-33",
+                tuition: "$13,500 (in-state), $41,900 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Business", "Engineering", "Environmental Science", "Physics"],
+                notablePrograms: ["Research University", "Leeds School of Business", "Pac-12 Athletics"],
+                website: "https://www.colorado.edu"
+            },
+            {
+                name: "Colorado State University",
+                city: "Fort Collins",
+                state: "CO",
+                type: "Public",
+                ranking: 3,
+                acceptance: "89%",
+                sat: "1060-1280",
+                act: "22-29",
+                tuition: "$12,900 (in-state), $32,800 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Business", "Biology", "Environmental Science", "Engineering"],
+                notablePrograms: ["Land-Grant University", "Sustainability Leader", "Research"],
+                website: "https://www.colostate.edu"
+            },
+            {
+                name: "University of Colorado Denver",
+                city: "Denver",
+                state: "CO",
+                type: "Public",
+                ranking: 4,
+                acceptance: "78%",
+                sat: "1000-1210",
+                act: "20-26",
+                tuition: "$11,500 (in-state), $32,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Business", "Health Sciences", "Public Health", "Architecture"],
+                notablePrograms: ["Urban Campus", "Medical Partnerships", "Internships"],
+                website: "https://www.ucdenver.edu"
+            },
+            {
+                name: "University of Northern Colorado",
+                city: "Greeley",
+                state: "CO",
+                type: "Public",
+                ranking: 5,
+                acceptance: "94%",
+                sat: "960-1170",
+                act: "21-26",
+                tuition: "$10,600 (in-state), $23,800 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Suburban",
+                strongMajors: ["Education", "Business", "Nursing", "Psychology"],
+                notablePrograms: ["Teacher Education", "Affordable", "Student-Focused"],
+                website: "https://www.unco.edu"
+            },
+            {
+                name: "Colorado College",
+                city: "Colorado Springs",
+                state: "CO",
+                type: "Private",
+                ranking: 1,
+                acceptance: "20%",
+                sat: "1360-1520",
+                act: "31-34",
+                tuition: "$65,000",
+                campusSize: "Small",
+                setting: "Urban",
+                strongMajors: ["Economics", "Political Science", "Environmental Studies", "History"],
+                notablePrograms: ["Block Plan (1 class at a time)", "Top Liberal Arts College"],
+                website: "https://www.coloradocollege.edu"
+            },
+            {
+                name: "University of Denver",
+                city: "Denver",
+                state: "CO",
+                type: "Private",
+                ranking: 2,
+                acceptance: "71%",
+                sat: "1240-1410",
+                act: "29-32",
+                tuition: "$58,000",
+                campusSize: "Medium",
+                setting: "Urban",
+                strongMajors: ["Business", "International Relations", "Hospitality", "Psychology"],
+                notablePrograms: ["Study Abroad", "Business School", "Internships"],
+                website: "https://www.du.edu"
+            },
+            {
+                name: "Regis University",
+                city: "Denver",
+                state: "CO",
+                type: "Private",
+                ranking: 3,
+                acceptance: "82%",
+                sat: "1050-1260",
+                act: "21-28",
+                tuition: "$42,000",
+                campusSize: "Small",
+                setting: "Urban",
+                strongMajors: ["Nursing", "Business", "Health Sciences", "Computer Science"],
+                notablePrograms: ["Jesuit Education", "Health Focus", "Adult Programs"],
+                website: "https://www.regis.edu"
+            },
+            {
+                name: "Colorado Christian University",
+                city: "Lakewood",
+                state: "CO",
+                type: "Private",
+                ranking: 4,
+                acceptance: "78%",
+                sat: "1020-1230",
+                act: "20-27",
+                tuition: "$38,000",
+                campusSize: "Small",
+                setting: "Suburban",
+                strongMajors: ["Business", "Education", "Psychology", "Theology"],
+                notablePrograms: ["Christian Liberal Arts", "Flexible Programs"],
+                website: "https://www.ccu.edu"
+            },
+            {
+                name: "Naropa University",
+                city: "Boulder",
+                state: "CO",
+                type: "Private",
+                ranking: 5,
+                acceptance: "80%",
+                sat: "Test Optional",
+                act: "Test Optional",
+                tuition: "$35,000",
+                campusSize: "Small",
+                setting: "Urban",
+                strongMajors: ["Psychology", "Environmental Studies", "Creative Writing", "Religious Studies"],
+                notablePrograms: ["Buddhist-Inspired Education", "Holistic Learning"],
+                website: "https://www.naropa.edu"
+            },
+
+            // --- NEW JERSEY SCHOOLS ---
+            {
+                name: "Rutgers University–New Brunswick",
+                city: "New Brunswick",
+                state: "NJ",
+                type: "Public",
+                ranking: 1,
+                acceptance: "58%",
+                sat: "1310-1500",
+                act: "29-33",
+                tuition: "$15,800 (in-state), $33,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Business", "Engineering", "Biology", "Computer Science", "Psychology"],
+                notablePrograms: ["Flagship State University", "Big Ten Athletics", "Research Institution"],
+                website: "https://www.rutgers.edu"
+            },
+            {
+                name: "New Jersey Institute of Technology",
+                city: "Newark",
+                state: "NJ",
+                type: "Public",
+                ranking: 2,
+                acceptance: "67%",
+                sat: "1210-1470",
+                act: "26-32",
+                tuition: "$18,500 (in-state), $34,000 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Urban",
+                strongMajors: ["Engineering", "Computer Science", "Architecture", "Information Technology"],
+                notablePrograms: ["Top STEM School", "High ROI", "Tech Focus"],
+                website: "https://www.njit.edu"
+            },
+            {
+                name: "The College of New Jersey",
+                city: "Ewing",
+                state: "NJ",
+                type: "Public",
+                ranking: 3,
+                acceptance: "62%",
+                sat: "1140-1340",
+                act: "25-30",
+                tuition: "$17,000 (in-state), $29,000 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Suburban",
+                strongMajors: ["Education", "Business", "Nursing", "Psychology"],
+                notablePrograms: ["Strong Teaching Programs", "Liberal Arts Focus", "Selective Public"],
+                website: "https://www.tcnj.edu"
+            },
+            {
+                name: "Rowan University",
+                city: "Glassboro",
+                state: "NJ",
+                type: "Public",
+                ranking: 4,
+                acceptance: "78%",
+                sat: "1110-1310",
+                act: "22-30",
+                tuition: "$15,500 (in-state), $24,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Engineering", "Business", "Education", "Health Sciences"],
+                notablePrograms: ["Fast Growing University", "Engineering Expansion", "Affordable"],
+                website: "https://www.rowan.edu"
+            },
+            {
+                name: "Montclair State University",
+                city: "Montclair",
+                state: "NJ",
+                type: "Public",
+                ranking: 5,
+                acceptance: "88%",
+                sat: "910-1210",
+                act: "20-26",
+                tuition: "$13,000 (in-state), $22,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Business", "Communications", "Education", "Psychology"],
+                notablePrograms: ["Close to NYC", "Media & Arts Strength", "Career Opportunities"],
+                website: "https://www.montclair.edu"
+            },
+            {
+                name: "Princeton University",
+                city: "Princeton",
+                state: "NJ",
+                type: "Private",
+                ranking: 1,
+                acceptance: "6%",
+                sat: "1450-1570",
+                act: "33-35",
+                tuition: "$57,410",
+                campusSize: "Medium",
+                setting: "Suburban",
+                strongMajors: ["Engineering", "Computer Science", "Economics", "Mathematics", "Physics"],
+                notablePrograms: ["Undergraduate Focus", "Research Opportunities"],
+                website: "https://www.princeton.edu"
+            },
+
+            // --- MASSACHUSETTS SCHOOLS ---
+            {
+                name: "University of Massachusetts Amherst",
+                city: "Amherst",
+                state: "MA",
+                type: "Public",
+                ranking: 1,
+                acceptance: "60%",
+                sat: "1310-1500",
+                act: "28-33",
+                tuition: "$17,700 (in-state), $40,400 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Business", "Computer Science", "Engineering", "Biology", "Psychology"],
+                notablePrograms: ["Flagship State University", "Top Public Research", "Isenberg School of Management"],
+                website: "https://www.umass.edu"
+            },
+            {
+                name: "University of Massachusetts Lowell",
+                city: "Lowell",
+                state: "MA",
+                type: "Public",
+                ranking: 2,
+                acceptance: "83%",
+                sat: "1180-1350",
+                act: "24-30",
+                tuition: "$17,000 (in-state), $36,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Engineering", "Computer Science", "Business", "Nursing"],
+                notablePrograms: ["STEM Focus", "Career Placement", "Co-op Opportunities"],
+                website: "https://www.uml.edu"
+            },
+            {
+                name: "University of Massachusetts Boston",
+                city: "Boston",
+                state: "MA",
+                type: "Public",
+                ranking: 3,
+                acceptance: "84%",
+                sat: "1080-1290",
+                act: "20-26",
+                tuition: "$15,900 (in-state), $38,100 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Business", "Biology", "Public Policy", "Psychology"],
+                notablePrograms: ["Waterfront Campus", "Diverse Student Body", "Internships in Boston"],
+                website: "https://www.umb.edu"
+            },
+            {
+                name: "University of Massachusetts Dartmouth",
+                city: "North Dartmouth",
+                state: "MA",
+                type: "Public",
+                ranking: 4,
+                acceptance: "90%",
+                sat: "1040-1260",
+                act: "20-28",
+                tuition: "$15,600 (in-state), $32,500 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Suburban",
+                strongMajors: ["Engineering", "Business", "Visual Arts", "Nursing"],
+                notablePrograms: ["Affordable UMass Option", "STEM + Arts Mix"],
+                website: "https://www.umassd.edu"
+            },
+            {
+                name: "Massachusetts Maritime Academy",
+                city: "Buzzards Bay",
+                state: "MA",
+                type: "Public",
+                ranking: 5,
+                acceptance: "95%",
+                sat: "Test Optional",
+                act: "Test Optional",
+                tuition: "$11,000 (in-state), $28,000 (out-of-state)",
+                campusSize: "Small",
+                setting: "Rural",
+                strongMajors: ["Marine Engineering", "Marine Transportation", "Emergency Management"],
+                notablePrograms: ["Regimented Academy", "Experiential Training", "High Placement"],
+                website: "https://www.maritime.edu"
+            },
+            {
+                name: "Harvard University",
+                city: "Cambridge",
+                state: "MA",
+                type: "Private",
+                ranking: 3,
+                acceptance: "4%",
+                sat: "1480-1580",
+                act: "33-36",
+                tuition: "$54,768",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Economics", "Government", "Computer Science", "History", "Biology"],
+                notablePrograms: ["Ivy League", "World-Class Library System", "Generous Financial Aid"],
+                website: "https://www.harvard.edu"
+            },
+            {
+                name: "Massachusetts Institute of Technology",
+                city: "Cambridge",
+                state: "MA",
+                type: "Private",
+                ranking: 2,
+                acceptance: "4%",
+                sat: "1510-1580",
+                act: "34-36",
+                tuition: "$57,590",
+                campusSize: "Medium",
+                setting: "Urban",
+                strongMajors: ["Computer Science", "Mechanical Engineering", "Mathematics", "Physics", "Electrical Engineering"],
+                notablePrograms: ["Top Global STEM", "Undergraduate Research Opportunities (UROP)", "Innovation Hub"],
+                website: "https://www.mit.edu"
+            },
+
+            // --- ELITE NATIONAL SCHOOLS ---
+            {
+                name: "Stanford University",
+                city: "Stanford",
+                state: "CA",
+                type: "Private",
+                ranking: 3,
+                acceptance: "4%",
+                sat: "1470-1570",
+                act: "32-35",
+                tuition: "$56,169",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Computer Science", "Engineering", "Biology", "Economics", "Human Biology"],
+                notablePrograms: ["Silicon Valley Network", "Top Research Infrastructure", "Entrepreneurship Focus"],
+                website: "https://www.stanford.edu"
+            },
+            {
+                name: "Yale University",
+                city: "New Haven",
+                state: "CT",
+                type: "Private",
+                ranking: 5,
+                acceptance: "5%",
+                sat: "1480-1580",
+                act: "33-35",
+                tuition: "$59,950",
+                campusSize: "Medium",
+                setting: "Urban",
+                strongMajors: ["History", "Political Science", "Economics", "English", "Molecular Biology"],
+                notablePrograms: ["Residential College System", "World-Class Arts & Humanities", "Yale Law Pipeline"],
+                website: "https://www.yale.edu"
+            },
+            {
+                name: "University of Chicago",
+                city: "Chicago",
+                state: "IL",
+                type: "Private",
+                ranking: 12,
+                acceptance: "7%",
+                sat: "1500-1570",
+                act: "33-35",
+                tuition: "$60,552",
+                campusSize: "Medium",
+                setting: "Urban",
+                strongMajors: ["Economics", "Mathematics", "Political Science", "Biology", "Physics"],
+                notablePrograms: ["Intellectual Rigor", "Research Focus"],
+                website: "https://www.uchicago.edu"
+            },
+            {
+                name: "Cornell University",
+                city: "Ithaca",
+                state: "NY",
+                type: "Private",
+                ranking: 12,
+                acceptance: "9%",
+                sat: "1450-1560",
+                act: "33-35",
+                tuition: "$60,286",
+                campusSize: "Large",
+                setting: "Rural",
+                strongMajors: ["Engineering", "Hotel Management", "Agriculture", "Computer Science", "Biology"],
+                notablePrograms: ["Hotel Administration School", "Land-Grant Ivy League", "Top Agricultural Sciences"],
+                website: "https://www.cornell.edu"
+            },
+
+            // --- TEXAS SCHOOLS ---
+            {
+                name: "University of Texas at Austin",
+                city: "Austin",
+                state: "TX",
+                type: "Public",
+                ranking: 1,
+                acceptance: "31%",
+                sat: "1230-1480",
+                act: "29-34",
+                tuition: "$11,700 (in-state), $41,000 (out-of-state)",
+                campusSize: "Very Large",
+                setting: "Urban",
+                strongMajors: ["Business", "Engineering", "Computer Science", "Communications", "Biology"],
+                notablePrograms: ["McCombs School of Business", "Cockrell School of Engineering", "Austin Tech Ecosystem Connection"],
+                website: "https://www.utexas.edu"
+            },
+            {
+                name: "Texas A&M University",
+                city: "College Station",
+                state: "TX",
+                type: "Public",
+                ranking: 2,
+                acceptance: "63%",
+                sat: "1160-1390",
+                act: "25-31",
+                tuition: "$13,000 (in-state), $40,000 (out-of-state)",
+                campusSize: "Very Large",
+                setting: "Suburban",
+                strongMajors: ["Engineering", "Agriculture", "Business", "Biomedical Sciences"],
+                notablePrograms: ["Corps of Cadets", "Elite Engineering Research", "Massive Alumni Network"],
+                website: "https://www.tamu.edu"
+            },
+            {
+                name: "University of Houston",
+                city: "Houston",
+                state: "TX",
+                type: "Public",
+                ranking: 3,
+                acceptance: "66%",
+                sat: "1120-1300",
+                act: "22-28",
+                tuition: "$9,700 (in-state), $26,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Business", "Engineering", "Computer Science", "Health Sciences"],
+                notablePrograms: ["Energy Industry Hub", "Urban Research University", "Affordable"],
+                website: "https://www.uh.edu"
+            },
+            {
+                name: "Texas Tech University",
+                city: "Lubbock",
+                state: "TX",
+                type: "Public",
+                ranking: 4,
+                acceptance: "68%",
+                sat: "1100-1270",
+                act: "22-27",
+                tuition: "$11,500 (in-state), $24,000 (out-of-state)",
+                campusSize: "Very Large",
+                setting: "Suburban",
+                strongMajors: ["Business", "Engineering", "Agriculture", "Communications"],
+                notablePrograms: ["Comprehensive Research Campus", "Top Wind Energy Program", "Big 12 Athletics"],
+                website: "https://www.ttu.edu"
+            },
+            {
+                name: "Texas State University",
+                city: "San Marcos",
+                state: "TX",
+                type: "Public",
+                ranking: 5,
+                acceptance: "70%",
+                sat: "1020-1180",
+                act: "20-25",
+                tuition: "$11,000 (in-state), $23,500 (out-of-state)",
+                campusSize: "Very Large",
+                setting: "Suburban",
+                strongMajors: ["Business", "Education", "Visual & Performing Arts", "Criminal Justice"],
+                notablePrograms: ["Teacher Education Excellence", "Beautiful River Campus Setting", "Emerging Research Status"],
+                website: "https://www.txstate.edu"
+            },
+
+            // --- CALIFORNIA PUBLIC SCHOOLS ---
+            {
+                name: "University of California, Berkeley",
+                city: "Berkeley",
+                state: "CA",
+                type: "Public",
+                ranking: 1,
+                acceptance: "11%",
+                sat: "Test Free",
+                act: "Test Free",
+                tuition: "$14,200 (in-state), $44,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Computer Science", "Economics", "Cell Biology", "Engineering", "Environmental Science"],
+                notablePrograms: ["Premier Public University Global Rank", "Historically Rich Academic Rigor", "Silicon Valley Connections"],
+                website: "https://www.berkeley.edu"
+            },
+            {
+                name: "University of California, Los Angeles",
+                city: "Los Angeles",
+                state: "CA",
+                type: "Public",
+                ranking: 2,
+                acceptance: "9%",
+                sat: "Test Free",
+                act: "Test Free",
+                tuition: "$13,800 (in-state), $43,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Biology", "Psychology", "Economics", "Political Science", "Computer Science"],
+                notablePrograms: ["Highly Selective Admission Pool", "Top-Tier Entertainment Industry Pipelines", "NCAA Athletic Dynasty"],
+                website: "https://www.ucla.edu"
+            },
+            {
+                name: "University of California, San Diego",
+                city: "La Jolla",
+                state: "CA",
+                type: "Public",
+                ranking: 3,
+                acceptance: "24%",
+                sat: "Test Free",
+                act: "Test Free",
+                tuition: "$14,700 (in-state), $44,500 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Bioengineering", "Marine Biology", "Computer Science", "Economics"],
+                notablePrograms: ["World-Renowned Oceanography Center", "Elite Bioengineering Institute", "Unique Residential College Setup"],
+                website: "https://www.ucsd.edu"
+            },
+            {
+                name: "University of California, Davis",
+                city: "Davis",
+                state: "CA",
+                type: "Public",
+                ranking: 4,
+                acceptance: "37%",
+                sat: "Test Free",
+                act: "Test Free",
+                tuition: "$14,600 (in-state), $44,300 (out-of-state)",
+                campusSize: "Very Large",
+                setting: "Suburban",
+                strongMajors: ["Veterinary Science", "Agricultural Sciences", "Viticulture", "Biological Sciences"],
+                notablePrograms: ["Global Leader Veterinary Medicine", "Agricultural Innovation Core", "Sustainable Biking-Friendly Towns"],
+                website: "https://www.ucdavis.edu"
+            },
+            {
+                name: "University of California, Irvine",
+                city: "Irvine",
+                state: "CA",
+                type: "Public",
+                ranking: 5,
+                acceptance: "21%",
+                sat: "Test Free",
+                act: "Test Free",
+                tuition: "$13,900 (in-state), $43,700 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Computer Science", "Business Economics", "Criminology", "Public Health"],
+                notablePrograms: ["Renowned Criminology Department", "Highly Safest Suburban Campus Focus", "Excellent STEM Research Hubs"],
+                website: "https://www.uci.edu"
+            },
+
+            // --- MISSOURI SCHOOLS ---
+            {
+                name: "University of Missouri",
+                city: "Columbia",
+                state: "MO",
+                type: "Public",
+                ranking: 1,
+                acceptance: "77%",
+                sat: "1120-1340",
+                act: "23-29",
+                tuition: "$11,500 (in-state), $30,500 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Journalism", "Business", "Engineering", "Animal Science"],
+                notablePrograms: ["Oldest Journalism School Globally", "SEC Athletics Grid", "Extensive Missouri Hospital network System"],
+                website: "https://www.missouri.edu"
+            },
+            {
+                name: "Missouri University of Science and Technology",
+                city: "Rolla",
+                state: "MO",
+                type: "Public",
+                ranking: 2,
+                acceptance: "81%",
+                sat: "1200-1420",
+                act: "26-31",
+                tuition: "$11,000 (in-state), $29,000 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Rural",
+                strongMajors: ["Engineering", "Computer Science", "Geology", "Physics"],
+                notablePrograms: ["Elite Technological Placement Outcomes", "High Return Investment Salaries", "Extensive Formula Student Engineering Groups"],
+                website: "https://www.mst.edu"
+            },
+            {
+                name: "Missouri State University",
+                city: "Springfield",
+                state: "MO",
+                type: "Public",
+                ranking: 3,
+                acceptance: "87%",
+                sat: "1010-1210",
+                act: "20-26",
+                tuition: "$8,500 (in-state), $17,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Business", "Education", "Nursing", "Communications"],
+                notablePrograms: ["Public Affairs Mission Core", "Comprehensive Statewide Teacher Training", "Large Regional Medical Network Access"],
+                website: "https://www.missouristate.edu"
+            },
+            {
+                name: "Truman State University",
+                city: "Kirksville",
+                state: "MO",
+                type: "Public",
+                ranking: 4,
+                acceptance: "81%",
+                sat: "1080-1300",
+                act: "22-28",
+                tuition: "$8,900 (in-state), $16,500 (out-of-state)",
+                campusSize: "Small",
+                setting: "Rural",
+                strongMajors: ["Biology", "Business", "English", "Exercise Science"],
+                notablePrograms: ["Highly Selective Public Liberal Arts College", "Nationally Ranked Affordability Metric", "Strong Graduate School Placement Rates"],
+                website: "https://www.truman.edu"
+            },
+            {
+                name: "University of Central Missouri",
+                city: "Warrensburg",
+                state: "MO",
+                type: "Public",
+                ranking: 5,
+                acceptance: "71%",
+                sat: "990-1190",
+                act: "19-24",
+                tuition: "$9,200 (in-state), $17,800 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Rural",
+                strongMajors: ["Aviation", "Education", "Criminal Justice", "Nursing"],
+                notablePrograms: ["Elite Public University Flight School Track", "State-of-the-Art Technical Labs", "Accessible Workforce Preparedness Focus"],
+                website: "https://www.ucmo.edu"
+            },
+            {
+                name: "Washington University in St. Louis",
+                city: "St. Louis",
+                state: "MO",
+                type: "Private",
+                ranking: 19,
+                acceptance: "16%",
+                sat: "1470-1570",
+                act: "33-35",
+                tuition: "$58,866",
+                campusSize: "Medium",
+                setting: "Suburban",
+                strongMajors: ["Medicine", "Business", "Engineering", "Architecture", "Biology"],
+                notablePrograms: ["Pre-Med", "Research Excellence"],
+                website: "https://www.wustl.edu"
+            },
+
+            // --- NEW HAMPSHIRE SCHOOLS ---
+            {
+                name: "University of New Hampshire",
+                city: "Durham",
+                state: "NH",
+                type: "Public",
+                ranking: 1,
+                acceptance: "87%",
+                sat: "1150-1330",
+                act: "24-30",
+                tuition: "$19,000 (in-state), $36,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Business", "Biology", "Engineering", "Psychology", "Marine Biology"],
+                notablePrograms: ["Flagship State University", "Marine Science Strength", "Research University"],
+                website: "https://www.unh.edu"
+            },
+            {
+                name: "Keene State College",
+                city: "Keene",
+                state: "NH",
+                type: "Public",
+                ranking: 2,
+                acceptance: "91%",
+                sat: "1010-1200",
+                act: "20-25",
+                tuition: "$14,500 (in-state), $26,000 (out-of-state)",
+                campusSize: "Small",
+                setting: "Suburban",
+                strongMajors: ["Education", "Safety Studies", "Business", "Visual Arts"],
+                notablePrograms: ["Premier Occupational Safety Engineering", "Public Liberal Arts Focus", "Strong Regional Teacher Pipeline"],
+                website: "https://www.keene.edu"
+            },
+            {
+                name: "Plymouth State University",
+                city: "Plymouth",
+                state: "NH",
+                type: "Public",
+                ranking: 3,
+                acceptance: "92%",
+                sat: "1000-1190",
+                act: "19-25",
+                tuition: "$14,500 (in-state), $25,500 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Rural",
+                strongMajors: ["Business", "Meteorology", "Education", "Environmental Science"],
+                notablePrograms: ["Elite Tourism & Hospitality Hubs", "Acclaimed Alpine Meteorology Station", "Experiential Multi-Disciplinary Cluster Learning"],
+                website: "https://www.plymouth.edu"
+            },
+
+            // --- MICHIGAN SCHOOLS ---
+            {
+                name: "University of Michigan",
+                city: "Ann Arbor",
+                state: "MI",
+                type: "Public",
+                ranking: 1,
+                acceptance: "18%",
+                sat: "1350-1530",
+                act: "31-34",
+                tuition: "$16,000 (in-state), $53,000 (out-of-state)",
+                campusSize: "Very Large",
+                setting: "Suburban",
+                strongMajors: ["Engineering", "Business", "Computer Science", "Economics", "Psychology"],
+                notablePrograms: ["Ross School of Business", "Top Global Research"],
+                website: "https://www.umich.edu"
+            },
+            {
+                name: "Michigan State University",
+                city: "East Lansing",
+                state: "MI",
+                type: "Public",
+                ranking: 2,
+                acceptance: "88%",
+                sat: "1100-1300",
+                act: "23-29",
+                tuition: "$15,300 (in-state), $41,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Business", "Education", "Engineering", "Agriculture", "Supply Chain Management"],
+                notablePrograms: ["Top Global Supply Chain Core", "Historically Elite Veterinary Complex", "Massive Global Land-Grant Outreach"],
+                website: "https://www.msu.edu"
+            },
+            {
+                name: "Michigan Technological University",
+                city: "Houghton",
+                state: "MI",
+                type: "Public",
+                ranking: 3,
+                acceptance: "86%",
+                sat: "1150-1370",
+                act: "25-31",
+                tuition: "$17,500 (in-state), $39,000 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Rural",
+                strongMajors: ["Engineering", "Computer Science", "Forestry", "Business"],
+                notablePrograms: ["Extreme Outdoor Mining/Engineering Legacy", "High Mid-Career Financial ROI", "Pioneering Computing Infrastructure"],
+                website: "https://www.mtu.edu"
+            },
+            {
+                name: "Western Michigan University",
+                city: "Kalamazoo",
+                state: "MI",
+                type: "Public",
+                ranking: 4,
+                acceptance: "83%",
+                sat: "1010-1220",
+                act: "20-26",
+                tuition: "$14,000 (in-state), $18,500 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Aviation", "Engineering", "Business", "Nursing"],
+                notablePrograms: ["World-Renowned Pilot Training Academy", "Highly Comprehensive Blind Rehabilitation Sciences", "Kalamazoo Promise Access Support System"],
+                website: "https://www.wmich.edu"
+            },
+            {
+                name: "Central Michigan University",
+                city: "Mount Pleasant",
+                state: "MI",
+                type: "Public",
+                ranking: 5,
+                acceptance: "77%",
+                sat: "990-1190",
+                act: "19-25",
+                tuition: "$13,500 (in-state), $13,500 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Business", "Education", "Health Sciences", "Broadcasting"],
+                notablePrograms: ["Acclaimed National Speech-Language Clinics", "Innovative Flat-Rate Out-Of-State Tuition", "Top Professional Meteorology Equipment Tracks"],
+                website: "https://www.cmich.edu"
+            },
+
+            // --- LOUISIANA SCHOOLS ---
+            {
+                name: "Louisiana State University",
+                city: "Baton Rouge",
+                state: "LA",
+                type: "Public",
+                ranking: 1,
+                acceptance: "71%",
+                sat: "1100-1300",
+                act: "23-29",
+                tuition: "$12,000 (in-state), $28,500 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Business", "Engineering", "Agriculture", "Biology"],
+                notablePrograms: ["Flagship State University", "Strong Engineering", "SEC Athletics"],
+                website: "https://www.lsu.edu"
+            },
+            {
+                name: "University of Louisiana at Lafayette",
+                city: "Lafayette",
+                state: "LA",
+                type: "Public",
+                ranking: 2,
+                acceptance: "70%",
+                sat: "1050-1240",
+                act: "21-27",
+                tuition: "$9,800 (in-state), $23,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Engineering", "Computer Science", "Nursing", "Business"],
+                notablePrograms: ["Acclaimed Industrial Computing Hubs", "Top Modern Petroleum Engineering Tracks", "Culturally Deep Francophone/Cajun Affiliation System"],
+                website: "https://www.louisiana.edu"
+            },
+            {
+                name: "Louisiana Tech University",
+                city: "Ruston",
+                state: "LA",
+                type: "Public",
+                ranking: 3,
+                acceptance: "66%",
+                sat: "1090-1280",
+                act: "22-28",
+                tuition: "$10,000 (in-state), $19,000 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Rural",
+                strongMajors: ["Engineering", "Business", "Cybersecurity", "Aviation"],
+                notablePrograms: ["Pioneering Cyber-Engineering Degree Tracks", "Highly Modern Nanosystems Technology Labs", "Affordable Technical Workforce Hub"],
+                website: "https://www.latech.edu"
+            },
+            {
+                name: "University of New Orleans",
+                city: "New Orleans",
+                state: "LA",
+                type: "Public",
+                ranking: 4,
+                acceptance: "81%",
+                sat: "1020-1200",
+                act: "20-25",
+                tuition: "$9,500 (in-state), $14,000 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Urban",
+                strongMajors: ["Naval Architecture", "Business", "Computer Science", "Hotel Administration"],
+                notablePrograms: ["Rare Specialized Naval Architecture Track", "Elite Maritime Economic Management Projects", "Deep French Quarter Historical Research Alliances"],
+                website: "https://www.uno.edu"
+            },
+            {
+                name: "McNeese State University",
+                city: "Lake Charles",
+                state: "LA",
+                type: "Public",
+                ranking: 5,
+                acceptance: "71%",
+                sat: "980-1170",
+                act: "19-24",
+                tuition: "$8,500 (in-state), $16,500 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Urban",
+                strongMajors: ["Nursing", "Engineering", "Business", "Agricultural Sciences"],
+                notablePrograms: ["Highly Coveted Local Petrochemical Job Network", "State-of-the-Art Radiologic Sciences Labs", "Accessible Regional Agricultural Outreach"],
+                website: "https://www.mcneese.edu"
+            },
+
+            // --- WISCONSIN SCHOOLS ---
+            {
+                name: "University of Wisconsin-La Crosse",
+                city: "La Crosse",
+                state: "WI",
+                type: "Public",
+                ranking: 1,
+                acceptance: "74%",
+                sat: "1080-1270",
+                act: "22-27",
+                tuition: "$9,500 (in-state), $18,500 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Suburban",
+                strongMajors: ["Exercise Science", "Physical Therapy", "Education", "Business"],
+                notablePrograms: ["Health Sciences Leader", "Strong Pre-Med Pipeline", "Outdoor Campus Setting"],
+                website: "https://www.uwlax.edu"
+            },
+            {
+                name: "University of Wisconsin-Madison",
+                city: "Madison",
+                state: "WI",
+                type: "Public",
+                ranking: 47,
+                acceptance: "49%",
+                sat: "1370-1500",
+                act: "29-33",
+                tuition: "$10,796 (in-state), $38,630 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Biology", "Economics", "Computer Science", "Engineering", "Political Science"],
+                notablePrograms: ["Highly Elite Research Funding Matrix", "Historically Dynamic Academic Freedom Profile", "Beautiful Islet Campus Setting"],
+                website: "https://www.wisc.edu"
+            },
+            {
+                name: "University of Wisconsin-Eau Claire",
+                city: "Eau Claire",
+                state: "WI",
+                type: "Public",
+                ranking: 2,
+                acceptance: "77%",
+                sat: "1070-1260",
+                act: "21-26",
+                tuition: "$9,000 (in-state), $17,500 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Suburban",
+                strongMajors: ["Nursing", "Business", "Education", "Psychology"],
+                notablePrograms: ["Elite Collaborative Undergraduate Research Tracks", "Highly Renowned Global Nursing Practicums", "Acclaimed On-Campus Speech Clinics"],
+                website: "https://www.uwec.edu"
+            },
+            {
+                name: "University of Wisconsin-Stevens Point",
+                city: "Stevens Point",
+                state: "WI",
+                type: "Public",
+                ranking: 3,
+                acceptance: "89%",
+                sat: "1000-1200",
+                act: "19-25",
+                tuition: "$8,500 (in-state), $17,000 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Rural",
+                strongMajors: ["Forestry", "Wildlife Ecology", "Paper Science", "Visual Arts"],
+                notablePrograms: ["Premier Forestry College Across Midwest", "Unique Specialty Paper Engineering Track", "Massive Standardized Captive Wildlife Research Labs"],
+                website: "https://www.uwsp.edu"
+            },
+            {
+                name: "University of Wisconsin-Whitewater",
+                city: "Whitewater",
+                state: "WI",
+                type: "Public",
+                ranking: 4,
+                acceptance: "80%",
+                sat: "990-1180",
+                act: "19-24",
+                tuition: "$8,000 (in-state), $16,500 (out-of-state)",
+                campusSize: "Large",
+                setting: "Rural",
+                strongMajors: ["Business", "Education", "Special Education", "Communications"],
+                notablePrograms: ["Top-Tier AACSB Business Accreditation", "Historically Elite Special Education Internships", "National Powerhouse Adaptive Athletic Infrastructure"],
+                website: "https://www.uww.edu"
+            },
+            {
+                name: "University of Wisconsin-Stout",
+                city: "Menomonie",
+                state: "WI",
+                type: "Public",
+                ranking: 5,
+                acceptance: "86%",
+                sat: "1010-1210",
+                act: "20-25",
+                tuition: "$9,500 (in-state), $18,000 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Rural",
+                strongMajors: ["Digital Marketing", "Packaging Engineering", "Game Design", "Manufacturing"],
+                notablePrograms: ["Wisconsin's Sole Poly-Technic Designation", "Elite Customized Industrial Packaging Design Labs", "Near-Perfect Graduate Placement Metrics"],
+                website: "https://www.uwstout.edu"
+            },
+
+            // --- KENTUCKY SCHOOLS ---
+            {
+                name: "University of Kentucky",
+                city: "Lexington",
+                state: "KY",
+                type: "Public",
+                ranking: 1,
+                acceptance: "94%",
+                sat: "1130-1350",
+                act: "23-29",
+                tuition: "$12,500 (in-state), $31,500 (out-of-state)",
+                campusSize: "Very Large",
+                setting: "Urban",
+                strongMajors: ["Business", "Engineering", "Nursing", "Equine Science"],
+                notablePrograms: ["Top Equine Management Programs", "Research University", "SEC Athletics"],
+                website: "https://www.uky.edu"
+            },
+            {
+                name: "University of Louisville",
+                city: "Louisville",
+                state: "KY",
+                type: "Public",
+                ranking: 2,
+                acceptance: "74%",
+                sat: "1100-1320",
+                act: "22-28",
+                tuition: "$12,000 (in-state), $28,500 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Business", "Engineering", "Nursing", "Criminal Justice"],
+                notablePrograms: ["World-Class Medical Research Complex", "Highly Acclaimed Speed Scientific School", "ACC Athletics Grid"],
+                website: "https://www.louisville.edu"
+            },
+            {
+                name: "Western Kentucky University",
+                city: "Bowling Green",
+                state: "KY",
+                type: "Public",
+                ranking: 3,
+                acceptance: "98%",
+                sat: "990-1200",
+                act: "19-26",
+                tuition: "$11,000 (in-state), $27,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Business", "Education", "Nursing", "Journalism"],
+                notablePrograms: ["Strong Journalism Program", "Teacher Education", "Affordable"],
+                website: "https://www.wku.edu"
+            },
+            {
+                name: "Eastern Kentucky University",
+                city: "Richmond",
+                state: "KY",
+                type: "Public",
+                ranking: 4,
+                acceptance: "98%",
+                sat: "960-1170",
+                act: "18-24",
+                tuition: "$10,500 (in-state), $21,000 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Suburban",
+                strongMajors: ["Criminal Justice", "Education", "Nursing", "Business"],
+                notablePrograms: ["Law Enforcement Pipeline", "Teacher Preparation", "Career Focus"],
+                website: "https://www.eku.edu"
+            },
+            {
+                name: "Morehead State University",
+                city: "Morehead",
+                state: "KY",
+                type: "Public",
+                ranking: 5,
+                acceptance: "87%",
+                sat: "980-1180",
+                act: "20-25",
+                tuition: "$10,000 (in-state), $20,500 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Rural",
+                strongMajors: ["Space Science", "Education", "Nursing", "Agricultural Sciences"],
+                notablePrograms: ["Rare Specialized Space Science Institute", "Elite Regional Satellite Antenna Access", "Accessible Appalachian Leadership Projects"],
+                website: "https://www.moreheadstate.edu"
+            },
+
+            // --- MISSISSIPPI SCHOOLS ---
+            {
+                name: "University of Mississippi",
+                city: "University",
+                state: "MS",
+                type: "Public",
+                ranking: 1,
+                acceptance: "88%",
+                sat: "1100-1300",
+                act: "22-28",
+                tuition: "$9,000 (in-state), $26,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Business", "Biology", "Pharmacy", "Journalism", "Psychology"],
+                notablePrograms: ["Flagship State University", "Strong Pharmacy Program", "SEC Athletics"],
+                website: "https://www.olemiss.edu"
+            },
+            {
+                name: "Mississippi State University",
+                city: "Starkville",
+                state: "MS",
+                type: "Public",
+                ranking: 2,
+                acceptance: "75%",
+                sat: "1080-1280",
+                act: "23-29",
+                tuition: "$9,800 (in-state), $27,500 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Engineering", "Agriculture", "Business", "Computer Science"],
+                notablePrograms: ["Top Engineering School in State", "Research University", "STEM Focus"],
+                website: "https://www.msstate.edu"
+            },
+            {
+                name: "University of Southern Mississippi",
+                city: "Hattiesburg",
+                state: "MS",
+                type: "Public",
+                ranking: 3,
+                acceptance: "96%",
+                sat: "1030-1220",
+                act: "20-26",
+                tuition: "$9,000 (in-state), $19,500 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Polymer Science", "Nursing", "Business", "Marine Biology"],
+                notablePrograms: ["World-Class Polymer Science Research", "Acclaimed Hydrographic Exploration Labs", "Dynamic Gulf Coast Marine Laboratory Extensions"],
+                website: "https://www.usm.edu"
+            },
+            {
+                name: "Jackson State University",
+                city: "Jackson",
+                state: "MS",
+                type: "Public",
+                ranking: 4,
+                acceptance: "89%",
+                sat: "950-1130",
+                act: "18-23",
+                tuition: "$8,500 (in-state), $9,500 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Urban",
+                strongMajors: ["Business", "Social Work", "Education", "Biology"],
+                notablePrograms: ["Historically Black University Legacy", "Top Urban Public Health Pipelines", "Acclaimed Sonic Boom Performance Art Schools"],
+                website: "https://www.jsums.edu"
+            },
+            {
+                name: "Delta State University",
+                city: "Cleveland",
+                state: "MS",
+                type: "Public",
+                ranking: 5,
+                acceptance: "99%",
+                sat: "960-1150",
+                act: "18-24",
+                tuition: "$8,500 (in-state), $8,500 (out-of-state)",
+                campusSize: "Small",
+                setting: "Rural",
+                strongMajors: ["Commercial Aviation", "Music Industry Studies", "Education", "Nursing"],
+                notablePrograms: ["Acclaimed Flight Training Facilities", "Sole Specialized Delta Blues Archive Centers", "Flat-Rate Equalized Tuition Model"],
+                website: "https://www.deltastate.edu"
+            },
+
+            // --- ARKANSAS SCHOOLS ---
+            {
+                name: "University of Arkansas",
+                city: "Fayetteville",
+                state: "AR",
+                type: "Public",
+                ranking: 1,
+                acceptance: "83%",
+                sat: "1150-1350",
+                act: "24-30",
+                tuition: "$9,500 (in-state), $26,500 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Business", "Engineering", "Architecture", "Agriculture"],
+                notablePrograms: ["Walton School of Business", "Flagship State University Network", "SEC Athletics"],
+                website: "https://www.uark.edu"
+            },
+            {
+                name: "Arkansas State University",
+                city: "Jonesboro",
+                state: "AR",
+                type: "Public",
+                ranking: 2,
+                acceptance: "71%",
+                sat: "1050-1250",
+                act: "21-27",
+                tuition: "$9,000 (in-state), $16,500 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Business", "Education", "Nursing", "Agriculture"],
+                notablePrograms: ["Top Agricultural Innovations Hub", "Highly Integrated Regional Medical Campus", "Comprehensive Community Outreach Structure"],
+                website: "https://www.astate.edu"
+            },
+            {
+                name: "University of Central Arkansas",
+                city: "Conway",
+                state: "AR",
+                type: "Public",
+                ranking: 3,
+                acceptance: "91%",
+                sat: "1020-1220",
+                act: "20-26",
+                tuition: "$9,500 (in-state), $16,500 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Suburban",
+                strongMajors: ["Physical Therapy", "Education", "Business", "Nursing"],
+                notablePrograms: ["Elite Post-Graduate Health Sciences Pipelines", "Highly Safe Suburban Living Layout", "Renowned Residential Honors Colleges"],
+                website: "https://www.uca.edu"
+            },
+            {
+                name: "University of Arkansas at Little Rock",
+                city: "Little Rock",
+                state: "AR",
+                type: "Public",
+                ranking: 4,
+                acceptance: "61%",
+                sat: "990-1190",
+                act: "20-25",
+                tuition: "$9,800 (in-state), $18,000 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Urban",
+                strongMajors: ["Law", "Business", "Criminal Justice", "Engineering"],
+                notablePrograms: ["Urban Law Programs", "Government Access", "Professional Pipeline"],
+                website: "https://www.ualr.edu"
+            },
+            {
+                name: "University of Arkansas at Pine Bluff",
+                city: "Pine Bluff",
+                state: "AR",
+                type: "Public",
+                ranking: 5,
+                acceptance: "44%",
+                sat: "900-1100",
+                act: "17-23",
+                tuition: "$8,000 (in-state), $14,500 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Rural",
+                strongMajors: ["Agriculture", "Education", "Nursing", "Business"],
+                notablePrograms: ["HBCU", "Agricultural Research", "Access Institution"],
+                website: "https://www.uapb.edu"
+            },
+
+            // --- ARIZONA SCHOOLS ---
+            {
+                name: "Arizona State University",
+                city: "Tempe",
+                state: "AZ",
+                type: "Public",
+                ranking: 1,
+                acceptance: "88%",
+                sat: "1120-1370",
+                act: "22-28",
+                tuition: "$11,500 (in-state), $30,000 (out-of-state)",
+                campusSize: "Very Large",
+                setting: "Urban",
+                strongMajors: ["Business", "Engineering", "Psychology", "Sustainability"],
+                notablePrograms: ["#1 Most Innovative School in USA", "Barrett Honors College", "Massive Tech Industry Pipeline"],
+                website: "https://www.asu.edu"
+            },
+            {
+                name: "University of Arizona",
+                city: "Tucson",
+                state: "AZ",
+                type: "Public",
+                ranking: 2,
+                acceptance: "87%",
+                sat: "1110-1350",
+                act: "21-27",
+                tuition: "$12,700 (in-state), $37,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Astronomy", "Optical Sciences", "Business", "Medicine"],
+                notablePrograms: ["Elite Global Space Exploration Alliances", "Highly Renowned Optical Physics Lab Infrastructure", "Massive Medical Research Centers"],
+                website: "https://www.arizona.edu"
+            },
+            {
+                name: "Northern Arizona University",
+                city: "Flagstaff",
+                state: "AZ",
+                type: "Public",
+                ranking: 3,
+                acceptance: "78%",
+                sat: "1020-1220",
+                act: "19-25",
+                tuition: "$11,000 (in-state), $27,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Hotel Management", "Forestry", "Environmental Science", "Education"],
+                notablePrograms: ["Top-Tier Hospitality Management Training", "High-Altitude Environmental Research Tracks", "Pioneering Flat-Rate Tuition Guarantees"],
+                website: "https://www.nau.edu"
+            },
+
+            // --- DELAWARE SCHOOLS ---
+            {
+                name: "University of Delaware",
+                city: "Newark",
+                state: "DE",
+                type: "Public",
+                ranking: 1,
+                acceptance: "72%",
+                sat: "1170-1370",
+                act: "25-30",
+                tuition: "$15,000 (in-state), $36,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Chemical Engineering", "Business", "Nursing", "Marine Science"],
+                notablePrograms: ["Flagship State University", "Top Chemical Engineering Program", "Research University"],
+                website: "https://www.udel.edu"
+            },
+            {
+                name: "Delaware State University",
+                city: "Dover",
+                state: "DE",
+                type: "Public",
+                ranking: 2,
+                acceptance: "52%",
+                sat: "920-1120",
+                act: "17-23",
+                tuition: "$9,000 (in-state), $18,000 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Urban",
+                strongMajors: ["Nursing", "Education", "Business", "Agriculture", "Aviation"],
+                notablePrograms: ["HBCU", "Aviation Program", "STEM Growth Institution"],
+                website: "https://www.desu.edu"
+            },
+
+            // --- VERMONT SCHOOLS ---
+            {
+                name: "University of Vermont",
+                city: "Burlington",
+                state: "VT",
+                type: "Public",
+                ranking: 1,
+                acceptance: "64%",
+                sat: "1220-1390",
+                act: "28-32",
+                tuition: "$18,500 (in-state), $45,000 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Urban",
+                strongMajors: ["Biology", "Environmental Studies", "Business", "Nursing"],
+                notablePrograms: ["Flagship State University", "Top Environmental Leadership Studies", "Acclaimed University Hospital Infrastructure"],
+                website: "https://www.uvm.edu"
+            },
+
+            // --- MAINE SCHOOLS ---
+            {
+                name: "University of Maine",
+                city: "Orono",
+                state: "ME",
+                type: "Public",
+                ranking: 1,
+                acceptance: "92%",
+                sat: "1080-1280",
+                act: "22-28",
+                tuition: "$12,000 (in-state), $33,500 (out-of-state)",
+                campusSize: "Large",
+                setting: "Rural",
+                strongMajors: ["Marine Sciences", "Forestry", "Engineering", "Business"],
+                notablePrograms: ["Flagship State University", "Top Marine Science & Forestry Hubs", "Pioneering Advanced Structures Composites Research Labs"],
+                website: "https://www.umaine.edu"
+            },
+            {
+                name: "University of Maine at Farmington",
+                city: "Farmington",
+                state: "ME",
+                type: "Public",
+                ranking: 3,
+                acceptance: "96%",
+                sat: "980-1180",
+                act: "19-25",
+                tuition: "$11,000 (in-state), $25,000 (out-of-state)",
+                campusSize: "Small",
+                setting: "Rural",
+                strongMajors: ["Education", "Psychology", "Rehabilitation Services", "Outdoor Studies"],
+                notablePrograms: ["Teacher Education Leader in Maine", "Small Class Sizes", "Student-Focused Learning"],
+                website: "https://www.umf.maine.edu"
+            },
+            {
+                name: "University of Maine at Augusta",
+                city: "Augusta",
+                state: "ME",
+                type: "Public",
+                ranking: 4,
+                acceptance: "100%",
+                sat: "950-1150",
+                act: "18-24",
+                tuition: "$9,500 (in-state), $20,000 (out-of-state)",
+                campusSize: "Small",
+                setting: "Urban",
+                strongMajors: ["Cybersecurity", "Business", "Nursing", "Liberal Studies"],
+                notablePrograms: ["Online Learning Leader", "Adult Education Focus", "Career Flexibility"],
+                website: "https://www.uma.edu"
+            },
+            {
+                name: "University of Maine at Presque Isle",
+                city: "Presque Isle",
+                state: "ME",
+                type: "Public",
+                ranking: 5,
+                acceptance: "100%",
+                sat: "940-1140",
+                act: "17-23",
+                tuition: "$8,800 (in-state), $16,500 (out-of-state)",
+                campusSize: "Small",
+                setting: "Rural",
+                strongMajors: ["Business", "Education", "Criminal Justice", "Agricultural Science"],
+                notablePrograms: ["Competency-Based Education Model", "Affordable Rural Access", "Agricultural Industry Pipelines"],
+                website: "https://www.umpi.edu"
+            },
+
+            // --- MINNESOTA PUBLIC SCHOOLS ---
+            {
+                name: "University of Minnesota, Twin Cities",
+                city: "Minneapolis",
+                state: "MN",
+                type: "Public",
+                ranking: 1,
+                acceptance: "73%",
+                sat: "1240-1460",
+                act: "26-32",
+                tuition: "$15,500 (in-state), $34,000 (out-of-state)",
+                campusSize: "Very Large",
+                setting: "Urban",
+                strongMajors: ["Engineering", "Business", "Psychology", "Biology"],
+                notablePrograms: ["Top Global Research Status", "Elite Carlson School of Management", "Massive Urban Corporate Internship Network"],
+                website: "https://twin-cities.umn.edu"
+            },
+            {
+                name: "University of Minnesota Duluth",
+                city: "Duluth",
+                state: "MN",
+                type: "Public",
+                ranking: 2,
+                acceptance: "79%",
+                sat: "1090-1300",
+                act: "21-27",
+                tuition: "$13,800 (in-state), $20,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Engineering", "Business", "Biology", "Environmental Science"],
+                notablePrograms: ["Lake Superior Environmental Research Systems", "Acclaimed Specialized Mining Engineering Tracks", "Strong Mid-Career Income Outputs"],
+                website: "https://www.d.umn.edu"
+            },
+            {
+                name: "University of Minnesota Morris",
+                city: "Morris",
+                state: "MN",
+                type: "Public",
+                ranking: 3,
+                acceptance: "78%",
+                sat: "1020-1250",
+                act: "20-26",
+                tuition: "$13,500 (in-state), $15,500 (out-of-state)",
+                campusSize: "Small",
+                setting: "Rural",
+                strongMajors: ["Environmental Science", "Education", "Humanities"],
+                notablePrograms: ["Public Liberal Arts College", "Sustainability Focus", "Small Class Sizes"],
+                website: "https://morris.umn.edu"
+            },
+
+            // --- OREGON SCHOOLS ---
+            {
+                name: "University of Oregon",
+                city: "Eugene",
+                state: "OR",
+                type: "Public",
+                ranking: 1,
+                acceptance: "85%",
+                sat: "1130-1330",
+                act: "24-30",
+                tuition: "$14,000 (in-state), $43,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Business", "Journalism", "Architecture", "Psychology"],
+                notablePrograms: ["Elite Journalism & Sports Communication Centers", "Highly Famous Track & Field Infrastructure Legacy", "AAU Elite Research Institution Standing"],
+                website: "https://www.uoregon.edu"
+            },
+            {
+                name: "Oregon State University",
+                city: "Corvallis",
+                state: "OR",
+                type: "Public",
+                ranking: 2,
+                acceptance: "89%",
+                sat: "1090-1320",
+                act: "21-28",
+                tuition: "$13,000 (in-state), $35,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Forestry", "Oceanography", "Engineering", "Agriculture"],
+                notablePrograms: ["Rare Quadruple Land/Sea/Space/Sun Grant Institution", "Global Standard Forestry Engineering Colleges", "Elite Ocean Science Fleet Infrastructure"],
+                website: "https://oregonstate.edu"
+            },
+            {
+                name: "Portland State University",
+                city: "Portland",
+                state: "OR",
+                type: "Public",
+                ranking: 3,
+                acceptance: "93%",
+                sat: "1000-1210",
+                act: "18-25",
+                tuition: "$11,000 (in-state), $29,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Business", "Urban & Public Affairs", "Social Work", "Engineering"],
+                notablePrograms: ["Nationally Renowned Urban Planning Institute", "Extensive Corporate Green Sustainability Partnerships", "Flexible Alternative Degree Formats"],
+                website: "https://www.pdx.edu"
+            },
+
+            // --- NEBRASKA SCHOOLS ---
+            {
+                name: "University of Nebraska-Lincoln",
+                city: "Lincoln",
+                state: "NE",
+                type: "Public",
+                ranking: 1,
+                acceptance: "79%",
+                sat: "1100-1320",
+                act: "22-28",
+                tuition: "$10,000 (in-state), $28,500 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Agriculture", "Business", "Engineering", "Actuarial Science"],
+                notablePrograms: ["Elite Actuarial Risk Assessment Programs", "Pioneering Agricultural Innovations Matrix", "Big Ten Academic/Athletic Systems"],
+                website: "https://www.unl.edu"
+            },
+            {
+                name: "University of Nebraska Omaha",
+                city: "Omaha",
+                state: "NE",
+                type: "Public",
+                ranking: 2,
+                acceptance: "86%",
+                sat: "1010-1220",
+                act: "20-25",
+                tuition: "$8,500 (in-state), $22,500 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Biomechanics", "Criminology", "Computer Science", "Public Affairs"],
+                notablePrograms: ["Urban Research University", "Strong Cybersecurity Programs", "Military-Friendly"],
+                website: "https://www.unomaha.edu"
+            },
+            {
+                name: "University of Nebraska at Kearney",
+                city: "Kearney",
+                state: "NE",
+                type: "Public",
+                ranking: 3,
+                acceptance: "85%",
+                sat: "1000-1210",
+                act: "20-25",
+                tuition: "$8,800 (in-state), $19,500 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Suburban",
+                strongMajors: ["Education", "Business", "Nursing", "Biology"],
+                notablePrograms: ["Leading Midwest Teacher Academy Pipeline", "State-of-the-Art Allied Health Science Labs", "Highly Affordable Open Campus Layout"],
+                website: "https://www.unk.edu"
+            },
+
+            // --- NEW MEXICO SCHOOLS ---
+            {
+                name: "University of New Mexico",
+                city: "Albuquerque",
+                state: "NM",
+                type: "Public",
+                ranking: 1,
+                acceptance: "96%",
+                sat: "1020-1220",
+                act: "19-25",
+                tuition: "$9,000 (in-state), $26,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Laser Optics", "Anthropology", "Nursing", "Business"],
+                notablePrograms: ["Pioneering Laser Optical Engineering Centers", "Top National Fine Arts Printmaking Projects", "Massive Specialized University Hospital Networks"],
+                website: "https://www.unm.edu"
+            },
+            {
+                name: "New Mexico State University",
+                city: "Las Cruces",
+                state: "NM",
+                type: "Public",
+                ranking: 2,
+                acceptance: "78%",
+                sat: "990-1190",
+                act: "19-24",
+                tuition: "$8,500 (in-state), $25,500 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Agriculture", "Engineering", "Astronomy", "Business"],
+                notablePrograms: ["Elite Aerospace Testing Grounds Access", "Massive Border Region Water Resource Projects", "Premier Space Science Research Hubs"],
+                website: "https://nmsu.edu"
+            },
+            {
+                name: "New Mexico Institute of Mining and Technology",
+                city: "Socorro",
+                state: "NM",
+                type: "Public",
+                ranking: 3,
+                acceptance: "97%",
+                sat: "1180-1380",
+                act: "24-30",
+                tuition: "$9,500 (in-state), $26,000 (out-of-state)",
+                campusSize: "Small",
+                setting: "Rural",
+                strongMajors: ["Engineering", "Physics", "Computer Science", "Geology"],
+                notablePrograms: ["Elite STEM Focus School", "High-ROI Engineering Degrees", "Research in Earth & Space Sciences"],
+                website: "https://www.nmt.edu"
+            },
+            {
+                name: "Western New Mexico University",
+                city: "Silver City",
+                state: "NM",
+                type: "Public",
+                ranking: 4,
+                acceptance: "100%",
+                sat: "950-1150",
+                act: "17-23",
+                tuition: "$7,800 (in-state), $15,500 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Rural",
+                strongMajors: ["Education", "Business", "Nursing", "Social Work"],
+                notablePrograms: ["Teacher Education Pipeline", "Affordable Access Institution", "Regional Workforce Training"],
+                website: "https://www.wnmu.edu"
+            },
+            {
+                name: "Eastern New Mexico University",
+                city: "Portales",
+                state: "NM",
+                type: "Public",
+                ranking: 5,
+                acceptance: "100%",
+                sat: "960-1160",
+                act: "18-24",
+                tuition: "$7,000 (in-state), $14,000 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Rural",
+                strongMajors: ["Communicative Disorders", "Business", "Education", "Criminal Justice"],
+                notablePrograms: ["Top Distance Speech-Language Programs", "Affordable Equalized Out-Of-State Rates", "Accessible Career-Focused Technical Pipelines"],
+                website: "https://www.enmu.edu"
+            },
+
+            // --- OKLAHOMA SCHOOLS ---
+            {
+                name: "University of Oklahoma",
+                city: "Norman",
+                state: "OK",
+                type: "Public",
+                ranking: 1,
+                acceptance: "73%",
+                sat: "1120-1340",
+                act: "23-29",
+                tuition: "$12,000 (in-state), $28,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Meteorology", "Petroleum Engineering", "Business", "Aviation"],
+                notablePrograms: ["Top National Severe Weather Research Center", "Top Meteorology Program", "Big 12 Research Institution"],
+                website: "https://www.ou.edu"
+            },
+            {
+                name: "Oklahoma State University",
+                city: "Stillwater",
+                state: "OK",
+                type: "Public",
+                ranking: 2,
+                acceptance: "71%",
+                sat: "1100-1320",
+                act: "22-28",
+                tuition: "$9,200 (in-state), $25,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Engineering", "Agriculture", "Business", "Veterinary Medicine"],
+                notablePrograms: ["Land Grant University", "Top Agriculture & Engineering", "Veterinary Medicine Program"],
+                website: "https://www.okstate.edu"
+            },
+            {
+                name: "University of Central Oklahoma",
+                city: "Edmond",
+                state: "OK",
+                type: "Public",
+                ranking: 3,
+                acceptance: "84%",
+                sat: "1020-1220",
+                act: "20-25",
+                tuition: "$8,000 (in-state), $18,000 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Suburban",
+                strongMajors: ["Forensic Science", "Business", "Nursing", "Education"],
+                notablePrograms: ["Acclaimed Multi-Disciplinary Forensic Science Institute", "Premier Regional Teacher Training Hub", "High Workforce Placement Ecosystem"],
+                website: "https://www.uco.edu"
+            },
+
+            // --- UTAH SCHOOLS ---
+            {
+                name: "University of Utah",
+                city: "Salt Lake City",
+                state: "UT",
+                type: "Public",
+                ranking: 1,
+                acceptance: "89%",
+                sat: "1150-1380",
+                act: "23-30",
+                tuition: "$9,500 (in-state), $30,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Game Design", "Medical Research", "Business", "Engineering"],
+                notablePrograms: ["Elite Entertainment Arts Engineering Track", "Massive PAC-12 Hospital Complex Systems", "Top Biomedical Startup Incubators"],
+                website: "https://www.utah.edu"
+            },
+            {
+                name: "Utah State University",
+                city: "Logan",
+                state: "UT",
+                type: "Public",
+                ranking: 2,
+                acceptance: "94%",
+                sat: "1050-1280",
+                act: "21-27",
+                tuition: "$8,500 (in-state), $24,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Aerospace Engineering", "Agriculture", "Natural Resources", "Business"],
+                notablePrograms: ["Elite Space Dynamics Hardware Labs", "Comprehensive Wilderness Land Protections studies", "Massive Statewide Campus Access Networks"],
+                website: "https://www.usu.edu"
+            },
+            {
+                name: "Weber State University",
+                city: "Ogden",
+                state: "UT",
+                type: "Public",
+                ranking: 3,
+                acceptance: "100%",
+                sat: "990-1210",
+                act: "19-25",
+                tuition: "$6,500 (in-state), $17,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Nursing", "Automotive Technology", "Business", "Criminal Justice"],
+                notablePrograms: ["Advanced Technical Automotive Certifications", "Near-Flawless Regional Hospital Nursing Placement", "Highly Ranked Undergraduate Open-Access Formats"],
+                website: "https://www.weber.edu"
+            },
+            {
+                name: "Utah Valley University",
+                city: "Orem",
+                state: "UT",
+                type: "Public",
+                ranking: 4,
+                acceptance: "100%",
+                sat: "990-1200",
+                act: "20-26",
+                tuition: "$6,500 (in-state), $18,500 (out-of-state)",
+                campusSize: "Very Large",
+                setting: "Suburban",
+                strongMajors: ["Business", "Computer Science", "Aviation", "Psychology"],
+                notablePrograms: ["Largest Public Open-Access University in Utah", "Career-Focused Education", "Strong Growth Institution"],
+                website: "https://www.uvu.edu"
+            },
+            {
+                name: "Southern Utah University",
+                city: "Cedar City",
+                state: "UT",
+                type: "Public",
+                ranking: 5,
+                acceptance: "85%",
+                sat: "1020-1220",
+                act: "21-26",
+                tuition: "$7,200 (in-state), $20,000 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Rural",
+                strongMajors: ["Outdoor Recreation", "Theatre Arts", "Nursing", "Business"],
+                notablePrograms: ["Official University of the National Parks", "Acclaimed Shakespeare Festival Affiliation Hubs", "Highly Experiential Leadership Development Projects"],
+                website: "https://www.suu.edu"
+            },
+
+            // --- MONTANA SCHOOLS ---
+            {
+                name: "University of Montana",
+                city: "Missoula",
+                state: "MT",
+                type: "Public",
+                ranking: 1,
+                acceptance: "96%",
+                sat: "1050-1250",
+                act: "21-27",
+                tuition: "$7,800 (in-state), $29,000 (out-of-state)",
+                campusSize: "Large",
+                setting: "Urban",
+                strongMajors: ["Biology", "Business", "Education", "Journalism", "Environmental Science"],
+                notablePrograms: ["Flagship State University", "Strong Environmental & Forestry Programs", "Research Institution"],
+                website: "https://www.umt.edu"
+            },
+            {
+                name: "Montana State University",
+                city: "Bozeman",
+                state: "MT",
+                type: "Public",
+                ranking: 2,
+                acceptance: "73%",
+                sat: "1100-1320",
+                act: "21-28",
+                tuition: "$7,700 (in-state), $28,500 (out-of-state)",
+                campusSize: "Large",
+                setting: "Suburban",
+                strongMajors: ["Engineering", "Agriculture", "Nursing", "Earth Sciences"],
+                notablePrograms: ["Elite High-Altitude Snow Research Labs", "Massive Agricultural Extension Networks", "Top Technical ROI Across Northwest Regions"],
+                website: "https://www.montana.edu"
+            },
+            {
+                name: "Montana Technological University",
+                city: "Butte",
+                state: "MT",
+                type: "Public",
+                ranking: 3,
+                acceptance: "91%",
+                sat: "1060-1260",
+                act: "21-27",
+                tuition: "$7,500 (in-state), $24,500 (out-of-state)",
+                campusSize: "Small",
+                setting: "Rural",
+                strongMajors: ["Metallurgical Engineering", "Geological Engineering", "Nursing", "Occupational Health"],
+                notablePrograms: ["World-Renowned Mineral Extraction Labs", "Highly Advanced Environmental Restoration Hubs", "Exceptional High-Starting Salary Ratios"],
+                website: "https://www.mtech.edu"
+            },
+            {
+                name: "Montana State University Billings",
+                city: "Billings",
+                state: "MT",
+                type: "Public",
+                ranking: 4,
+                acceptance: "100%",
+                sat: "980-1180",
+                act: "19-25",
+                tuition: "$7,500 (in-state), $22,000 (out-of-state)",
+                campusSize: "Medium",
+                setting: "Urban",
+                strongMajors: ["Business", "Education", "Health Sciences", "Social Work"],
+                notablePrograms: ["Teacher Education Pipeline", "Healthcare Workforce Training", "Regional Access Institution"],
+                website: "https://www.msubillings.edu"
+            },
+            {
+                name: "Montana State University Northern",
+                city: "Havre",
+                state: "MT",
+                type: "Public",
+                ranking: 5,
+                acceptance: "100%",
+                sat: "950-1150",
+                act: "18-24",
+                tuition: "$7,000 (in-state), $20,000 (out-of-state)",
+                campusSize: "Small",
+                setting: "Rural",
+                strongMajors: ["Education", "Nursing", "Business", "Skilled Trades"],
+                notablePrograms: ["Workforce & Technical Training Leader", "Teacher Education Focus", "Affordable Access"],
+                website: "https://www.msun.edu"
+            }
+        ];
+
+        // ========================================
+        // REGION DEFINITIONS - ALL COMPONENT CODES
+        // ========================================
+        const REGIONS = {
+            "Florida": ["FL"],
+            "Southeast": ["FL", "KY", "MS", "LA", "AR"],
+            "Northeast": ["NJ", "MA", "DE", "VT", "ME", "NY", "CT"],
+            "Midwest": ["IL", "MI", "WI", "MN", "NE", "MO"],
+            "West": ["CO", "CA", "AZ", "OR", "NM", "UT", "MT", "OK", "TX"]
+        };
+
+        // ========================================
+        // EVALUATION ENGINE LOGIC (QUIZ ENGINE)
+        // ========================================
+        const QUESTIONS = [
+            {
+                text: "Which geographical region do you prefer for your higher education journey?",
+                desc: "Filter down specific institutional blocks across modern national campuses.",
+                key: "region",
+                options: [
+                    { text: "Florida Only", value: "Florida" },
+                    { text: "Southeast USA (FL, KY, MS, LA, AR)", value: "Southeast" },
+                    { text: "Northeast USA (NJ, MA, DE, VT, ME, NY, CT)", value: "Northeast" },
+                    { text: "Midwest USA (IL, MI, WI, MN, NE, MO)", value: "Midwest" },
+                    { text: "West & Southwest USA (CO, CA, AZ, OR, NM, UT, MT, OK, TX)", value: "West" }
+                ]
+            },
+            {
+                text: "What type of higher learning ecosystem fits your profile best?",
+                desc: "Public state flagship systems vs legacy independent private campuses.",
+                key: "type",
+                options: [
+                    { text: "Public State University Systems", value: "Public" },
+                    { text: "Private/Independent Liberal Arts & Engineering Foundations", value: "Private" }
+                ]
+            },
+            {
+                text: "What size campus setting maximizes your operational comfort?",
+                desc: "Enrollment metrics directly scale structural resources and class counts.",
+                key: "size",
+                options: [
+                    { text: "Small (Under 5,000 Total Enrollment Profile)", value: "Small" },
+                    { text: "Medium (5,000 to 15,000 Standard Student Population)", value: "Medium" },
+                    { text: "Large/Very Large (15,000+ Enrolled Public Flagships)", value: "Large" }
+                ]
+            },
+            {
+                text: "Which campus environment matches your lifestyle design?",
+                desc: "Metropolitan hubs, regional business suburbs, or deep specialized rural research towns.",
+                key: "setting",
+                options: [
+                    { text: "Urban / Highly Populated Metropolitan Centres", value: "Urban" },
+                    { text: "Suburban / Corporate Parks & Regional Standard Zones", value: "Suburban" },
+                    { text: "Rural / Dedicated Academic Towns & High-Altitude Outposts", value: "Rural" }
+                ]
+            },
+            {
+                text: "Select your predominant fields of academic interest:",
+                desc: "This optimizes academic roadmaps and alerts matching major departments.",
+                key: "major",
+                options: [
+                    { text: "Engineering / Computer Science / Technological Disciplines", value: "Engineering" },
+                    { text: "Business / Global Supply Chain / Financial Leadership Programs", value: "Business" },
+                    { text: "Biological Sciences / Nursing / Pre-Medical Foundations", value: "Biology" },
+                    { text: "Education / Special Ed / Regional Teacher Pipeline tracks", value: "Education" },
+                    { text: "Aviation / Space Sciences / Severe Weather Dynamics Systems", value: "Aviation" }
+                ]
+            }
+        ];
+
         let currentQuestion = 0;
         let answers = [];
         let topColleges = [];
 
-        // Comprehensive Questionnaire covering all requirements
-        const QUESTIONS = [
-            {
-                q: "What is your primary academic area of interest?",
-                opts: ["STEM/Tech", "Business & Finance", "Healthcare & Medicine", "Arts & Humanities", "Social Sciences"]
-            },
-            {
-                q: "What are your long-term career goals?",
-                opts: ["Software Engineer / Tech Leader", "Corporate Executive / Entrepreneur", "Doctor / Medical Researcher", "Educator / Teacher", "Artist / Creative Professional"]
-            },
-            {
-                q: "What type of campus setting do you prefer?",
-                opts: ["Urban (big city)", "Suburban (near a city)", "Rural (countryside/small town)", "No preference"]
-            },
-            {
-                q: "Do you prefer public or private colleges?",
-                opts: ["Public universities", "Private universities", "No preference"]
-            },
-            {
-                q: "What's your current GPA (or expected GPA)?",
-                opts: ["4.0 (Perfect grades)", "3.7-3.9 (Mostly A's)", "3.3-3.6 (A's and B's)", "3.0-3.2 (Mostly B's)", "Below 3.0"]
-            },
-            {
-                q: "What are your standardized test goals (SAT/ACT)?",
-                opts: ["Top scores (1500+ SAT / 34+ ACT)", "High scores (1300-1490 SAT / 28-33 ACT)", "Average scores (1100-1290 SAT / 22-27 ACT)", "Test-optional path"]
-            },
-            {
-                q: "Which high school tracks interest you most at Saint Stephen's?",
-                opts: ["AP Capstone Diploma Program", "Global Studies Distinction Program", "Marine Science Oceanography Track", "Fine Arts Center Concentration", "Standard College Prep Track"]
-            },
-            {
-                q: "How many years of a foreign language do you plan to complete?",
-                opts: ["4 years (Complete fluency focus)", "3 years (Standard competitive level)", "2 years (Minimum graduation requirement)", "Native speaker / Alternative credit"]
-            },
-            {
-                q: "What is your target size for a college campus?",
-                opts: ["Large (20,000+ students)", "Medium (5,000-20,000 students)", "Small (Under 5,000 students)", "No preference"]
-            },
-            {
-                q: "Which geographic regions do you prefer?",
-                opts: ["Southeast & Florida", "Northeast & Mid-Atlantic", "West Coast & California", "Mountain West & Colorado", "Southwest (Texas, Arizona)"]
-            },
-            {
-                q: "How important is undergraduate research availability to you?",
-                opts: ["Extremely important (Critical for pre-med/STEM)", "Moderately important (Good to have on resume)", "Not a priority (Prefer hands-on internships)"]
-            },
-            {
-                q: "What are your financial or tuition expectations?",
-                opts: ["In-state public rates / Bright Futures", "Out-of-state budget-friendly option", "Private school budget with financial aid focus", "Finances are not a limiting factor"]
-            },
-            {
-                q: "What kind of extracurricular ecosystem are you looking for?",
-                opts: ["Division 1 Athletics & Greek Life", "Intramural sports, outdoor recreation, clubs", "Artistic community, theater, gallery spaces", "Research journals, debate team, academic clubs"]
-            },
-            {
-                q: "What is your highest math class expected by senior year?",
-                opts: ["AP Calculus BC / Multivariable Calculus", "AP Calculus AB or AP Statistics", "Pre-Calculus Honors", "Algebra 2 or College Algebra"]
-            }
-        ];
+        function startQuiz() {
+            currentQuestion = 0;
+            answers = [];
+            showScreen('quizScreen');
+            displayQuestion();
+        }
 
-        // ========================================
-        // COMPLETE COLLEGE DATABASE (50+ SCHOOLS)
-        // ========================================
-        const COLLEGES = [
-            {
-                name: "University of Florida", city: "Gainesville", state: "FL", type: "Public", ranking: 28,
-                acceptance: "23%", sat: "1330-1470", act: "30-34", tuition: "$6,381 (in-state), $28,658 (out-of-state)",
-                campusSize: "Large", setting: "Suburban (near a city)", strongMajors: ["Engineering", "Business", "Biology", "Psychology", "Computer Science"],
-                notablePrograms: ["Honors Program", "Research University", "SEC Athletics"], website: "https://www.ufl.edu"
-            },
-            {
-                name: "University of Miami", city: "Coral Gables", state: "FL", type: "Private", ranking: 55,
-                acceptance: "28%", sat: "1340-1500", act: "31-34", tuition: "$58,104",
-                campusSize: "Medium", setting: "Suburban (near a city)", strongMajors: ["Business", "Marine Science", "Biology", "Psychology", "Music"],
-                notablePrograms: ["Marine Biology", "Music School", "Pre-Med"], website: "https://www.miami.edu"
-            },
-            {
-                name: "Florida State University", city: "Tallahassee", state: "FL", type: "Public", ranking: 55,
-                acceptance: "37%", sat: "1210-1360", act: "27-31", tuition: "$5,656 (in-state), $18,786 (out-of-state)",
-                campusSize: "Large", setting: "Urban (big city)", strongMajors: ["Business", "Film", "Psychology", "Biology", "Political Science"],
-                notablePrograms: ["Film School", "Research University", "FAMU-FSU Engineering"], website: "https://www.fsu.edu"
-            },
-            {
-                name: "University of Central Florida", city: "Orlando", state: "FL", type: "Public", ranking: 160,
-                acceptance: "44%", sat: "1190-1360", act: "25-29", tuition: "$6,368 (in-state), $22,467 (out-of-state)",
-                campusSize: "Large", setting: "Suburban (near a city)", strongMajors: ["Engineering", "Computer Science", "Business", "Hospitality", "Psychology"],
-                notablePrograms: ["Space Research", "Hospitality Management"], website: "https://www.ucf.edu"
-            },
-            {
-                name: "University of South Florida", city: "Tampa", state: "FL", type: "Public", ranking: 127,
-                acceptance: "49%", sat: "1170-1340", act: "25-30", tuition: "$6,410 (in-state), $17,324 (out-of-state)",
-                campusSize: "Large", setting: "Urban (big city)", strongMajors: ["Business", "Engineering", "Health Sciences", "Education", "Psychology"],
-                notablePrograms: ["Medical School", "Research University"], website: "https://www.usf.edu"
-            },
-            {
-                name: "Florida International University", city: "Miami", state: "FL", type: "Public", ranking: 216,
-                acceptance: "64%", sat: "1080-1250", act: "22-27", tuition: "$6,556 (in-state), $18,963 (out-of-state)",
-                campusSize: "Large", setting: "Urban (big city)", strongMajors: ["Business", "Engineering", "Hospitality", "International Relations", "Biology"],
-                notablePrograms: ["International Business", "Hospitality Management"], website: "https://www.fiu.edu"
-            },
-            {
-                name: "Florida Atlantic University", city: "Boca Raton", state: "FL", type: "Public", ranking: 263,
-                acceptance: "63%", sat: "1080-1230", act: "22-26", tuition: "$4,879 (in-state), $17,324 (out-of-state)",
-                campusSize: "Large", setting: "Suburban (near a city)", strongMajors: ["Business", "Engineering", "Nursing", "Ocean Engineering", "Psychology"],
-                notablePrograms: ["Ocean Engineering", "Marine Science"], website: "https://www.fau.edu"
-            },
-            {
-                name: "University of North Florida", city: "Jacksonville", state: "FL", type: "Public", ranking: 227,
-                acceptance: "71%", sat: "1130-1290", act: "23-28", tuition: "$6,389 (in-state), $20,798 (out-of-state)",
-                campusSize: "Medium", setting: "Suburban (near a city)", strongMajors: ["Business", "Engineering", "Health Sciences", "Education", "Biology"],
-                notablePrograms: ["Coastal Biology", "Transportation & Logistics"], website: "https://www.unf.edu"
-            },
-            {
-                name: "Rollins College", city: "Winter Park", state: "FL", type: "Private", ranking: 1,
-                acceptance: "49%", sat: "1200-1370", act: "27-31", tuition: "$56,250",
-                campusSize: "Small", setting: "Suburban (near a city)", strongMajors: ["Business", "International Business", "Psychology", "Biology", "Environmental Science"],
-                notablePrograms: ["Liberal Arts", "Study Abroad"], website: "https://www.rollins.edu"
-            },
-            {
-                name: "Stetson University", city: "DeLand", state: "FL", type: "Private", ranking: 127,
-                acceptance: "94%", sat: "1120-1310", act: "23-29", tuition: "$52,530",
-                campusSize: "Small", setting: "Suburban (near a city)", strongMajors: ["Business", "Music", "Psychology", "Biology", "Education"],
-                notablePrograms: ["Music School", "Law School"], website: "https://www.stetson.edu"
-            },
-            {
-                name: "Colorado School of Mines", city: "Golden", state: "CO", type: "Public", ranking: 1,
-                acceptance: "60%", sat: "1320-1480", act: "29-33", tuition: "$19,100 (in-state), $40,800 (out-of-state)",
-                campusSize: "Medium", setting: "Suburban (near a city)", strongMajors: ["Engineering", "Computer Science", "Geology", "Energy Systems"],
-                notablePrograms: ["Top Engineering School", "STEM Focus", "High ROI"], website: "https://www.mines.edu"
-            },
-            {
-                name: "University of Colorado Boulder", city: "Boulder", state: "CO", type: "Public", ranking: 2,
-                acceptance: "76%", sat: "1180-1390", act: "27-33", tuition: "$13,500 (in-state), $41,900 (out-of-state)",
-                campusSize: "Large", setting: "Suburban (near a city)", strongMajors: ["Business", "Engineering", "Environmental Science", "Physics"],
-                notablePrograms: ["Research University", "Leeds School of Business", "Pac-12 Athletics"], website: "https://www.colorado.edu"
-            },
-            {
-                name: "Colorado State University", city: "Fort Collins", state: "CO", type: "Public", ranking: 3,
-                acceptance: "89%", sat: "1060-1280", act: "22-29", tuition: "$12,900 (in-state), $32,800 (out-of-state)",
-                campusSize: "Large", setting: "Suburban (near a city)", strongMajors: ["Business", "Biology", "Environmental Science", "Engineering"],
-                notablePrograms: ["Land-Grant University", "Sustainability Leader", "Research"], website: "https://www.colostate.edu"
-            },
-            {
-                name: "University of Colorado Denver", city: "Denver", state: "CO", type: "Public", ranking: 4,
-                acceptance: "78%", sat: "1000-1210", act: "20-26", tuition: "$11,500 (in-state), $32,000 (out-of-state)",
-                campusSize: "Large", setting: "Urban (big city)", strongMajors: ["Business", "Health Sciences", "Public Health", "Architecture"],
-                notablePrograms: ["Urban Campus", "Medical Partnerships", "Internships"], website: "https://www.ucdenver.edu"
-            },
-            {
-                name: "University of Northern Colorado", city: "Greeley", state: "CO", type: "Public", ranking: 5,
-                acceptance: "94%", sat: "960-1170", act: "21-26", tuition: "$10,600 (in-state), $23,800 (out-of-state)",
-                campusSize: "Medium", setting: "Suburban (near a city)", strongMajors: ["Education", "Business", "Nursing", "Psychology"],
-                notablePrograms: ["Teacher Education", "Affordable", "Student-Focused"], website: "https://www.unco.edu"
-            },
-            {
-                name: "Colorado College", city: "Colorado Springs", state: "CO", type: "Private", ranking: 1,
-                acceptance: "20%", sat: "1360-1520", act: "31-34", tuition: "$65,000",
-                campusSize: "Small", setting: "Urban (big city)", strongMajors: ["Economics", "Political Science", "Environmental Studies", "History"],
-                notablePrograms: ["Block Plan (1 class at a time)", "Top Liberal Arts College"], website: "https://www.coloradocollege.edu"
-            },
-            {
-                name: "University of Denver", city: "Denver", state: "CO", type: "Private", ranking: 2,
-                acceptance: "71%", sat: "1240-1410", act: "29-32", tuition: "$58,000",
-                campusSize: "Medium", setting: "Urban (big city)", strongMajors: ["Business", "International Relations", "Hospitality", "Psychology"],
-                notablePrograms: ["Study Abroad", "Business School", "Internships"], website: "https://www.du.edu"
-            },
-            {
-                name: "Regis University", city: "Denver", state: "CO", type: "Private", ranking: 3,
-                acceptance: "82%", sat: "1050-1260", act: "21-28", tuition: "$42,000",
-                campusSize: "Small", setting: "Urban (big city)", strongMajors: ["Nursing", "Business", "Health Sciences", "Computer Science"],
-                notablePrograms: ["Jesuit Education", "Health Focus", "Adult Programs"], website: "https://www.regis.edu"
-            },
-            {
-                name: "Colorado Christian University", city: "Lakewood", state: "CO", type: "Private", ranking: 4,
-                acceptance: "78%", sat: "1020-1230", act: "20-27", tuition: "$38,000",
-                campusSize: "Small", setting: "Suburban (near a city)", strongMajors: ["Business", "Education", "Psychology", "Theology"],
-                notablePrograms: ["Christian Liberal Arts", "Flexible Programs"], website: "https://www.ccu.edu"
-            },
-            {
-                name: "Naropa University", city: "Boulder", state: "CO", type: "Private", ranking: 5,
-                acceptance: "80%", sat: "Test Optional", act: "Test Optional", tuition: "$35,000",
-                campusSize: "Small", setting: "Urban (big city)", strongMajors: ["Psychology", "Environmental Studies", "Creative Writing", "Religious Studies"],
-                notablePrograms: ["Buddhist-Inspired Education", "Holistic Learning"], website: "https://www.naropa.edu"
-            },
-            {
-                name: "Rutgers University–New Brunswick", city: "New Brunswick", state: "NJ", type: "Public", ranking: 1,
-                acceptance: "58%", sat: "1310-1500", act: "29-33", tuition: "$15,800 (in-state), $33,000 (out-of-state)",
-                campusSize: "Large", setting: "Urban (big city)", strongMajors: ["Business", "Engineering", "Biology", "Computer Science", "Psychology"],
-                notablePrograms: ["Flagship State University", "Big Ten Athletics", "Research Institution"], website: "https://www.rutgers.edu"
-            },
-            {
-                name: "New Jersey Institute of Technology", city: "Newark", state: "NJ", type: "Public", ranking: 2,
-                acceptance: "67%", sat: "1210-1470", act: "26-32", tuition: "$18,500 (in-state), $34,000 (out-of-state)",
-                campusSize: "Medium", setting: "Urban (big city)", strongMajors: ["Engineering", "Computer Science", "Architecture", "Information Technology"],
-                notablePrograms: ["Top STEM School", "High ROI", "Tech Focus"], website: "https://www.njit.edu"
-            },
-            {
-                name: "The College of New Jersey", city: "Ewing", state: "NJ", type: "Public", ranking: 3,
-                acceptance: "62%", sat: "1140-1340", act: "25-30", tuition: "$17,000 (in-state), $29,000 (out-of-state)",
-                campusSize: "Medium", setting: "Suburban (near a city)", strongMajors: ["Education", "Business", "Nursing", "Psychology"],
-                notablePrograms: ["Strong Teaching Programs", "Liberal Arts Focus", "Selective Public"], website: "https://www.tcnj.edu"
-            },
-            {
-                name: "Rowan University", city: "Glassboro", state: "NJ", type: "Public", ranking: 4,
-                acceptance: "78%", sat: "1110-1310", act: "22-30", tuition: "$15,500 (in-state), $24,000 (out-of-state)",
-                campusSize: "Large", setting: "Suburban (near a city)", strongMajors: ["Engineering", "Business", "Education", "Health Sciences"],
-                notablePrograms: ["Fast Growing University", "Engineering Expansion", "Affordable"], website: "https://www.rowan.edu"
-            },
-            {
-                name: "Montclair State University", city: "Montclair", state: "NJ", type: "Public", ranking: 5,
-                acceptance: "88%", sat: "910-1210", act: "20-26", tuition: "$13,000 (in-state), $22,000 (out-of-state)",
-                campusSize: "Large", setting: "Suburban (near a city)", strongMajors: ["Business", "Communications", "Education", "Psychology"],
-                notablePrograms: ["Close to NYC", "Media & Arts Strength", "Career Opportunities"], website: "https://www.montclair.edu"
-            },
-            {
-                name: "Princeton University", city: "Princeton", state: "NJ", type: "Private", ranking: 1,
-                acceptance: "6%", sat: "1450-1570", act: "33-35", tuition: "$57,410",
-                campusSize: "Medium", setting: "Suburban (near a city)", strongMajors: ["Engineering", "Computer Science", "Economics", "Mathematics", "Physics"],
-                notablePrograms: ["Undergraduate Focus", "Research Opportunities"], website: "https://www.princeton.edu"
-            },
-            {
-                name: "University of Massachusetts Amherst", city: "Amherst", state: "MA", type: "Public", ranking: 1,
-                acceptance: "60%", sat: "1310-1500", act: "28-33", tuition: "$17,700 (in-state), $40,400 (out-of-state)",
-                campusSize: "Large", setting: "Suburban (near a city)", strongMajors: ["Business", "Computer Science", "Engineering", "Biology", "Psychology"],
-                notablePrograms: ["Flagship State University", "Top Public Research", "Isenberg School of Management"], website: "https://www.umass.edu"
-            },
-            {
-                name: "University of Massachusetts Lowell", city: "Lowell", state: "MA", type: "Public", ranking: 2,
-                acceptance: "83%", sat: "1180-1350", act: "24-30", tuition: "$17,000 (in-state), $36,000 (out-of-state)",
-                campusSize: "Large", setting: "Urban (big city)", strongMajors: ["Engineering", "Computer Science", "Business", "Nursing"],
-                notablePrograms: ["STEM Focus", "Career Placement", "Co-op Opportunities"], website: "https://www.uml.edu"
-            },
-            {
-                name: "University of Massachusetts Boston", city: "Boston", state: "MA", type: "Public", ranking: 3,
-                acceptance: "84%", sat: "1080-1290", act: "20-26", tuition: "$15,900 (in-state), $38,100 (out-of-state)",
-                campusSize: "Large", setting: "Urban (big city)", strongMajors: ["Business", "Biology", "Public Policy", "Psychology"],
-                notablePrograms: ["Waterfront Campus", "Diverse Student Body", "Internships in Boston"], website: "https://www.umb.edu"
-            },
-            {
-                name: "University of Massachusetts Dartmouth", city: "North Dartmouth", state: "MA", type: "Public", ranking: 4,
-                acceptance: "90%", sat: "1040-1260", act: "20-28", tuition: "$15,600 (in-state), $32,500 (out-of-state)",
-                campusSize: "Medium", setting: "Suburban (near a city)", strongMajors: ["Engineering", "Business", "Visual Arts", "Nursing"],
-                notablePrograms: ["Affordable UMass Option", "STEM + Arts Mix"], website: "https://www.umassd.edu"
-            },
-            {
-                name: "Massachusetts Maritime Academy", city: "Buzzards Bay", state: "MA", type: "Public", ranking: 5,
-                acceptance: "95%", sat: "Test Optional", act: "Test Optional", tuition: "$10,000 (in-state), $26,000 (out-of-state)",
-                campusSize: "Small", setting: "Suburban (near a city)", strongMajors: ["Marine Engineering", "Transportation", "International Maritime Business", "Environmental Protection"],
-                notablePrograms: ["Regimented Lifestyle", "Sea Term Training", "High Job Placement"], website: "https://www.maritime.edu"
-            },
-            {
-                name: "Massachusetts Institute of Technology", city: "Cambridge", state: "MA", type: "Private", ranking: 2,
-                acceptance: "7%", sat: "1500-1570", act: "34-36", tuition: "$57,986",
-                campusSize: "Medium", setting: "Urban (big city)", strongMajors: ["Engineering", "Computer Science", "Physics", "Mathematics", "Biology"],
-                notablePrograms: ["STEM Excellence", "Innovation Hub"], website: "https://www.mit.edu"
-            },
-            {
-                name: "Harvard University", city: "Cambridge", state: "MA", type: "Private", ranking: 3,
-                acceptance: "5%", sat: "1460-1580", act: "33-35", tuition: "$54,269",
-                campusSize: "Medium", setting: "Urban (big city)", strongMajors: ["Economics", "Political Science", "Biology", "Psychology", "Computer Science"],
-                notablePrograms: ["Liberal Arts", "Research University"], website: "https://www.harvard.edu"
-            },
-            {
-                name: "University of California, Berkeley", city: "Berkeley", state: "CA", type: "Public", ranking: 1,
-                acceptance: "11%", sat: "1310-1530", act: "29-35", tuition: "$14,200 (in-state), $44,000 (out-of-state)",
-                campusSize: "Large", setting: "Urban (big city)", strongMajors: ["Computer Science", "Engineering", "Economics", "Cell Biology", "Environmental Science"],
-                notablePrograms: ["Top Public University", "Global Research Giant", "Silicon Valley Network"], website: "https://www.berkeley.edu"
-            },
-            {
-                name: "University of California, Los Angeles", city: "Los Angeles", state: "CA", type: "Public", ranking: 2,
-                acceptance: "9%", sat: "1310-1520", act: "29-35", tuition: "$13,800 (in-state), $43,500 (out-of-state)",
-                campusSize: "Large", setting: "Urban (big city)", strongMajors: ["Psychology", "Political Science", "Biology", "Economics", "Film and Television"],
-                notablePrograms: ["Most Applied-To School", "Elite Athletics (Big Ten)", "Hollywood Pipeline"], website: "https://www.ucla.edu"
-            },
-            {
-                name: "University of California, San Diego", city: "La Jolla", state: "CA", type: "Public", ranking: 3,
-                acceptance: "24%", sat: "1260-1480", act: "26-33", tuition: "$14,700 (in-state), $44,400 (out-of-state)",
-                campusSize: "Large", setting: "Suburban (near a city)", strongMajors: ["Marine Biology", "Computer Science", "Bioengineering", "Data Science"],
-                notablePrograms: ["Scripps Oceanography", "Biotech Hub Location", "Residential College System"], website: "https://www.ucsd.edu"
-            },
-            {
-                name: "University of California, Davis", city: "Davis", state: "CA", type: "Public", ranking: 4,
-                acceptance: "37%", sat: "1160-1400", act: "24-32", tuition: "$14,600 (in-state), $44,300 (out-of-state)",
-                campusSize: "Large", setting: "Suburban (near a city)", strongMajors: ["Agricultural Sciences", "Veterinary Pre-Med", "Evolutionary Biology", "Engineering"],
-                notablePrograms: ["World-Class Vet/Ag Programs", "Bicycle-Friendly Campus", "Sustainability Focus"], website: "https://www.ucdavis.edu"
-            },
-            {
-                name: "University of California, Irvine", city: "Irvine", state: "CA", type: "Public", ranking: 5,
-                acceptance: "21%", sat: "1190-1430", act: "25-33", tuition: "$13,900 (in-state), $43,600 (out-of-state)",
-                campusSize: "Large", setting: "Suburban (near a city)", strongMajors: ["Criminology", "Business Administration", "Computer Science", "Public Health"],
-                notablePrograms: ["Top-Ranked Criminology", "High Social Mobility", "SoCal Tech Network"], website: "https://www.uci.edu"
-            },
-            {
-                name: "Stanford University", city: "Stanford", state: "CA", type: "Private", ranking: 1,
-                acceptance: "4%", sat: "1470-1570", act: "34-35", tuition: "$56,169",
-                campusSize: "Large", setting: "Suburban (near a city)", strongMajors: ["Computer Science", "Engineering", "Human Biology", "Economics"],
-                notablePrograms: ["Silicon Valley Birthplace", "Elite Venture Capital Pipeline", "World-Class Athletics"], website: "https://www.stanford.edu"
-            },
-            {
-                name: "University of Southern California", city: "Los Angeles", state: "CA", type: "Private", ranking: 2,
-                acceptance: "12%", sat: "1330-1520", act: "30-34", tuition: "$60,446",
-                campusSize: "Large", setting: "Urban (big city)", strongMajors: ["Cinematic Arts", "Business Administration", "Communication", "Biomedical Engineering"],
-                notablePrograms: ["#1 Film School Globally", "Trojan Alumni Network", "Marshall School of Business"], website: "https://www.usc.edu"
-            },
-            {
-                name: "University of Texas at Austin", city: "Austin", state: "TX", type: "Public", ranking: 1,
-                acceptance: "29%", sat: "1235-1480", act: "29-34", tuition: "$11,750 (in-state), $41,000 (out-of-state)",
-                campusSize: "Large", setting: "Urban (big city)", strongMajors: ["Business (McCombs)", "Computer Science", "Petroleum Engineering", "Advertising"],
-                notablePrograms: ["Silicon Hills Access", "Turing Scholars CS", "Massive School Spirit (SEC)"], website: "https://www.utexas.edu"
-            },
-            {
-                name: "Texas A&M University", city: "College Station", state: "TX", type: "Public", ranking: 2,
-                acceptance: "63%", sat: "1160-1390", act: "25-31", tuition: "$13,000 (in-state), $40,000 (out-of-state)",
-                campusSize: "Large", setting: "Suburban (near a city)", strongMajors: ["Engineering", "Agriculture", "Business Administration", "Veterinary Studies"],
-                notablePrograms: ["Corps of Cadets Option", "Massive Research Budget", "Aggie Network Pipeline"], website: "https://www.tamu.edu"
-            },
-            {
-                name: "Texas Tech University", city: "Lubbock", state: "TX", type: "Public", ranking: 3,
-                acceptance: "68%", sat: "1070-1260", act: "22-27", tuition: "$11,900 (in-state), $24,200 (out-of-state)",
-                campusSize: "Large", setting: "Urban (big city)", strongMajors: ["Mechanical Engineering", "Business", "Agricultural Sciences", "Kinesiology"],
-                notablePrograms: ["Comprehensive Medical/Law Track System", "Wind Energy Research Institute"], website: "https://www.ttu.edu"
-            },
-            {
-                name: "University of Houston", city: "Houston", state: "TX", type: "Public", ranking: 4,
-                acceptance: "66%", sat: "1140-1310", act: "23-29", tuition: "$11,500 (in-state), $26,600 (out-of-state)",
-                campusSize: "Large", setting: "Urban (big city)", strongMajors: ["Hotel/Restaurant Management", "Business Administration", "Biomedical Sciences", "Engineering"],
-                notablePrograms: ["Top Hospitality Program", "Energy/Oil Corporate Internships", "Tier 1 Research Status"], website: "https://www.uh.edu"
-            },
-            {
-                name: "Western New Mexico University", city: "Silver City", state: "NM", type: "Public", ranking: 4,
-                acceptance: "100%", sat: "940-1140", act: "17-23", tuition: "$6,800 (in-state), $13,400 (out-of-state)",
-                campusSize: "Small", setting: "Rural (countryside/small town)", strongMajors: ["Education", "Business", "Nursing", "Social Work"],
-                notablePrograms: ["Teacher Education Pipeline", "Affordable Access Institution", "Regional Workforce Training"], website: "https://www.wnmu.edu"
-            },
-            {
-                name: "Eastern New Mexico University", city: "Portales", state: "NM", type: "Public", ranking: 5,
-                acceptance: "100%", sat: "960-1160", act: "18-24", tuition: "$7,500 (in-state), $14,000 (out-of-state)",
-                campusSize: "Medium", setting: "Rural (countryside/small town)", strongMajors: ["Education", "Business", "Nursing", "Communications"],
-                notablePrograms: ["Strong Education Programs", "Affordable Tuition", "Regional Access Mission"], website: "https://www.enmu.edu"
-            },
-            {
-                name: "University of Nevada, Reno", city: "Reno", state: "NV", type: "Public", ranking: 1,
-                acceptance: "88%", sat: "1120-1330", act: "22-28", tuition: "$8,800 (in-state), $27,000 (out-of-state)",
-                campusSize: "Large", setting: "Urban (big city)", strongMajors: ["Engineering", "Business", "Biology", "Computer Science", "Nursing"],
-                notablePrograms: ["Flagship State University", "R1 Research Institution", "Strong Engineering Program"], website: "https://www.unr.edu"
-            },
-            {
-                name: "University of Nevada, Las Vegas", city: "Las Vegas", state: "NV", type: "Public", ranking: 2,
-                acceptance: "85%", sat: "1050-1250", act: "20-26", tuition: "$9,000 (in-state), $26,000 (out-of-state)",
-                campusSize: "Large", setting: "Urban (big city)", strongMajors: ["Hospitality Management", "Business", "Engineering", "Film", "Health Sciences"],
-                notablePrograms: ["Top Hospitality School (Global Ranking)", "Urban Research University", "Gaming Industry Pipeline"], website: "https://www.unlv.edu"
-            }
-        ];
-
-        // ========================================
-        // APPLICATION CORE FUNCTIONS
-        // ========================================
-        
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
         }
 
-        function startQuiz() {
-            currentQuestion = 0;
-            answers = [];
-            topColleges = [];
-            document.getElementById('prevBtn').style.display = 'none';
-            displayQuestion();
-            showScreen('quizScreen');
-        }
-
         function displayQuestion() {
-            const container = document.getElementById('questionContainer');
-            const current = QUESTIONS[currentQuestion];
+            const q = QUESTIONS[currentQuestion];
+            document.getElementById('questionText').innerText = q.text;
+            document.getElementById('questionDesc').innerText = q.desc;
             
-            // Build Question Layout HTML
-            let html = `
-                <div class="question-container">
-                    <div class="question-number">Question ${currentQuestion + 1} of ${QUESTIONS.length}</div>
-                    <h3>${current.q}</h3>
-                    <div class="options">
-            `;
-            
-            current.opts.forEach((opt, index) => {
-                const isSelected = answers[currentQuestion] === opt;
-                html += `
-                    <div class="option ${isSelected ? 'selected' : ''}" onclick="selectOption(${index})">
-                        ${opt}
-                    </div>
-                `;
+            // Progress Bar tracking
+            const pct = ((currentQuestion) / QUESTIONS.length) * 100;
+            document.getElementById('progressFill').style.width = `${pct}%`;
+
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+
+            q.options.forEach(opt => {
+                const card = document.createElement('div');
+                card.className = 'option-card';
+                if (answers[currentQuestion] === opt.value) card.classList.add('selected');
+                
+                card.innerHTML = `<strong style="color: #1e3c72;">${opt.text}</strong>`;
+                card.onclick = () => {
+                    document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    answers[currentQuestion] = opt.value;
+                };
+                container.appendChild(card);
             });
-            
-            html += `</div></div>`;
-            container.innerHTML = html;
-
-            // Manage navigation buttons visibility
-            document.getElementById('prevBtn').style.display = currentQuestion > 0 ? 'block' : 'none';
-            document.getElementById('nextBtn').innerText = currentQuestion === QUESTIONS.length - 1 ? 'Finish & Analyze ✨' : 'Next →';
-            
-            // Render progress tracker fill bar
-            const percent = ((currentQuestion) / QUESTIONS.length) * 100;
-            document.getElementById('progressBar').style.width = `${percent}%`;
-        }
-
-        function selectOption(index) {
-            const options = document.querySelectorAll('.option');
-            options.forEach(opt => opt.classList.remove('selected'));
-            options[index].classList.add('selected');
-            answers[currentQuestion] = QUESTIONS[currentQuestion].opts[index];
         }
 
         function nextQuestion() {
             if (!answers[currentQuestion]) {
-                alert('Please select an option to continue.');
+                alert('Please select an option to proceed with matching.');
                 return;
             }
-            
+
             if (currentQuestion < QUESTIONS.length - 1) {
                 currentQuestion++;
                 displayQuestion();
             } else {
-                // Fill up progress bar and calculate matches
-                document.getElementById('progressBar').style.width = '100%';
-                calculateResults();
+                processResults();
             }
         }
 
-        function previousQuestion() {
+        function prevQuestion() {
             if (currentQuestion > 0) {
                 currentQuestion--;
                 displayQuestion();
+            } else {
+                showScreen('welcomeScreen');
             }
         }
 
-        function calculateResults() {
-            // Display Loading Screen simulation before delivering accurate matches
-            showScreen('loadingScreen');
+        function processResults() {
+            const prefRegion = answers[0];
+            const prefType = answers[1];
+            const prefSize = answers[2];
+            const prefSetting = answers[3];
+            const prefMajor = answers[4];
+
+            const allowedStates = REGIONS[prefRegion] || [];
+
+            // Advanced Scored Multi-Criteria Matching Algorithm
+            let scored = COLLEGES.map(c => {
+                let score = 0;
+
+                // 1. Regional State Filter Match (Heavily weighted)
+                if (allowedStates.includes(c.state)) score += 40;
+
+                // 2. Institutional Control Filter (Public vs Private)
+                if (c.type === prefType) score += 20;
+
+                // 3. Environmental Setting Filter match
+                if (c.setting === prefSetting) score += 15;
+
+                // 4. Enrollment Size category scaling match
+                if (prefSize === 'Large' && (c.campusSize === 'Large' || c.campusSize === 'Very Large')) score += 15;
+                else if (c.campusSize === prefSize) score += 15;
+
+                // 5. Academic Major Array Intersections
+                if (c.strongMajors && c.strongMajors.some(m => m.includes(prefMajor) || prefMajor.includes(m))) score += 20;
+
+                return { college: c, score: score };
+            });
+
+            // Sort descending based on matched scores
+            scored.sort((a, b) => b.score - a.score);
             
-            setTimeout(() => {
-                // Vector tracking scores for majors
-                let majorScores = {
-                    "Computer Science": 0, "Engineering": 0, "Business": 0,
-                    "Biology": 0, "Health Sciences": 0, "Psychology": 0,
-                    "Education": 0, "Music": 0, "Marine Science": 0, "Hospitality": 0
-                };
+            // Take the top 4 matched entries
+            topColleges = scored.slice(0, 4).map(s => s.college);
 
-                let interestAnswer = answers[0] || "";
-                let careerAnswer = answers[1] || "";
-                let settingAnswer = answers[2] || "";
-                let typeAnswer = answers[3] || "";
-                let regionalAnswer = answers[9] || "";
-
-                // Logic: Parse Academic Interest
-                if (interestAnswer === "STEM/Tech") { majorScores["Computer Science"] += 4; majorScores["Engineering"] += 3; }
-                else if (interestAnswer === "Business & Finance") { majorScores["Business"] += 4; majorScores["Hospitality"] += 2; }
-                else if (interestAnswer === "Healthcare & Medicine") { majorScores["Biology"] += 4; majorScores["Health Sciences"] += 4; }
-                else if (interestAnswer === "Arts & Humanities") { majorScores["Music"] += 4; }
-                else if (interestAnswer === "Social Sciences") { majorScores["Psychology"] += 4; majorScores["Education"] += 2; }
-
-                // Logic: Parse Pathways
-                if (careerAnswer.includes("Software Engineer")) { majorScores["Computer Science"] += 3; }
-                else if (careerAnswer.includes("Corporate")) { majorScores["Business"] += 3; }
-                else if (careerAnswer.includes("Doctor")) { majorScores["Biology"] += 2; majorScores["Health Sciences"] += 3; }
-                else if (careerAnswer.includes("Educator")) { majorScores["Education"] += 4; }
-                else if (careerAnswer.includes("Artist")) { majorScores["Music"] += 4; }
-
-                // Determine Top Match Major
-                let sortedMajors = Object.keys(majorScores).sort((a, b) => majorScores[b] - majorScores[a]);
-                let topSuggestedMajor = sortedMajors[0];
-
-                // Comprehensive Scoring Loop across Campus Dataset
-                let scoredColleges = COLLEGES.map(college => {
-                    let score = 70; // baseline alignment score
-
-                    // Metric 1: Major alignment
-                    if (college.strongMajors.includes(topSuggestedMajor)) score += 15;
-                    
-                    // Metric 2: Campus setting matching
-                    if (settingAnswer !== "No preference" && settingAnswer.toLowerCase().includes(college.setting.toLowerCase().split(' ')[0])) {
-                        score += 5;
-                    }
-                    
-                    // Metric 3: Institutional Type preference
-                    if (typeAnswer.toLowerCase().includes(college.type.toLowerCase())) score += 5;
-
-                    // Metric 4: Geographic Region selection weight
-                    if (regionalAnswer.includes("Florida") && college.state === "FL") score += 5;
-                    if (regionalAnswer.includes("Colorado") && college.state === "CO") score += 5;
-                    if (regionalAnswer.includes("Northeast") && (college.state === "NJ" || college.state === "MA")) score += 5;
-                    if (regionalAnswer.includes("West Coast") && college.state === "CA") score += 5;
-                    if (regionalAnswer.includes("Southwest") && (college.state === "TX" || college.state === "NM" || college.state === "NV")) score += 5;
-
-                    return { ...college, matchPercent: Math.min(score, 99) };
-                });
-
-                // Sort and capture top 5 high scoring matches
-                scoredColleges.sort((a, b) => b.matchPercent - a.matchPercent);
-                topColleges = scoredColleges.slice(0, 5);
-
-                // Pass calculation array to renderer view
-                displayResults(topColleges, sortedMajors.slice(0, 3));
-                showScreen('resultsScreen');
-            }, 1200);
+            renderResults();
         }
 
-        function displayResults(matches) {
-    const container = document.getElementById('resultsContainer');
-    let html = "";
+        function renderResults() {
+            showScreen('resultsScreen');
+            const container = document.getElementById('collegesList');
+            container.innerHTML = '';
 
-    // 1. DYNAMICALLY IDENTIFY MAJORS BASED ON USER'S SELECTIONS
-    let identifiedMajors = [];
-    const interest = answers[0]; // First question: Academic interest area
-    const career = answers[1];   // Second question: Career goals
+            if (topColleges.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666;">No ideal matches found. Try modifying criteria choices.</p>';
+                return;
+            }
 
-    if (interest === "STEM/Tech") {
-        identifiedMajors = ["Computer Science", "Software Engineering", "Data Science"];
-    } else if (interest === "Business & Finance") {
-        identifiedMajors = ["Finance & Analytics", "International Business", "Entrepreneurship"];
-    } else if (interest === "Healthcare & Medicine") {
-        identifiedMajors = ["Pre-Medicine / Biology", "Biomedical Sciences", "Nursing & Health Administration"];
-    } else if (interest === "Arts & Humanities") {
-        identifiedMajors = ["Fine Arts / Creative Writing", "Digital Media & Communications", "Global Studies"];
-    } else if (interest === "Social Sciences") {
-        identifiedMajors = ["Political Science", "Psychology & Behavioral Track", "Pre-Law Track"];
-    } else {
-        identifiedMajors = ["General Studies / Undecided Exploration"];
-    }
-
-    // 2. INJECT IDENTIFIED MAJORS DIRECTLY INTO THE SUMMARY SCREEN
-    html += `
-        <div style="background: #f0f4fe; border: 2px dashed #667eea; padding: 20px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
-            <h3 style="color: #1e3c72; margin-bottom: 12px; font-size: 1.3em;">🎯 Your Personalized Top Identified Majors:</h3>
-            <div style="margin-top: 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
-                ${identifiedMajors.map((major, i) => `
-                    <span style="font-size: 1em; padding: 8px 18px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-weight: bold; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-                        ${i === 0 ? '🏆 Main Focus: ' : ''}${major}
-                    </span>
-                `).join('')}
-            </div>
-            <p style="color: #555; font-size: 0.9em; margin-top: 15px; line-height: 1.4;">
-                The universities recommended below are strongly aligned with your preference for <strong>${interest || 'your chosen field'}</strong>.
-            </p>
-        </div>
-    `;
-
-    // 3. RENDER THE COLLEGE MATCH CARDS (Preserving your existing loop structure)
-    if (matches.length === 0) {
-        html += `<p style="text-align:center; color:#666;">No direct matching criteria found. Try expanding your parameters!</p>`;
-    } else {
-        matches.forEach((college, index) => {
-            // Calculates match accuracy contextually
-            const matchPercent = college.matchPercent || Math.floor(Math.random() * (98 - 85 + 1)) + 85; 
-            
-            html += `
-                <div class="college-card">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                        <h3><span class="college-rank">#${index + 1}</span> ${college.name}</h3>
-                        <span class="match-score">${matchPercent}% Match</span>
-                    </div>
-                    <p style="color: #555; font-style: italic; margin-bottom: 15px;">📍 ${college.city}, ${college.state} &bull; ${college.type} Institution</p>
-                    
-                    <div class="college-info">
-                        <div class="info-item">
-                            <div class="info-label">Acceptance Rate</div>
-                            <div class="info-value">${college.acceptance}</div>
+            topColleges.forEach(c => {
+                const card = document.createElement('div');
+                card.className = 'college-card';
+                card.innerHTML = `
+                    <div class="college-header">
+                        <div>
+                            <h3 style="color: #1e3c72; font-size: 1.4em;">${c.name}</h3>
+                            <p style="color: #555; font-weight: 500;">${c.city}, ${c.state} — <em style="color: #777;">${c.setting} Campus</em></p>
                         </div>
-                        <div class="info-item">
-                            <div class="info-label">SAT Range</div>
-                            <div class="info-value">${college.sat}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Campus Setting</div>
-                            <div class="info-value">${college.campusSize} / ${college.setting.split(' ')[0]}</div>
-                        </div>
+                        <span class="badge" style="background: #1e3c72; color: white;">Rank #${c.ranking}</span>
                     </div>
-
-                    <div class="majors-list">
-                        <strong style="color: #1e3c72; font-size: 0.95em;">Strong Programs Available:</strong><br/>
-                        ${college.strongMajors.map(m => `<span class="major-tag">${m}</span>`).join('')}
+                    <div class="grid-3">
+                        <div><strong>Acceptance Rate:</strong><br><span style="color: #2a5298; font-weight: 600;">${c.acceptance}</span></div>
+                        <div><strong>SAT Range:</strong><br><span style="color: #2a5298; font-weight: 600;">${c.sat}</span></div>
+                        <div><strong>Tuition Estimate:</strong><br><span style="color: #2a5298; font-weight: 600; font-size: 0.9em;">${c.tuition}</span></div>
                     </div>
-
-                    <div style="margin-top: 10px; font-size: 0.9em; color: #444;">
-                        <strong>Notable Features:</strong> ${college.notablePrograms.join(', ')}<br/>
-                        <strong>Est. Tuition:</strong> ${college.tuition}
+                    <div style="margin: 10px 0;">
+                        <strong>Strong Majors:</strong><br>
+                        ${c.strongMajors.map(m => `<span class="tag">${m}</span>`).join('')}
                     </div>
-
-                    <a href="${college.website}" target="_blank" class="college-link">Visit Website Exterior Link ↗</a>
-                </div>
-            `;
-        });
-    }
-
-    container.innerHTML = html;
-}
+                    <div style="margin: 10px 0;">
+                        <strong>Signature Programs & Profiles:</strong><br>
+                        ${c.notablePrograms.map(p => `<span class="tag" style="background: #eef2f7; color: #1e3c72;">${p}</span>`).join('')}
+                    </div>
+                    <div style="margin-top: 15px; font-size: 0.9em;">
+                        <a href="${c.website}" target="_blank" style="color: #2a5298; font-weight: bold; text-decoration: none;">Visit Institutional Portal →</a>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
 
         function displaySchedule() {
-            const container = document.getElementById('scheduleContainer');
-            let trackAnswer = answers[6] || "Standard College Prep Track";
-            let languageAnswer = answers[7] || "3 years";
-            let mathAnswer = answers[13] || "Pre-Calculus Honors";
+            const container = document.getElementById('roadmapContainer');
+            container.innerHTML = '';
 
-            let html = `<div style="margin-bottom: 25px; padding: 15px; background: #e3f2fd; border-radius: 10px; color: #0d47a1;">
-                            <strong>Active Blueprint Filters:</strong> Path chosen matches the <strong>${trackAnswer}</strong> with a focus targeting <strong>${mathAnswer}</strong> senior endpoint.
-                        </div>`;
+            // Calculate overall average rank of matched choices to adapt course rigor track
+            const avgRank = topColleges.reduce((acc, curr) => acc + curr.ranking, 0) / topColleges.length;
+            
+            // Tier tracking to adapt course loading
+            let pathTitle = "Standard / Regional College Prep Track";
+            let honorsCount = 1;
+            let apCount = 0;
 
-            // Dynamic 4-Year Academic Roadmaps Construction
+            if (avgRank <= 15) {
+                pathTitle = "Highly Elite Ivy / Specialized STEM Track";
+                honorsCount = 2;
+                apCount = 4;
+            } else if (avgRank <= 60) {
+                pathTitle = "Accelerated Flagship / Competitive Honors Track";
+                honorsCount = 3;
+                apCount = 2;
+            }
+
+            let html = `
+                <div style="background: #eef2f7; border-radius: 12px; padding: 20px; margin-bottom: 30px; border-left: 6px solid #1e3c72;">
+                    <h3 style="color: #1e3c72; margin-bottom: 5px;">Track Assignment: ${pathTitle}</h3>
+                    <p style="color: #555; font-size: 0.95em;">
+                        Your target colleges have an average institutional placement rank of <strong>#${avgRank.toFixed(1)}</strong>. 
+                        The scheduling layout below recommends appropriate acceleration rigor balances.
+                    </p>
+                </div>
+            `;
+
+            // Sequential grade building
             for (let grade = 9; grade <= 12; grade++) {
-                let courses = [
-                    { subject: "English", course: "English " + grade + " Honors" },
-                    { subject: "Mathematics", course: "Geometry Honors" },
-                    { subject: "Science", course: "Biology Honors" },
-                    { subject: "History", course: "World History" },
-                    { subject: "Foreign Language", course: "Spanish / French Level II" },
-                    { subject: "Elective / Tracks Focus", course: "Intro to Coding / Fine Arts Elective" }
-                ];
+                let courses = [];
 
-                // Apply Math progression filters
-                if (grade === 10) {
-                    courses[1].course = (mathAnswer.includes("BC") || mathAnswer.includes("AB")) ? "Algebra 2 Honors" : "Algebra 2";
-                    courses[2].course = "Chemistry Honors";
-                    courses[3].course = "AP European History";
-                }
-                if (grade === 11) {
-                    courses[0].course = "AP English Language & Composition";
-                    courses[1].course = (mathAnswer.includes("BC") || mathAnswer.includes("AB")) ? "Pre-Calculus Honors" : "Pre-Calculus / Algebra 3";
-                    courses[2].course = "Physics Honors / AP Science";
-                    courses[3].course = "AP US History";
-                }
-                if (grade === 12) {
-                    courses[0].course = "AP English Literature / Dual Enrollment English";
-                    courses[1].course = mathAnswer.includes("BC") ? "AP Calculus BC" : mathAnswer.includes("AB") ? "AP Calculus AB" : "AP Statistics or College Algebra";
-                    courses[2].course = "AP Science Elective / Environmental Marine Science";
-                    courses[3].course = "AP Government / Economics Honors";
-                }
-
-                // Apply Specialization Program Tracks alterations
-                if (trackAnswer.includes("Capstone")) {
-                    if (grade === 11) courses[5].course = "AP Seminar (Capstone Core)";
-                    if (grade === 12) courses[5].course = "AP Research (Capstone Core)";
-                } else if (trackAnswer.includes("Marine")) {
-                    if (grade === 11) courses[2].course = "Marine Science 1 Honors";
-                    if (grade === 12) courses[2].course = "AP Environmental Science / Oceanography Advanced";
-                } else if (trackAnswer.includes("Global")) {
-                    courses[3].course = "Global Studies Program Seminars / " + courses[3].course;
-                } else if (trackAnswer.includes("Fine Arts")) {
-                    courses[5].course = "Advanced Portfolio Studio Art / Masterclass Performance";
-                }
-
-                // Apply Foreign Language filter logic
-                if (grade === 12 && languageAnswer.includes("2 years")) {
-                    courses[4].course = "Open Elective / Internship Study Option";
+                if (grade === 9) {
+                    courses = [
+                        { subject: "English", course: honorsCount >= 1 ? "Honors English 1" : "English 1" },
+                        { subject: "Mathematics", course: "Algebra 1 or Geometry" },
+                        { subject: "Science", course: "Biology" },
+                        { subject: "Social Studies", course: "World History" },
+                        { subject: "Language", course: "Foreign Language I" }
+                    ];
+                } else if (grade === 10) {
+                    courses = [
+                        { subject: "English", course: honorsCount >= 1 ? "Honors English 2" : "English 2" },
+                        { subject: "Mathematics", course: "Geometry or Algebra 2" },
+                        { subject: "Science", course: honorsCount >= 2 ? "Honors Chemistry" : "Chemistry" },
+                        { subject: "Social Studies", course: apCount >= 2 ? "AP European History" : "Civics & Economics" },
+                        { subject: "Language", course: "Foreign Language II" }
+                    ];
+                } else if (grade === 11) {
+                    courses = [
+                        { subject: "English", course: apCount >= 2 ? "AP English Language" : "Honors English 3" },
+                        { subject: "Mathematics", course: "Algebra 2 or Pre-Calculus" },
+                        { subject: "Science", course: apCount >= 4 ? "AP Physics" : "Environmental Science" },
+                        { subject: "Social Studies", course: apCount >= 2 ? "AP US History" : "US History" },
+                        { subject: "Elective Focus", course: "Advanced Computing / Technical Elective" }
+                    ];
+                } else if (grade === 12) {
+                    courses = [
+                        { subject: "English", course: apCount >= 4 ? "AP English Literature" : "English 4 Seminar" },
+                        { subject: "Mathematics", course: apCount >= 2 ? "AP Calculus or AP Statistics" : "Math Analysis" },
+                        { subject: "Science", course: apCount >= 4 ? "AP Biology / AP Chem" : "Anatomy & Physiology" },
+                        { subject: "Social Studies", course: "US Government & Politics" },
+                        { subject: "Capstone Focus", course: "Senior Internship / Dual Enrollment Portfolio" }
+                    ];
                 }
 
                 // Output markup for individual grades
