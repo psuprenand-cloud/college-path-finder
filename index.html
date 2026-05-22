@@ -2284,63 +2284,153 @@
         };
 
         // ========================================
-        // EVALUATION ENGINE LOGIC (QUIZ ENGINE)
-        // ========================================
-        const QUESTIONS = [
-            {
-                text: "Which geographical region do you prefer for your higher education journey?",
-                desc: "Filter down specific institutional blocks across modern national campuses.",
-                key: "region",
-                options: [
-                    { text: "Florida Only", value: "Florida" },
-                    { text: "Southeast USA (FL, KY, MS, LA, AR)", value: "Southeast" },
-                    { text: "Northeast USA (NJ, MA, DE, VT, ME, NY, CT)", value: "Northeast" },
-                    { text: "Midwest USA (IL, MI, WI, MN, NE, MO)", value: "Midwest" },
-                    { text: "West & Southwest USA (CO, CA, AZ, OR, NM, UT, MT, OK, TX)", value: "West" }
-                ]
-            },
-            {
-                text: "What type of higher learning ecosystem fits your profile best?",
-                desc: "Public state flagship systems vs legacy independent private campuses.",
-                key: "type",
-                options: [
-                    { text: "Public State University Systems", value: "Public" },
-                    { text: "Private/Independent Liberal Arts & Engineering Foundations", value: "Private" }
-                ]
-            },
-            {
-                text: "What size campus setting maximizes your operational comfort?",
-                desc: "Enrollment metrics directly scale structural resources and class counts.",
-                key: "size",
-                options: [
-                    { text: "Small (Under 5,000 Total Enrollment Profile)", value: "Small" },
-                    { text: "Medium (5,000 to 15,000 Standard Student Population)", value: "Medium" },
-                    { text: "Large/Very Large (15,000+ Enrolled Public Flagships)", value: "Large" }
-                ]
-            },
-            {
-                text: "Which campus environment matches your lifestyle design?",
-                desc: "Metropolitan hubs, regional business suburbs, or deep specialized rural research towns.",
-                key: "setting",
-                options: [
-                    { text: "Urban / Highly Populated Metropolitan Centres", value: "Urban" },
-                    { text: "Suburban / Corporate Parks & Regional Standard Zones", value: "Suburban" },
-                    { text: "Rural / Dedicated Academic Towns & High-Altitude Outposts", value: "Rural" }
-                ]
-            },
-            {
-                text: "Select your predominant fields of academic interest:",
-                desc: "This optimizes academic roadmaps and alerts matching major departments.",
-                key: "major",
-                options: [
-                    { text: "Engineering / Computer Science / Technological Disciplines", value: "Engineering" },
-                    { text: "Business / Global Supply Chain / Financial Leadership Programs", value: "Business" },
-                    { text: "Biological Sciences / Nursing / Pre-Medical Foundations", value: "Biology" },
-                    { text: "Education / Special Ed / Regional Teacher Pipeline tracks", value: "Education" },
-                    { text: "Aviation / Space Sciences / Severe Weather Dynamics Systems", value: "Aviation" }
-                ]
-            }
-        ];
+// EVALUATION ENGINE LOGIC (QUIZ ENGINE)
+// ========================================
+const QUESTIONS = [
+    {
+        text: "What is your primary academic area of interest?",
+        desc: "Identifies your broad structural division of academic curiosity.",
+        key: "academicArea",
+        options: [
+            { text: "STEM/Tech", value: "STEM" },
+            { text: "Business & Finance", value: "Business" },
+            { text: "Healthcare & Medicine", value: "Healthcare" },
+            { text: "Arts & Humanities", value: "Arts" },
+            { text: "Social Sciences", value: "SocialSciences" }
+        ]
+    },
+    {
+        text: "What are your long-term career goals?",
+        desc: "Maps real-world operational profiles to professional graduation milestones.",
+        key: "careerGoal",
+        options: [
+            { text: "Software Engineer / Tech Leader", value: "Tech" },
+            { text: "Corporate Executive / Entrepreneur", value: "Corporate" },
+            { text: "Doctor / Medical Researcher", value: "Medical" },
+            { text: "Educator / Teacher", value: "Education" },
+            { text: "Artist / Creative Professional", value: "Creative" }
+        ]
+    },
+    {
+        text: "What type of campus setting do you prefer?",
+        desc: "Metropolitan hubs, regional business suburbs, or deep specialized rural research towns.",
+        key: "setting",
+        options: [
+            { text: "Urban (big city)", value: "Urban" },
+            { text: "Suburban (near a city)", value: "Suburban" },
+            { text: "Rural (countryside/small town)", value: "Rural" },
+            { text: "No preference", value: "Any" }
+        ]
+    },
+    {
+        text: "Do you prefer public or private colleges?",
+        desc: "Public state flagship systems vs legacy independent private campuses.",
+        key: "type",
+        options: [
+            { text: "Public universities", value: "Public" },
+            { text: "Private universities", value: "Private" },
+            { text: "No preference", value: "Any" }
+        ]
+    },
+    {
+        text: "What's your current GPA (or expected GPA)?",
+        desc: "Establishes baseline historical metrics against general institutional averages.",
+        key: "gpa",
+        options: [
+            { text: "4.0 (Perfect grades)", value: "4.0" },
+            { text: "3.7-3.9 (Mostly A's)", value: "3.8" },
+            { text: "3.3-3.6 (A's and B's)", value: "3.5" },
+            { text: "3.0-3.2 (Mostly B's)", value: "3.1" },
+            { text: "Below 3.0", value: "2.9" }
+        ]
+    },
+    {
+        text: "What are your standardized test goals (SAT/ACT)?",
+        desc: "Aligns standardized assessment scales with historic institutional mid-ranges.",
+        key: "testScores",
+        options: [
+            { text: "Top scores (1500+ SAT / 34+ ACT)", value: "Top" },
+            { text: "High scores (1300-1490 SAT / 28-33 ACT)", value: "High" },
+            { text: "Average scores (1100-1290 SAT / 22-27 ACT)", value: "Average" },
+            { text: "Test-optional path", value: "Optional" }
+        ]
+    },
+    {
+        text: "Which high school tracks interest you most at Saint Stephen's?",
+        desc: "Connects localized preparatory program layouts to undergraduate rigor profiles.",
+        key: "ssesTrack",
+        options: [
+            { text: "AP Capstone Diploma Program", value: "AP" },
+            { text: "Global Studies Distinction Track", value: "Global" },
+            { text: "Traditional Honors Track", value: "Honors" },
+            { text: "Core College Prep Track", value: "Core" }
+        ]
+    },
+    {
+        text: "What is your primary College Major choice (Option #1)?",
+        desc: "Your core structural degree objective used to prioritize primary departmental matches.",
+        key: "major1",
+        options: [
+            { text: "Computer Science", value: "Computer Science" },
+            { text: "Engineering", value: "Engineering" },
+            { text: "Business Administration", value: "Business" },
+            { text: "Finance", value: "Finance" },
+            { text: "Biology/Pre-Med", value: "Biology" },
+            { text: "Nursing", value: "Nursing" },
+            { text: "Psychology", value: "Psychology" },
+            { text: "Political Science", value: "Political Science" },
+            { text: "Communications", value: "Communications" },
+            { text: "Fine Arts/Design", value: "Fine Arts" }
+        ]
+    },
+    {
+        text: "What is your secondary College Major choice (Option #2)?",
+        desc: "Alternative fallback discipline targeting structural cross-department scoring.",
+        key: "major2",
+        options: [
+            { text: "Computer Science", value: "Computer Science" },
+            { text: "Engineering", value: "Engineering" },
+            { text: "Business Administration", value: "Business" },
+            { text: "Finance", value: "Finance" },
+            { text: "Biology/Pre-Med", value: "Biology" },
+            { text: "Nursing", value: "Nursing" },
+            { text: "Psychology", value: "Psychology" },
+            { text: "Political Science", value: "Political Science" },
+            { text: "Communications", value: "Communications" },
+            { text: "Fine Arts/Design", value: "Fine Arts" }
+        ]
+    },
+    {
+        text: "What is your tertiary College Major choice (Option #3)?",
+        desc: "Additional high-interest discipline to capture wide academic alignment safety points.",
+        key: "major3",
+        options: [
+            { text: "Computer Science", value: "Computer Science" },
+            { text: "Engineering", value: "Engineering" },
+            { text: "Business Administration", value: "Business" },
+            { text: "Finance", value: "Finance" },
+            { text: "Biology/Pre-Med", value: "Biology" },
+            { text: "Nursing", value: "Nursing" },
+            { text: "Psychology", value: "Psychology" },
+            { text: "Political Science", value: "Political Science" },
+            { text: "Communications", value: "Communications" },
+            { text: "Fine Arts/Design", value: "Fine Arts" }
+        ]
+    },
+    {
+        text: "Which geographical region do you prefer for your higher education journey?",
+        desc: "Filter down specific institutional blocks across modern national campuses.",
+        key: "region",
+        options: [
+            { text: "Florida Only (Strict In-State Match)", value: "Florida" },
+            { text: "Southeast USA (FL, KY, MS, LA, AR)", value: "Southeast" },
+            { text: "Northeast USA (NJ, MA, DE, VT, ME, NY, CT)", value: "Northeast" },
+            { text: "Midwest USA (IL, MI, WI, MN, NE, MO)", value: "Midwest" },
+            { text: "West & Southwest USA (CO, CA, AZ, OR, NM, UT, MT, OK, TX)", value: "West" },
+            { text: "No preference", value: "Any" }
+        ]
+    }
+];
 
         let currentQuestion = 0;
         let answers = [];
