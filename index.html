@@ -4918,11 +4918,25 @@ score += regionBonus;
         }
 
         // Initialize script logic cleanly upon UI render lifecycle complete
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                showScreen('welcomeScreen');
-            }, 1000);
-        });
+window.addEventListener('DOMContentLoaded', () => {
+    // Check for JavaScript errors first
+    console.log(`College database loaded: ${COLLEGES.length} colleges`);
+    console.log(`Questions loaded: ${QUESTIONS.length} questions`);
+    
+    setTimeout(() => {
+        showScreen('welcomeScreen');
+    }, 1000);
+});
+
+// Fallback in case DOMContentLoaded already fired
+if (document.readyState === 'loading') {
+    // Still loading, event listener will handle it
+} else {
+    // DOM already loaded, show welcome screen immediately
+    setTimeout(() => {
+        showScreen('welcomeScreen');
+    }, 1000);
+}
     </script>
 </body>
 </html>
