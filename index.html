@@ -4654,53 +4654,51 @@
                 score += 4;
             }
 
-// 5. GEOGRAPHIC REGION (up to 12 points) - COMPREHENSIVE COVERAGE
+// 5. GEOGRAPHIC REGION (up to 12 points) - FIXED VERSION
 let regionBonus = 0;
 
+// Use else-if chain to ensure only ONE region matches
+if (regionalAnswer.includes("No preference")) {
+    regionBonus = 6; // Neutral bonus for flexibility
+}
 // Southeast & Florida
-if (regionalAnswer.includes("Southeast") || regionalAnswer.includes("Florida")) {
+else if (regionalAnswer.includes("Southeast") || regionalAnswer.includes("Florida")) {
     if (["FL", "GA", "SC", "NC", "VA", "TN", "KY", "AL", "MS", "LA", "AR", "WV"].includes(college.state)) {
         regionBonus = 12;
     }
 }
-
 // Northeast & Mid-Atlantic
-if (regionalAnswer.includes("Northeast")) {
+else if (regionalAnswer.includes("Northeast") && !regionalAnswer.includes("Southeast")) {
     if (["ME", "NH", "VT", "MA", "RI", "CT", "NY", "NJ", "PA", "DE", "MD"].includes(college.state)) {
         regionBonus = 12;
     }
 }
-
 // West Coast
-if (regionalAnswer.includes("West Coast") || regionalAnswer.includes("California")) {
+else if (regionalAnswer.includes("West Coast") || regionalAnswer.includes("California")) {
     if (["CA", "OR", "WA"].includes(college.state)) {
         regionBonus = 12;
     }
 }
-
 // Mountain West
-if (regionalAnswer.includes("Mountain West") || regionalAnswer.includes("Colorado")) {
+else if (regionalAnswer.includes("Mountain West") || (regionalAnswer.includes("Colorado") && !regionalAnswer.includes("Southeast"))) {
     if (["CO", "UT", "MT", "WY", "ID", "NV"].includes(college.state)) {
         regionBonus = 12;
     }
 }
-
 // Southwest
-if (regionalAnswer.includes("Southwest") || regionalAnswer.includes("Texas") || regionalAnswer.includes("Arizona")) {
+else if (regionalAnswer.includes("Southwest") || regionalAnswer.includes("Texas") || regionalAnswer.includes("Arizona")) {
     if (["TX", "AZ", "NM", "OK"].includes(college.state)) {
         regionBonus = 12;
     }
 }
-
 // Midwest
-if (regionalAnswer.includes("Midwest")) {
+else if (regionalAnswer.includes("Midwest")) {
     if (["MI", "WI", "MN", "IL", "IN", "OH", "MO", "IA", "KS", "NE", "SD", "ND"].includes(college.state)) {
         regionBonus = 12;
     }
 }
-
 // Pacific & Alaska/Hawaii
-if (regionalAnswer.includes("Pacific") || regionalAnswer.includes("Hawaii") || regionalAnswer.includes("Alaska")) {
+else if (regionalAnswer.includes("Pacific") || regionalAnswer.includes("Hawaii") || regionalAnswer.includes("Alaska")) {
     if (["HI", "AK"].includes(college.state)) {
         regionBonus = 12;
     }
@@ -4708,6 +4706,8 @@ if (regionalAnswer.includes("Pacific") || regionalAnswer.includes("Hawaii") || r
 
 score += regionBonus;
 
+
+            
             // 6. RESEARCH AVAILABILITY (up to 7 points)
             if (researchAnswer && researchAnswer.includes("Extremely important")) {
                 if (college.notablePrograms.some(p => p.toLowerCase().includes("research"))) {
